@@ -123,7 +123,7 @@ function Branch({branch}: BranchProps) {
                     {branch.attributes.airsoftTeam.length > 0 &&
                       <MemberList headline="Unser Team" memberList={branch.attributes.airsoftTeam} />}
                 </Content>
-                {branch?.attributes?.partners && <>
+                {branch?.attributes?.partners?.data && branch?.attributes?.partners?.data.length > 0 && <>
                   <Divider title="Unsere Partner" />
                   <PartnerList partners={branch.attributes.partners.data} />
                 </>}
