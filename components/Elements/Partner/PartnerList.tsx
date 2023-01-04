@@ -7,6 +7,7 @@ const ImageWrapper = tw.div`
     flex
     flex-col
     gap-5
+    my-10
 `;
 
 const Image = tw(_image)`

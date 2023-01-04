@@ -9,7 +9,7 @@ import {faAward, faCodeBranch, faCartShopping, faRightToBracket} from '@fortawes
 import DropdownButton from "../DropdownButton";
 
 const NavigationContainer = tw.div`
-    z-10
+    z-50
     fixed
     top-0
     left-0
@@ -64,7 +64,7 @@ const Navigation = () => {
                         <TextLink black key="/branches/airsoft" href="/branches/airsoft">
                             Airsoft
                         </TextLink>,
-                        <TextLink black key="/branches/esports" href="/branches/esports">
+                        <TextLink black key="/branches/esports" href="/branches/e-sports">
                             E-Sports
                         </TextLink>
                     ]}>

@@ -9,6 +9,7 @@ import Divider from "../../components/Elements/Divider";
 import PartnerList from "../../components/Elements/Partner/PartnerList";
 import Gallery from "../../components/Elements/Gallery";
 import LeaderCard from "../../components/Elements/LeaderCard";
+import { Link } from "../../components/Button";
 
 const Header = tw.div`
     relative
@@ -60,15 +61,20 @@ const Headline = tw.p`
     uppercase
 `;
 
-const Text = tw.p`
-    text-center
-`;
-
-const StickyWrapper = tw.div`
+const StickyWrapperRight = tw.div`
     absolute
     top-32
-    right-0
+    right-32
     z-20
+    h-full
+`;
+
+const StickyWrapperLeft = tw.div`
+    absolute
+    top-32
+    left-32
+    z-20
+    h-full
 `;
 
 type BranchProps = {
@@ -101,9 +107,14 @@ function Branch({branch}: BranchProps) {
                 </HeadlineWrapper>
             </Header>
             <ContentWrapper>
-                <StickyWrapper>
+                <StickyWrapperLeft>
+                    <Link href="/join" css={tw`sticky top-32`}>
+                        Join now
+                    </Link>
+                </StickyWrapperLeft>
+                <StickyWrapperRight>
                     <LeaderCard leader={branch.attributes.leader} />
-                </StickyWrapper>
+                </StickyWrapperRight>
                 <Content>
                     {/*@ts-ignore*/}
                     <Markdown>
@@ -116,7 +127,7 @@ function Branch({branch}: BranchProps) {
                   <Divider title="Unsere Partner" />
                   <PartnerList partners={branch.attributes.partners.data} />
                 </>}
-                {branch?.attributes?.gallery && <>
+                {branch?.attributes?.gallery.data && branch?.attributes?.gallery.data.length > 0 && <>
                   <Divider title="Galerie" />
                   <Gallery gallery={branch.attributes.gallery.data} />
                 </>}

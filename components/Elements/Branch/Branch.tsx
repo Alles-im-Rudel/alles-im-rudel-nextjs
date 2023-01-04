@@ -3,6 +3,7 @@ import iBranche from "../../../Interfaces/iBranche";
 import tw from "twin.macro";
 import _image from "next/image";
 import {Link} from '../../Button';
+import Markdown from "../../Layout/Markdown";
 
 const Wrapper = tw.div`
     relative
@@ -65,9 +66,10 @@ const Branch = ({branch}: BranchProps) => {
             <TextContainer>
                 <TextWrapper>
                     <Title>{branch.attributes.displayName}</Title>
-                    <Text>{branch.attributes.description}</Text>
+                    {/*@ts-ignore*/}
+                    <Markdown>{branch.attributes.shortDescription}</Markdown>
                     <Link
-                        href={"/branches/" + branch.attributes.name}
+                        href={"/branches/" + branch.attributes.slug}
                     >
                         Mehr erfahren
                     </Link>
