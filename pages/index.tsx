@@ -41,6 +41,7 @@ const Content = tw.div`
 const Headline = tw.p`
     text-center
     text-headline
+    lg:text-headline-lg
 `;
 
 const Text = tw.p`

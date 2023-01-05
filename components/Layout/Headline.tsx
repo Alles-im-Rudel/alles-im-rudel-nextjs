@@ -9,7 +9,7 @@ type iHeadlineItem = {
     headline: number;
     children: unknown
 }
-const HeadlineItem = ({
+const Headline = ({
                           headline = 1,
                           children,
                           ...props
@@ -49,4 +49,4 @@ const HeadlineItem = ({
     );
 };
 
-export default HeadlineItem;
+export default Headline;

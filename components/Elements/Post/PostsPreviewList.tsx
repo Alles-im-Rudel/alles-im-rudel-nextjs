@@ -7,6 +7,8 @@ const ListWrapper = tw.div`
     flex
     gap-10
     m-20
+    flex-col
+    lg:flex-row
 `;
 
 type PostsProps = {

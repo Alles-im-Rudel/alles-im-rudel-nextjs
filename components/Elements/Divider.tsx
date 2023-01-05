@@ -1,10 +1,10 @@
 import React from 'react';
 import tw from "twin.macro";
+import Headline from '../Layout/Headline';
 
 const Container = tw.div`
     w-full
     bg-greyBlue
-    text-headline
     text-white
     text-center
     p-3
@@ -17,7 +17,9 @@ type DividerProps = {
 const Divider = ({title}: DividerProps) => {
     return (
         <Container>
-            {title}
+            <Headline headline={3}>
+                {title}
+            </Headline>
         </Container>
     );
 };

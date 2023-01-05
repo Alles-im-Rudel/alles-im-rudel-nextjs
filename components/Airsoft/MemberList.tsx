@@ -1,6 +1,6 @@
 import React, {createRef, useEffect, useRef, useState} from 'react';
 import tw from 'twin.macro';
-import HeadlineItem from '../Layout/HeadlineItem';
+import Headline from '../Layout/Headline';
 import iAirsoftTeam from "../../Interfaces/iAirsoftTeam";
 import Member from "./Member";
 import {TextButton} from '../Button';
@@ -64,9 +64,9 @@ const MemberList = ({headline, memberList}: iMemberList) => {
     return (
         <Wrapper>
             <ListHeadline onClick={() => {handleExpend()}}>
-                <HeadlineItem headline={3}>
+                <Headline headline={3}>
                     {headline}
-                </HeadlineItem>
+                </Headline>
                 <StyledIcon isOpen={isOpen} icon={faChevronDown} />
             </ListHeadline>
             <ListWrapper ref={ref}>

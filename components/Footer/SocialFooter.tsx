@@ -11,14 +11,16 @@ const Container = tw.div`
 
 const Wrapper = tw.div`
     max-w-screen-lg
+    flex
+    flex-col
     text-text
     text-white
     text-center
     p-3
-    flex
     justify-between
     m-auto
     items-center
+    md:flex-row
 `
 
 const ItemWrapper = tw.div`

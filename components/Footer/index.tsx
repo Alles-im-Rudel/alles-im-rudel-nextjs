@@ -17,7 +17,10 @@ const FooterWrapper = tw.div`
 
 const ActionWrapper = tw.div`
     flex
+    flex-col
+    items-center
     gap-3
+    md:flex-row
 `;
 
 const Footer = () => {

@@ -6,7 +6,12 @@ import BoardOfDirectorCard from "./BoardOfDirectorCard";
 const ListWrapper = tw.div`
     flex
     gap-10
-    m-20
+    my-20
+    mx-1
+    flex-col
+    md:m-20
+    md:flex-row
+   
 `;
 
 type BoardOfDirectorsProps = {

@@ -56,7 +56,7 @@ const LogoImage = tw(_image)`
 
 const Headline = tw.p`
     text-center
-    text-headline
+    text-headline-lg
     text-white
     uppercase
 `;

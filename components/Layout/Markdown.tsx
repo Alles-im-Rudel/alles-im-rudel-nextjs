@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import ReactMarkdown from "react-markdown";
-import HeadlineItem from "./HeadlineItem";
+import HeadlineItem from "./Headline";
 import Text from "./Text";
 import Ul, {Li} from "./Ul";
 import Link from "next/link";
