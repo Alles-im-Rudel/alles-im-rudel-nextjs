@@ -67,11 +67,12 @@ const StyledTextButton = styled.button<StyledTextLink>`
 type BottonProps = {
     greyBlue: null | boolean;
     children: any;
+    props: any
 }
-const Button = ({greyBlue, children}: BottonProps) => {
+const Button = ({greyBlue, children, ...props}: BottonProps) => {
     if (greyBlue) {
         return (
-            <StyledButton css={greyBlueBg}>
+            <StyledButton css={greyBlueBg} {...props}>
                 <HoverContainer>
                     {children}
                 </HoverContainer>
@@ -79,7 +80,7 @@ const Button = ({greyBlue, children}: BottonProps) => {
         );
     }
     return (
-        <StyledButton css={stylePrimary}>
+        <StyledButton css={stylePrimary} {...props}>
             <HoverContainer>
                 {children}
             </HoverContainer>
