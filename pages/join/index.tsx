@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import tw from 'twin.macro';
 import Divider from '../../components/Elements/Divider';
-import Text from '../../components/Layout/Text';
+import _text from '../../components/Layout/Text';
 import StepWhoAreYou from "./steps/StepWhoAreYou";
 import StepWhereAreYou from "./steps/StepWhereAreYou";
 import Stepper from '../../components/Elements/Stepper';
 import iStep from "../../components/Elements/Stepper/iStep";
+import StepBranchSelect from "./steps/StepBranchSelect";
+import useJoinStore from "./store";
+import shallow from "zustand/shallow";
+import {iBackendBranche} from "../../Interfaces/iBranche";
+import StepHowToPay from "./steps/StepHowToPay";
+import StepChoosePassword from "./steps/StepChoosePassword";
+import StepOverview from "./steps/StepOverview";
 
 const Container = tw.div`
     h-full
@@ -20,41 +27,55 @@ const Container = tw.div`
 const ContentContainer = tw.div`
     max-w-screen-lg
  `;
-const Join = () => {
+
+const Text = tw(_text)`
+    my-10
+`;
+
+interface iJoin {
+    branches: iBackendBranche[]
+}
+const Join = ({branches}: iJoin) => {
+
+    const [
+        setBranches,
+    ] = useJoinStore((state) => [
+        state.setBranches,
+    ], shallow);
+
+
+    useEffect(() => {
+        setBranches(branches)
+    }, [branches])
 
     const StepOne: iStep = {
         headline: "Wer bist du?",
         element: <StepWhoAreYou />,
-        nextStep: {
-            text: "Weiter",
-            action: () => console.log("Wer bist du?")
-        }
     }
 
     const StepTwo: iStep = {
         headline: "Wo Wohnst du?",
         element: <StepWhereAreYou />,
-        nextStep: {
-            text: "Weiter",
-            action: () => console.log("Wer bist du?")
-        },
-        previousStep: {
-            text: "Zurück",
-            action: () => console.log("Wer bist du?")
-        }
     }
 
     const StepThree: iStep = {
-        headline: "Bei welchen Sparten möchtest du dabei sein? ",
-        element: <StepWhereAreYou />,
-        nextStep: {
-            text: "Weiter",
-            action: () => console.log("Wer bist du?")
-        },
-        previousStep: {
-            text: "Zurück",
-            action: () => console.log("Wer bist du?")
-        }
+        headline: "Bei welchen Sparten möchtest du dabei sein?",
+        element: <StepBranchSelect />,
+    }
+
+    const StepFour: iStep = {
+        headline: "Wie möchtest du deinen Mitgliedsbeitrag zahlen?",
+        element: <StepHowToPay />
+    }
+
+    const StepFive: iStep = {
+        headline: "Welches Password möchtest du benutzen?",
+        element: <StepChoosePassword />
+    }
+
+    const StepSix: iStep = {
+        headline: "Abschließen",
+        element: <StepOverview />
     }
 
     return (
@@ -69,12 +90,23 @@ const Join = () => {
                 </Text>
                 <Stepper
                     steps={[
-                        StepOne, StepTwo, StepThree
+                        StepOne, StepTwo, StepThree, StepFour, StepFive, StepSix
                     ]}
                 />
             </ContentContainer>
         </Container>
     );
 };
+
+export async function getServerSideProps() {
+    const responseBranches = await fetch("https://backend.allesimrudel.de/api/branches");
+    const branches = await responseBranches.json();
+
+    return {
+        props: {
+            branches: branches.data,
+        },
+    };
+}
 
 export default Join;

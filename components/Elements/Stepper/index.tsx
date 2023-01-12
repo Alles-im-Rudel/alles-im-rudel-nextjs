@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import tw from 'twin.macro';
 import iStep from './iStep';
 import Step from './Step';
+import useStepStore from "./store";
+import shallow from "zustand/shallow";
 
 const Container = tw.div`
 `;
@@ -10,19 +12,14 @@ type iStepper = {
     steps: iStep[]
 };
 const Stepper = ({steps}: iStepper) => {
-    const [currentStep, setCurrentStep] = useState(0);
 
-    const nextStep = (step: iStep) => {
-        step?.nextStep?.action && step.nextStep?.action();
-        if(currentStep < steps.length -1) {
-            setCurrentStep(currentStep + 1)
-        }
-    };
+    const [
+        setSteps,
+    ] = useStepStore((state) => [
+        state.setSteps,
+    ], shallow);
 
-    const previousStep = (step: iStep) => {
-        step?.previousStep?.action &&  step.previousStep?.action();
-        setCurrentStep(currentStep - 1);
-    };
+    setSteps(steps);
 
     return (
         <Container>
@@ -31,9 +28,6 @@ const Stepper = ({steps}: iStepper) => {
                     key={index}
                     index={index}
                     step={step}
-                    nextStep={nextStep}
-                    currentStep={currentStep}
-                    previousStep={previousStep}
                     stepsLength={steps.length}
                 />
             ))}

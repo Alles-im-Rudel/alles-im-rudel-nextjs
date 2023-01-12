@@ -64,12 +64,11 @@ const StyledTextButton = styled.button<StyledTextLink>`
           tw`h-fit`}
 `;
 
-type BottonProps = {
-    greyBlue: null | boolean;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    greyBlue?: boolean;
     children: any;
-    props: any
 }
-const Button = ({greyBlue, children, ...props}: BottonProps) => {
+const Button: React.FC<ButtonProps> = ({greyBlue, children, ...props}) => {
     if (greyBlue) {
         return (
             <StyledButton css={greyBlueBg} {...props}>

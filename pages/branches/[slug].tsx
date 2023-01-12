@@ -81,7 +81,6 @@ type BranchProps = {
     branch: iBranche;
 }
 function Branch({branch}: BranchProps) {
-    console.log(branch)
     return (
         <>
             <Head>

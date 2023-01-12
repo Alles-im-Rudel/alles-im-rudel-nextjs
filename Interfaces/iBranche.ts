@@ -24,4 +24,14 @@ export interface iBranche {
     }
 }
 
+export interface iBackendBranche {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    activatedAt: string;
+    isActive: boolean;
+    isSelectable: boolean;
+}
+
 export default iBranche;
