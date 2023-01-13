@@ -1,5 +1,5 @@
 module.exports = {
-  darkMode: false, // or 'media' or 'class'
+  darkMode: "media",
   theme: {
     colors: {
       primary: '#231f21',

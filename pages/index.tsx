@@ -113,13 +113,13 @@ export async function getServerSideProps() {
     const response = await fetch("https://backend.allesimrudel.de/api/posts?page=1&perPage=3");
     const posts = await response.json();
 
-    const responseBoardOfDirectors = await fetch("http://localhost:1337/api/board-of-directors?populate=image");
+    const responseBoardOfDirectors = await fetch("https://strapi.allesimrudel.de/api/board-of-directors?populate=image");
     const boardOfDirectors = await responseBoardOfDirectors.json();
 
-    const responseParners = await fetch("http://localhost:1337/api/partners?populate=logo");
+    const responseParners = await fetch("https://strapi.allesimrudel.de/api/partners?populate=logo");
     const partners = await responseParners.json();
 
-    const responseBranches = await fetch("http://localhost:1337/api/branches?populate=image");
+    const responseBranches = await fetch("https://strapi.allesimrudel.de/api/branches?populate=image");
     const branches = await responseBranches.json();
 
     return {

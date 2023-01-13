@@ -137,7 +137,7 @@ function Branch({branch}: BranchProps) {
 
 export async function getStaticPaths() {
     // Call an external API endpoint to get posts
-    const res = await fetch('http://localhost:1337/api/branches')
+    const res = await fetch('https://strapi.allesimrudel.de/api/branches')
     const {data} = await res.json()
     // Get the paths we want to pre-render based on posts
     const paths = data.map((branch: iBranche) => ({
@@ -156,7 +156,7 @@ type BranchParams = {
 }
 
 export async function getStaticProps({params}: BranchParams) {
-    const responseBranche = await fetch(`http://localhost:1337/api/branches?filters[slug][$eq]=${params.slug}&populate[0]=*&populate[1]=backgroundImage.*&populate[2]=airsoftTeam.image&populate[3]=gallery.*&populate[4]=partners.logo&populate[5]=leader.image&populate[6]=airsoftTeam.playerBadges.image`);
+    const responseBranche = await fetch(`https://strapi.allesimrudel.de/api/branches?filters[slug][$eq]=${params.slug}&populate[0]=*&populate[1]=backgroundImage.*&populate[2]=airsoftTeam.image&populate[3]=gallery.*&populate[4]=partners.logo&populate[5]=leader.image&populate[6]=airsoftTeam.playerBadges.image`);
     const branche = await responseBranche.json();
 
     return {
