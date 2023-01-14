@@ -37,7 +37,7 @@ const LeaderCard = ({leader}: iLeaderCard) => {
     return (
         <Card>
             <Image
-                src={"http://localhost:1337" + leader.image.data.attributes.url}
+                src={"https://strapi.allesimrudel.de" + leader.image.data.attributes.url}
                 alt="Logo Alles im Rudel e.V."
                 width={270}
                 height={400}

@@ -4,10 +4,16 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '1337',
+        protocol: 'https',
+        hostname: 'strapi.allesimrudel.de',
+        port: '3000',
         pathname: '/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'allesimrudel.de',
+        port: '3000',
+        pathname: '/**',
       },
     ],
   },

@@ -88,7 +88,7 @@ function Branch({branch}: BranchProps) {
             </Head>
             <Header>
                 <Image
-                    src={"http://localhost:1337" + branch.attributes.backgroundImage.data.attributes.url}
+                    src={"https://strapi.allesimrudel.de" + branch.attributes.backgroundImage.data.attributes.url}
                     alt="Logo Alles im Rudel e.V."
                     width={1920}
                     height={1000}

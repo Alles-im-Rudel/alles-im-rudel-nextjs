@@ -25,7 +25,7 @@ const PartnerList = ({partners}: PartnerListProps) => {
         <ImageWrapper>
             {partners.map((item) => <Image
                 key={item.id}
-                src={"http://localhost:1337" + item.attributes.logo.data.attributes.url}
+                src={"https://strapi.allesimrudel.de" + item.attributes.logo.data.attributes.url}
                 alt="test"
                 width={400}
                 height={400}

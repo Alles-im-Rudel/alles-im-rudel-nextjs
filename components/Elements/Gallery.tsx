@@ -80,14 +80,14 @@ const Gallery = ({gallery}: iGalleryElement) => {
     const [currentItem, setCurrentItem] = useState(0)
     const BackgroundImages = gallery.map(item => <BackgroundImage
         key={item.id}
-        src={"http://localhost:1337" + item.attributes.url}
+        src={"https://strapi.allesimrudel.de" + item.attributes.url}
         alt="test"
         width={1000}
         height={1000}
     />)
     const Images = gallery.map(item => <Image
         key={item.id}
-        src={"http://localhost:1337" + item.attributes.url}
+        src={"https://strapi.allesimrudel.de" + item.attributes.url}
         alt="test"
         width={1000}
         height={1000}
