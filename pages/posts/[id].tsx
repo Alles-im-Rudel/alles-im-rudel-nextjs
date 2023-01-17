@@ -2,6 +2,7 @@ import React from "react";
 import tw from "twin.macro";
 import iPost from "../../Interfaces/iPost";
 import Head from "next/head";
+import {apiFetch, Endpoint} from "../../lib/api";
 
 const ContentWrapper = tw.div`
     bg-white
@@ -38,8 +39,8 @@ export default function Post({post}: PostProps) {
 
 export async function getStaticPaths() {
     // Call an external API endpoint to get posts
-    const res = await fetch('https://backend.allesimrudel.de/api/posts?page=1&perPage=100')
-    const {data} = await res.json()
+    const res = await apiFetch('/posts?page=1&perPage=100', Endpoint.backend)
+    const {data} = await res
     // Get the paths we want to pre-render based on posts
     const paths = data.map((post: iPost) => ({
         params: {id: post.id.toString()},
@@ -60,8 +61,8 @@ type PostParams = {
 export async function getStaticProps({params}: PostParams) {
     // params contains the post `id`.
     // If the route is like /posts/1, then params.id is 1
-    const res = await fetch(`https://backend.allesimrudel.de/api/posts/${params.id}`)
-    const post = await res.json()
+    const res = await apiFetch(`/posts/${params.id}`, Endpoint.backend)
+    const post = await res
 
     // Pass post data to the page via props
     return {props: {post: post.data}}

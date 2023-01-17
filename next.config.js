@@ -6,7 +6,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'strapi.allesimrudel.de',
-        port: '3000',
         pathname: '/uploads/**',
       },
       {

@@ -52,7 +52,7 @@ const BoardOfDirectorCard = ({boardOfDirector}: BoardOfDirectorCardProps) => {
         <Card>
             <ImageWrapper>
                 <Image
-                    src={"https://strapi.allesimrudel.de" + boardOfDirector.attributes.image.data.attributes.url}
+                    src={process.env.NEXT_PUBLIC_CONTENT_URL + boardOfDirector.attributes.image.data.attributes.url}
                     alt="test"
                     width={400}
                     height={400}

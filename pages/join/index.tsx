@@ -13,6 +13,7 @@ import {iBackendBranche} from "../../Interfaces/iBranche";
 import StepHowToPay from "./steps/StepHowToPay";
 import StepChoosePassword from "./steps/StepChoosePassword";
 import StepOverview from "./steps/StepOverview";
+import {apiFetch, Endpoint} from "../../lib/api";
 
 const Container = tw.div`
     h-full
@@ -99,7 +100,7 @@ const Join = ({branches}: iJoin) => {
 };
 
 export async function getServerSideProps() {
-    const responseBranches = await fetch("https://backend.allesimrudel.de/api/branches");
+    const responseBranches = await apiFetch("/branches", Endpoint.backend);
     const branches = await responseBranches.json();
 
     return {

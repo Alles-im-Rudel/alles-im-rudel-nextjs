@@ -11,6 +11,7 @@ import iPartner from "../Interfaces/iPartner";
 import PartnerList from "../components/Elements/Partner/PartnerList";
 import iBranche from "../Interfaces/iBranche";
 import BranchList from "../components/Elements/Branch/BranchList";
+import {apiFetch, Endpoint} from "../lib/api";
 
 const Container = tw.div`
     h-full
@@ -110,17 +111,17 @@ function Index({posts, boardOfDirectors, partners, branches}: IndexProps) {
 }
 
 export async function getServerSideProps() {
-    const response = await fetch("https://backend.allesimrudel.de/api/posts?page=1&perPage=3");
-    const posts = await response.json();
+    const response = await apiFetch("/posts?page=1&perPage=3", Endpoint.backend);
+    const posts = await response;
 
-    const responseBoardOfDirectors = await fetch("https://strapi.allesimrudel.de/api/board-of-directors?populate=image");
-    const boardOfDirectors = await responseBoardOfDirectors.json();
+    const responseBoardOfDirectors = await apiFetch("/board-of-directors?populate=image");
+    const boardOfDirectors = await responseBoardOfDirectors;
 
-    const responseParners = await fetch("https://strapi.allesimrudel.de/api/partners?populate=logo");
-    const partners = await responseParners.json();
+    const responseParners = await apiFetch("/partners?populate=logo");
+    const partners = await responseParners;
 
-    const responseBranches = await fetch("https://strapi.allesimrudel.de/api/branches?populate=image");
-    const branches = await responseBranches.json();
+    const responseBranches = await apiFetch("/branches?populate=image");
+    const branches = await responseBranches;
 
     return {
         props: {

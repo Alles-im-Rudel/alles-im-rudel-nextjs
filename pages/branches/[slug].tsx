@@ -10,6 +10,7 @@ import PartnerList from "../../components/Elements/Partner/PartnerList";
 import Gallery from "../../components/Elements/Gallery";
 import LeaderCard from "../../components/Elements/LeaderCard";
 import { Link } from "../../components/Button";
+import {apiFetch} from "../../lib/api";
 
 const Header = tw.div`
     relative
@@ -88,7 +89,7 @@ function Branch({branch}: BranchProps) {
             </Head>
             <Header>
                 <Image
-                    src={"https://strapi.allesimrudel.de" + branch.attributes.backgroundImage.data.attributes.url}
+                    src={process.env.NEXT_PUBLIC_CONTENT_URL + branch.attributes.backgroundImage.data.attributes.url}
                     alt="Logo Alles im Rudel e.V."
                     width={1920}
                     height={1000}
@@ -137,8 +138,8 @@ function Branch({branch}: BranchProps) {
 
 export async function getStaticPaths() {
     // Call an external API endpoint to get posts
-    const res = await fetch('https://strapi.allesimrudel.de/api/branches')
-    const {data} = await res.json()
+    const res = await apiFetch('/branches')
+    const {data} = await res
     // Get the paths we want to pre-render based on posts
     const paths = data.map((branch: iBranche) => ({
         params: {slug: branch.attributes.slug},
@@ -156,8 +157,8 @@ type BranchParams = {
 }
 
 export async function getStaticProps({params}: BranchParams) {
-    const responseBranche = await fetch(`https://strapi.allesimrudel.de/api/branches?filters[slug][$eq]=${params.slug}&populate[0]=*&populate[1]=backgroundImage.*&populate[2]=airsoftTeam.image&populate[3]=gallery.*&populate[4]=partners.logo&populate[5]=leader.image&populate[6]=airsoftTeam.playerBadges.image`);
-    const branche = await responseBranche.json();
+    const responseBranche = await apiFetch(`/branches?filters[slug][$eq]=${params.slug}&populate[0]=*&populate[1]=backgroundImage.*&populate[2]=airsoftTeam.image&populate[3]=gallery.*&populate[4]=partners.logo&populate[5]=leader.image&populate[6]=airsoftTeam.playerBadges.image`);
+    const branche = await responseBranche;
 
     return {
         props: {

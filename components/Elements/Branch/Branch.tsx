@@ -57,7 +57,7 @@ const Branch = ({branch}: BranchProps) => {
         <Wrapper>
             <ImageWrapper>
                 <Image
-                    src={"https://strapi.allesimrudel.de" + branch.attributes.image.data.attributes.url}
+                    src={process.env.NEXT_PUBLIC_CONTENT_URL + branch.attributes.image.data.attributes.url}
                     alt="test"
                     width={1200}
                     height={600}

@@ -48,7 +48,7 @@ const Badge = ({badge}: iBadge) => {
     return (
         <Container>
             <Image
-                src={"https://strapi.allesimrudel.de" + badge.attributes.image.data.attributes.url}
+                src={process.env.NEXT_PUBLIC_CONTENT_URL + badge.attributes.image.data.attributes.url}
                 alt="test"
                 width={20}
                 height={20}

@@ -87,7 +87,7 @@ const Member = ({member}: iMember) => {
             </TopWrapper>
             <ImageWrapper>
                 <Image
-                    src={"https://strapi.allesimrudel.de" + member.image.data.attributes.url}
+                    src={process.env.NEXT_PUBLIC_CONTENT_URL + member.image.data.attributes.url}
                     alt="test"
                     width={400}
                     height={400}
