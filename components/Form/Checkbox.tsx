@@ -66,7 +66,7 @@ const Checkbox = ({errors, placeholder, disabled, ...props}: iCheckbox) => {
                 />
             )}
             {errors && Array.isArray(errors) && (
-                <FormError gtag={`error:${props.name}`} message={errors[0]} />
+                <FormError message={errors[0]} />
             )}
         </CheckboxWrapper>
     );

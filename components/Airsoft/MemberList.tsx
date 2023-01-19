@@ -47,7 +47,7 @@ type iMemberList = {
 }
 const MemberList = ({headline, memberList}: iMemberList) => {
     const [isOpen, setIsOpen] = useState(false);
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement>(null);
 
     const handleExpend = () => {
         setIsOpen(!isOpen)

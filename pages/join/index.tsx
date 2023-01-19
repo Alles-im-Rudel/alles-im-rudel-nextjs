@@ -2,17 +2,17 @@ import React, {useEffect} from 'react';
 import tw from 'twin.macro';
 import Divider from '../../components/Elements/Divider';
 import _text from '../../components/Layout/Text';
-import StepWhoAreYou from "./steps/StepWhoAreYou";
-import StepWhereAreYou from "./steps/StepWhereAreYou";
+import StepWhoAreYou from "../../components/Join/steps/StepWhoAreYou";
+import StepWhereAreYou from "../../components/Join/steps/StepWhereAreYou";
 import Stepper from '../../components/Elements/Stepper';
 import iStep from "../../components/Elements/Stepper/iStep";
-import StepBranchSelect from "./steps/StepBranchSelect";
-import useJoinStore from "./store";
+import StepBranchSelect from "../../components/Join/steps/StepBranchSelect";
+import useJoinStore from "../../lib/Join/store";
 import shallow from "zustand/shallow";
 import {iBackendBranche} from "../../Interfaces/iBranche";
-import StepHowToPay from "./steps/StepHowToPay";
-import StepChoosePassword from "./steps/StepChoosePassword";
-import StepOverview from "./steps/StepOverview";
+import StepHowToPay from "../../components/Join/steps/StepHowToPay";
+import StepChoosePassword from "../../components/Join/steps/StepChoosePassword";
+import StepOverview from "../../components/Join/steps/StepOverview";
 import {apiFetch, Endpoint} from "../../lib/api";
 
 const Container = tw.div`
@@ -47,7 +47,7 @@ const Join = ({branches}: iJoin) => {
 
     useEffect(() => {
         setBranches(branches)
-    }, [branches])
+    }, [branches, setBranches])
 
     const StepOne: iStep = {
         headline: "Wer bist du?",
@@ -101,7 +101,7 @@ const Join = ({branches}: iJoin) => {
 
 export async function getServerSideProps() {
     const responseBranches = await apiFetch("/branches", Endpoint.backend);
-    const branches = await responseBranches.json();
+    const branches = await responseBranches;
 
     return {
         props: {

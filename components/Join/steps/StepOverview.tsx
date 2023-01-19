@@ -1,13 +1,13 @@
 import React from 'react';
 import tw from 'twin.macro';
-import Headline from '../../../components/Layout/Headline';
-import Text from '../../../components/Layout/Text';
-import useJoinStore from "../store";
+import Headline from '../../Layout/Headline';
+import Text from '../../Layout/Text';
+import useJoinStore from "../../../lib/Join/store";
 import shallow from "zustand/shallow";
-import Button from "../../../components/Button";
-import useStepperStore from "../../../components/Elements/Stepper/store";
+import Button from "../../Button";
+import useStepperStore from "../../Elements/Stepper/store";
 import {SubmitHandler, useForm} from "react-hook-form";
-import Checkbox from "../../../components/Form/Checkbox";
+import Checkbox from "../../Form/Checkbox";
 
 const Grid = tw.div`
     grid

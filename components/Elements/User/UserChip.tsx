@@ -26,10 +26,11 @@ const Title = tw.div`
     text-small
 `;
 
-type UserChipProps = {
+interface iUserChip {
     user: iUser
+    css?: unknown
 }
-const UserChip = ({user, ...props}: UserChipProps) => {
+const UserChip = ({user, ...props}: iUserChip) => {
     return (
         <Chip {...props}>
             {user?.thumbnail?.thumbnail && <Image src={user.thumbnail.thumbnail} alt="test" width={50}

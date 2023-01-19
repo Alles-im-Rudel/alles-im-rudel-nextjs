@@ -1,10 +1,10 @@
 import React from 'react';
 import tw from 'twin.macro';
-import Input from '../../../components/Form/Input';
-import useJoinStore from "../store";
+import Input from '../../Form/Input';
+import useJoinStore from "../../../lib/Join/store";
 import {SubmitHandler, useForm} from "react-hook-form";
-import Button from "../../../components/Button";
-import useStepperStore from "../../../components/Elements/Stepper/store";
+import Button from "../../Button";
+import useStepperStore from "../../Elements/Stepper/store";
 import shallow from "zustand/shallow";
 
 const InputWrapper = tw.form`

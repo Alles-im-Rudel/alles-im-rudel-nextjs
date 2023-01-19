@@ -1,12 +1,12 @@
 import React from 'react';
-import Headline from '../../../components/Layout/Headline';
-import Text from "../../../components/Layout/Text"
-import Input from "../../../components/Form/Input";
-import Button from "../../../components/Button";
+import Headline from '../../Layout/Headline';
+import Text from "../../Layout/Text"
+import Input from "../../Form/Input";
+import Button from "../../Button";
 import tw from "twin.macro";
-import useJoinStore from "../store";
+import useJoinStore from "../../../lib/Join/store";
 import shallow from "zustand/shallow";
-import useStepperStore from "../../../components/Elements/Stepper/store";
+import useStepperStore from "../../Elements/Stepper/store";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {iWhoAreYouForm} from "./StepWhoAreYou";
 

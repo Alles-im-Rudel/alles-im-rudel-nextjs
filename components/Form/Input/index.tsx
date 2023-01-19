@@ -10,7 +10,10 @@ import FormError from "./FormError";
 import ErrorMessage from "./ErrorMessage";
 import tw from "twin.macro";
 
-const Wrapper = styled.div`
+interface iWrapper {
+    css?: unknown
+}
+const Wrapper = styled.div<iWrapper>`
   display: flex;
   flex-direction: column;
 `;
@@ -36,7 +39,7 @@ const Placeholder = styled.label`
 
 export const StyledInput = styled.input`
   width: 100%;
-  padding: 15px 0 0px;
+  padding: 15px 0 0;
   outline: none;
 
   ${tw`
@@ -73,7 +76,7 @@ interface iInput {
     fullWidth?: boolean;
     name: string;
     type?: string;
-    id?: string | null;
+    id?: string | undefined;
     isDisabled?: boolean;
     withField?: boolean;
     maxWidth?: any;
@@ -126,7 +129,6 @@ const Input = ({
                             : "on"
                     }
                     disabled={isDisabled}
-                    id={props.name}
                     {...field}
                     {...{type, ...props}}
                 />
@@ -140,7 +142,7 @@ const Input = ({
                 />
             )}
             {errors && Array.isArray(errors) && (
-                <FormError gtag={`error:${props.name}`} message={errors[0]} />
+                <FormError message={errors[0]} />
             )}
         </Wrapper>
     );

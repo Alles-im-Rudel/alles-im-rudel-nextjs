@@ -1,7 +1,7 @@
 import React from 'react';
-import Checkbox from "../../../../components/Form/Checkbox";
-import Headline from "../../../../components/Layout/Headline";
-import Text from "../../../../components/Layout/Text";
+import Checkbox from "../../../Form/Checkbox";
+import Headline from "../../../Layout/Headline";
+import Text from "../../../Layout/Text";
 import tw from "twin.macro";
 import {iBackendBranche} from "../../../../Interfaces/iBranche";
 

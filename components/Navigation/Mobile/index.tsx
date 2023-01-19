@@ -28,8 +28,12 @@ const LinkWrapper = tw.div`
     flex-col
 `;
 
-const Link = tw(_link)`
-    text-h-2
+interface iLink {
+    css?: unknown;
+}
+
+const Link = styled(_link)<iLink>`
+    ${tw`text-h-2`}
 `;
 
 type iMobile = {

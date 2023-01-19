@@ -23,12 +23,17 @@ export const stylePrimary = css`
     bg-primary
   `};
 `;
-
-const StyledButton = styled.button`
+interface iStyledButton {
+    css?: unknown
+}
+const StyledButton = styled.button<iStyledButton>`
   ${buttonStyle}
 `;
 
-const StyledLink = styled(_link)`
+interface iStyledLink {
+    css?: unknown
+}
+const StyledLink = styled(_link)<iStyledLink>`
   ${buttonStyle}
 `;
 
@@ -41,7 +46,10 @@ type StyledTextLink = {
     black: null | boolean
 }
 
-export const HoverContainer = styled.div`
+interface iHoverContainer {
+    css?: unknown
+}
+export const HoverContainer = styled.div<iHoverContainer>`
   :hover {
     background-color: rgba(255, 255, 255, 0.1);
   }

@@ -1,10 +1,10 @@
 import create from "zustand";
-import {iWhoAreYouForm} from "./steps/StepWhoAreYou"
-import {iWhereAreYouForm} from "./steps/StepWhereAreYou";
+import {iWhoAreYouForm} from "../../components/Join/steps/StepWhoAreYou"
+import {iWhereAreYouForm} from "../../components/Join/steps/StepWhereAreYou";
 import {iBackendBranche} from "../../Interfaces/iBranche";
-import {iHowToPayForm} from "./steps/StepHowToPay";
-import {iChoosPasswordForm} from "./steps/StepChoosePassword";
-import {iOverviewForm} from "./steps/StepOverview";
+import {iHowToPayForm} from "../../components/Join/steps/StepHowToPay";
+import {iChoosPasswordForm} from "../../components/Join/steps/StepChoosePassword";
+import {iOverviewForm} from "../../components/Join/steps/StepOverview";
 
 export interface iForm {
     salutation: string;
@@ -61,7 +61,6 @@ const useStore = create<iJoinStore>((set, get) => ({
         hasAcceptedMonthlyDebits: false,
         wantsEmailNotification: false,
     },
-
     branches: [],
 
     setForm: (form) => {

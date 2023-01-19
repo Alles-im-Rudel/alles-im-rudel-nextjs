@@ -94,7 +94,10 @@ const bottomClose = keyframes`
   }
 `;
 
-const NavIconContainer = styled.div`
+interface iNavIconContainer {
+    css?: unknown
+}
+const NavIconContainer = styled.div<iNavIconContainer>`
     position: relative;
     display: flex;
     flex-direction: column;
