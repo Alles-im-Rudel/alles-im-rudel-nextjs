@@ -9,10 +9,13 @@ import styled from "@emotion/styled";
 import FormError from "./FormError";
 import ErrorMessage from "./ErrorMessage";
 import tw from "twin.macro";
+import {faCheck, faRightToBracket, faSpinner, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 interface iWrapper {
     css?: unknown
 }
+
 const Wrapper = styled.div<iWrapper>`
   display: flex;
   flex-direction: column;
@@ -37,6 +40,15 @@ const Placeholder = styled.label`
   ${tw`text-darkGrey text-base`}
 `;
 
+interface iIconWrapper {
+    css?: unknown
+}
+const IconWrapper = styled.div<iIconWrapper>`
+  position: absolute;
+  right: 0;
+  top: 0;
+`;
+
 export const StyledInput = styled.input`
   width: 100%;
   padding: 15px 0 0;
@@ -51,6 +63,7 @@ export const StyledInput = styled.input`
   &:focus {
     ${tw`border-b-primary`}
   }
+
   &:placeholder-shown {
     font-weight: normal;
   }
@@ -86,6 +99,8 @@ interface iInput {
     defaultValue?: string | number;
     rules: any;
     control: any;
+    isLoading?: boolean;
+    isValid?: boolean | null;
 }
 
 const Input = ({
@@ -97,6 +112,8 @@ const Input = ({
                    placeholder = "",
                    errors,
                    resetField,
+                   isLoading,
+                   isValid = null,
                    ...props
                }: iInput) => {
     const {field, fieldState} = useController(props);
@@ -133,6 +150,15 @@ const Input = ({
                     {...{type, ...props}}
                 />
                 <Placeholder htmlFor={props.name}>{placeholder}</Placeholder>
+                {isLoading && <IconWrapper css={css`${tw`animate-spin`}`}>
+                  <FontAwesomeIcon icon={faSpinner} />
+                </IconWrapper>}
+                {!isLoading && isValid && <IconWrapper css={css`${tw`text-success`}`}>
+                  <FontAwesomeIcon icon={faCheck} />
+                </IconWrapper>}
+                {!isLoading && isValid === false && <IconWrapper css={css`${tw`text-error`}`}>
+                  <FontAwesomeIcon icon={faXmark} />
+                </IconWrapper>}
             </Container>
             {fieldState.error && (
                 <ErrorMessage

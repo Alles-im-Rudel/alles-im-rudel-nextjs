@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import tw from 'twin.macro';
 import Input from '../../Form/Input';
 import {SubmitHandler, useForm} from "react-hook-form";
@@ -6,6 +6,7 @@ import useJoinStore from "../../../lib/Join/store";
 import useStepperStore from "../../Elements/Stepper/store";
 import Button from "../../Button";
 import shallow from "zustand/shallow";
+import EmailInput from "../../Form/EmailInput";
 
 const InputWrapper = tw.form`
     flex
@@ -48,8 +49,7 @@ const StepWhoAreYou = ({}: iStepWhoAreYou) => {
         state.nextStep,
     ], shallow);
 
-
-    const {handleSubmit, control} = useForm<iWhoAreYouForm>({
+    const {handleSubmit, control, watch} = useForm<iWhoAreYouForm>({
         defaultValues: {
             salutation: "",
             firstName: "",
@@ -60,7 +60,7 @@ const StepWhoAreYou = ({}: iStepWhoAreYou) => {
         },
         mode: "onSubmit",
     });
-
+    const watchEmail = watch('email')
     const onSubmit:SubmitHandler<iWhoAreYouForm> = (data) => {
         setForm(data);
         nextStep();
@@ -123,15 +123,13 @@ const StepWhoAreYou = ({}: iStepWhoAreYou) => {
                 />
             </Row>
             <Row>
-                <Input
-                    fullWidth
-                    placeholder="E-Mail"
-                    name="email"
+                <EmailInput
                     rules={{
                         required: true,
                         maxLength: 20,
                     }}
                     control={control}
+                    watchEmail={watchEmail}
                 />
             </Row>
             <ActionRow>

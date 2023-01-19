@@ -12,7 +12,7 @@ export const apiResolve = (path: string, endpoint: Endpoint) => {
 
 export const api = (url: string, endpoint: Endpoint, init: {} = {}) =>
     fetch(apiResolve(url, endpoint),
-        {mode: "cors", credentials: "include", ...init}
+        {...init}
     );
 
 export const apiFetch = async (
@@ -24,6 +24,7 @@ export const apiFetch = async (
         ...otherOptions,
         headers: {
             ...headers,
+            'Content-Type': 'application/json',
             Accept: "application/json",
         },
     };
