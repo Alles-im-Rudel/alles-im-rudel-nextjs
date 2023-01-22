@@ -7,7 +7,7 @@ const Container = tw.div`
     bg-greyBlue
     text-white
     text-center
-    p-3
+    p-8
 `;
 
 type DividerProps = {

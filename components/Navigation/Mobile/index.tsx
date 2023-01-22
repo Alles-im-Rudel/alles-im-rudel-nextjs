@@ -9,7 +9,7 @@ type iMobileNavigation = {
     isActive: boolean
 }
 const MobileNavigation = styled.div<iMobileNavigation>`
-  ${({isActive}) => isActive ? tw`absolute` : tw`hidden`}
+  ${({isActive}) => isActive ? tw`fixed` : tw`hidden`}
   ${tw`
     top-0
     left-0

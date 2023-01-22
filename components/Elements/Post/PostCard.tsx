@@ -11,11 +11,12 @@ const Card = tw.div`
     flex-col
     gap-2
     shadow-2xl   
+    w-full
 `;
 
 const ImageWrapper = tw.div`
-   h-[370px]
-   w-[370px]
+   w-full
+   h-full
    relative
 `;
 

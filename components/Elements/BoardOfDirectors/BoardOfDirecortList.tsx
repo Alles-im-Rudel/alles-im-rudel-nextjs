@@ -11,7 +11,7 @@ const ListWrapper = tw.div`
     flex-col
     md:m-20
     md:flex-row
-   
+    lg:max-w-screen-lg
 `;
 
 type BoardOfDirectorsProps = {

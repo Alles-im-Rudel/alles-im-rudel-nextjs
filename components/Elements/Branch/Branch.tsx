@@ -33,11 +33,14 @@ const TextContainer = tw.div`
 `;
 
 const TextWrapper = tw.div`
-    max-w-screen-lg
     m-auto
     flex
     flex-col
     gap-4
+    px-4
+    md:px-20
+    lg:px-0
+    lg:max-w-screen-lg
 `;
 
 const Title = tw.h3`

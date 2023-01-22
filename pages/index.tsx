@@ -1,6 +1,6 @@
 import tw from "twin.macro";
 import React from "react";
-import Image from "next/image";
+import _image from "next/image";
 import Divider from "../components/Elements/Divider";
 import IPost from "../Interfaces/iPost";
 import PostsPreviewList from "../components/Elements/Post/PostsPreviewList";
@@ -19,9 +19,18 @@ const Container = tw.div`
     bg-default
 `;
 
+const Image = tw(_image)`
+      w-[90vw]
+      h-auto
+      object-contain
+      lg:w-[50vw]
+      lg:my-10
+`;
+
 const Header = tw.div`
     flex
     justify-center
+    min-h-[35vh]
 `;
 
 const ContentWrapper = tw.div`
@@ -33,16 +42,18 @@ const ContentWrapper = tw.div`
 `;
 
 const Content = tw.div`
-    max-w-screen-lg
     flex
     flex-col
     gap-5
     mb-10
+    px-4
+    lg:px-0
+    lg:max-w-screen-lg
 `;
 
 const Headline = tw.p`
     text-center
-    text-headline
+    text-h-3
     lg:text-headline-lg
 `;
 

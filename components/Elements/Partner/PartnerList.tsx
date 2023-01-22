@@ -6,9 +6,9 @@ import ImageWithLoader from "../../Layout/Image"
 const ImageWrapper = tw.div`
     flex
     flex-col
-    gap-5
     my-10
     items-center
+    lg:gap-5
 `;
 
 const Image = tw(ImageWithLoader)`
