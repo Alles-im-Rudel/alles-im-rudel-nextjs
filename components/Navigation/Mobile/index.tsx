@@ -10,6 +10,7 @@ type iMobileNavigation = {
 }
 const MobileNavigation = styled.div<iMobileNavigation>`
   ${({isActive}) => isActive ? tw`fixed` : tw`hidden`}
+  z-index: 200
   ${tw`
     top-0
     left-0
