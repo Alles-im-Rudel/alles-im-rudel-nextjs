@@ -109,7 +109,7 @@ function Index({posts, boardOfDirectors, partners, branches}: IndexProps) {
     )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const response = await apiFetch("/posts?page=1&perPage=3", Endpoint.backend);
     const posts = await response;
 
@@ -129,6 +129,7 @@ export async function getServerSideProps() {
             partners: partners.data,
             branches: branches.data,
         },
+        revalidate: 30,
     };
 }
 
