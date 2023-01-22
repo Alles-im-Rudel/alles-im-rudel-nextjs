@@ -37,6 +37,7 @@ const Content = tw.div`
     flex
     flex-col
     gap-5
+    mb-10
 `;
 
 const Headline = tw.p`
@@ -63,14 +64,12 @@ function Index({posts, boardOfDirectors, partners, branches}: IndexProps) {
                 <title>Alles im Rudel e.V.</title>
             </Head>
             <Container>
-                <Header
-
-                >
+                <Header>
                     <Image
                         src="/logos/logo-grey-slim.png"
                         alt="Logo Alles im Rudel e.V."
                         width={1000}
-                        height={1000}
+                        height={550}
                     />
                 </Header>
                 <ContentWrapper>

@@ -1,10 +1,9 @@
 import React from 'react';
 import tw from "twin.macro";
-import _image from "next/image";
+import ImageWithLoader from "../../Layout/Image";
 import iBoardOfDirecor from "../../../Interfaces/iBoardOfDirecor";
-import {Link, TextLink} from "../../Button";
+import {TextLink} from "../../Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import {faInstagram, faLinkedin, faSnapchat} from '@fortawesome/free-brands-svg-icons';
 
 const Card = tw.div`
@@ -18,7 +17,7 @@ const ImageWrapper = tw.div`
    w-fit
 `;
 
-const Image = tw(_image)`
+const Image = tw(ImageWithLoader)`
    object-cover
    h-full
    w-full
@@ -52,10 +51,10 @@ const BoardOfDirectorCard = ({boardOfDirector}: BoardOfDirectorCardProps) => {
         <Card>
             <ImageWrapper>
                 <Image
-                    src={process.env.NEXT_PUBLIC_CONTENT_URL + boardOfDirector.attributes.image.data.attributes.url}
+                    src={boardOfDirector.attributes.image.data.attributes.url}
                     alt="test"
-                    width={400}
-                    height={400}
+                    width={360}
+                    height={500}
                 />
             </ImageWrapper>
             <TextWrapper>

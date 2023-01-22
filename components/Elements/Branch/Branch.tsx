@@ -1,9 +1,9 @@
 import React from 'react';
 import iBranche from "../../../Interfaces/iBranche";
 import tw from "twin.macro";
-import _image from "next/image";
 import {Link} from '../../Button';
 import Markdown from "../../Layout/Markdown";
+import ImageWithLoader from "../../Layout/Image"
 
 const Wrapper = tw.div`
     relative
@@ -17,7 +17,7 @@ const ImageWrapper = tw.div`
     blur
 `;
 
-const Image = tw(_image)`
+const Image = tw(ImageWithLoader)`
    object-cover
    h-full
    w-full
@@ -44,10 +44,6 @@ const Title = tw.h3`
     text-headline
 `;
 
-const Text = tw.p`
-    text-text
-`;
-
 type BranchProps = {
     branch: iBranche
 };
@@ -57,7 +53,7 @@ const Branch = ({branch}: BranchProps) => {
         <Wrapper>
             <ImageWrapper>
                 <Image
-                    src={process.env.NEXT_PUBLIC_CONTENT_URL + branch.attributes.image.data.attributes.url}
+                    src={branch.attributes.image.data.attributes.url}
                     alt="test"
                     width={1200}
                     height={600}
