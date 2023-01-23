@@ -21,9 +21,9 @@ const Image = tw(ImageWithLoader)`
 type PartnerListProps = {
     partners: iPartner[]
 }
-const PartnerList = ({partners}: PartnerListProps) => {
+const PartnerList = ({partners, ...props}: PartnerListProps) => {
     return (
-        <ImageWrapper>
+        <ImageWrapper {...props}>
             {partners.map((item) => <Image
                 key={item.id}
                 src={item.attributes.logo.data.attributes.url}

@@ -53,6 +53,7 @@ const TextWrapper = tw.div`
     bottom-[-35px]
     w-full
     text-white
+    text-center
     flex
     flex-col
     justify-center

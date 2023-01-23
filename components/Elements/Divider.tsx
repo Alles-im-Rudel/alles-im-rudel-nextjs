@@ -10,13 +10,13 @@ const Container = tw.div`
     p-8
 `;
 
-type DividerProps = {
-    title: string
+interface DividerProps {
+    title: string;
 }
 
-const Divider = ({title}: DividerProps) => {
+const Divider = ({title, ...props}: DividerProps) => {
     return (
-        <Container>
+        <Container {...props}>
             <Headline headline={3}>
                 {title}
             </Headline>

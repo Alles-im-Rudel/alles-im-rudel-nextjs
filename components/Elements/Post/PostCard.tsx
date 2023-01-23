@@ -18,6 +18,7 @@ const ImageWrapper = tw.div`
    w-full
    h-full
    relative
+   z-0
 `;
 
 const Image = tw(_image)`

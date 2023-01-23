@@ -86,7 +86,7 @@ const Navigation = () => {
                 </LinkWrapper>
                 <AnimatedBurgerIcon handleClick={() => setIsActive(!isActive)} isActive={isActive} />
             </NavigationContainer>
-            <Mobile isActive={isActive}/>
+            <Mobile isActive={isActive} setIsActive={setIsActive}/>
         </>
     );
 };

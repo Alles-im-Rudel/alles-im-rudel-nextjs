@@ -30,6 +30,7 @@ const TextContainer = tw.div`
     top-0
     text-white
     flex
+    z-1
 `;
 
 const TextWrapper = tw.div`

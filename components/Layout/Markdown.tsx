@@ -29,8 +29,8 @@ const defaultComponents = {
 
 type iMarkdown = {
     children: string;
-    components: {}
-    props: unknown
+    components?: {}
+    props?: unknown
 };
 const Markdown = ({children, components, ...props}: iMarkdown) => {
     const components_ = useMemo(

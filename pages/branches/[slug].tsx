@@ -9,7 +9,7 @@ import Divider from "../../components/Elements/Divider";
 import PartnerList from "../../components/Elements/Partner/PartnerList";
 import Gallery from "../../components/Elements/Gallery";
 import LeaderCard from "../../components/Elements/LeaderCard";
-import { Link } from "../../components/Button";
+import {Link} from "../../components/Button";
 import {apiFetch} from "../../lib/api";
 
 const Header = tw.div`
@@ -34,6 +34,8 @@ const Content = tw.div`
     flex
     flex-col
     gap-5
+    px-4
+    lg:px-0
 `;
 
 const Image = tw(_image)`
@@ -63,14 +65,18 @@ const Headline = tw.p`
 `;
 
 const StickyWrapperRight = tw.div`
-    absolute
+    lg:absolute
     top-32
     right-32
     z-20
     h-full
+    mt-10
+    lg:mt-0
 `;
 
 const StickyWrapperLeft = tw.div`
+    hidden
+    lg:block
     absolute
     top-32
     left-32
@@ -81,6 +87,7 @@ const StickyWrapperLeft = tw.div`
 type BranchProps = {
     branch: iBranche;
 }
+
 function Branch({branch}: BranchProps) {
     return (
         <>
@@ -98,7 +105,7 @@ function Branch({branch}: BranchProps) {
                     <LogoImage
                         src="/logos/logo-white-slim.png"
                         alt="Logo Alles im Rudel e.V."
-                        width={100}
+                        width={150}
                         height={100}
                     />
                     <Headline>
@@ -112,17 +119,16 @@ function Branch({branch}: BranchProps) {
                         Join now
                     </Link>
                 </StickyWrapperLeft>
-                <StickyWrapperRight>
-                    <LeaderCard leader={branch.attributes.leader} />
-                </StickyWrapperRight>
                 <Content>
-                    {/*@ts-ignore*/}
                     <Markdown>
                         {branch.attributes.description}
                     </Markdown>
-                    {branch.attributes.airsoftTeam.length > 0 &&
-                      <MemberList headline="Unser Team" memberList={branch.attributes.airsoftTeam} />}
                 </Content>
+                <StickyWrapperRight>
+                    <LeaderCard leader={branch.attributes.leader} />
+                </StickyWrapperRight>
+                {branch.attributes.airsoftTeam.length > 0 &&
+                  <MemberList headline="Unser Team" memberList={branch.attributes.airsoftTeam} />}
                 {branch?.attributes?.partners?.data && branch?.attributes?.partners?.data.length > 0 && <>
                   <Divider title="Unsere Partner" />
                   <PartnerList partners={branch.attributes.partners.data} />

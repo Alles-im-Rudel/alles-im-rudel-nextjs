@@ -9,7 +9,11 @@ import {faChevronDown, faLink} from "@fortawesome/free-solid-svg-icons";
 import styled from '@emotion/styled';
 
 const Wrapper = tw.div`
+    max-w-screen-lg
+    w-full
     my-10
+    px-4
+    lg:px-0
 `;
 
 const ListHeadline = tw.div`

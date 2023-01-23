@@ -75,7 +75,7 @@ const Dot = styled.div<iDot>`
 type iGalleryElement = {
     gallery: iGallery[]
 }
-const Gallery = ({gallery}: iGalleryElement) => {
+const Gallery = ({gallery, ...props}: iGalleryElement) => {
     const length = gallery.length - 1;
     const [currentItem, setCurrentItem] = useState(0)
     const BackgroundImages = gallery.map(item => <BackgroundImage
@@ -110,7 +110,7 @@ const Gallery = ({gallery}: iGalleryElement) => {
     }
 
     return (
-        <Wrapper>
+        <Wrapper {...props}>
             {BackgroundImages[currentItem]}
             <AbsoluteWrapper>
                 <TextButton onClick={previos}>

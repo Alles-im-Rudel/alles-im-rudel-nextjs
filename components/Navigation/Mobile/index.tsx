@@ -10,7 +10,7 @@ type iMobileNavigation = {
 }
 const MobileNavigation = styled.div<iMobileNavigation>`
   ${({isActive}) => isActive ? tw`fixed` : tw`hidden`}
-  z-index: 200
+  z-index: 49;
   ${tw`
     top-0
     left-0
@@ -37,10 +37,11 @@ const Link = styled(_link)<iLink>`
     ${tw`text-h-2`}
 `;
 
-type iMobile = {
-    isActive: boolean
+interface iMobile {
+    isActive: boolean;
+    setIsActive: (isActive: boolean) => void;
 }
-const Mobile = ({isActive}: iMobile) => {
+const Mobile = ({isActive, setIsActive}: iMobile) => {
 
     useEffect(() => {
         if (typeof document !== "undefined") {
@@ -61,19 +62,19 @@ const Mobile = ({isActive}: iMobile) => {
     return (
         <MobileNavigation isActive={isActive}>
             <LinkWrapper>
-                <Link href="https://www.teamstolz.de/vereinsshop/alles-im-rudel/">
+                <Link href="https://www.teamstolz.de/vereinsshop/alles-im-rudel/" onClick={()  => setIsActive(!isActive)}>
                     Shop
                 </Link>
-                <Link key="/branches/airsoft" href="/branches/airsoft">
+                <Link key="/branches/airsoft" href="/branches/airsoft" onClick={() => setIsActive(!isActive)}>
                     Airsoft
                 </Link>
-                <Link key="/branches/esports" href="/branches/e-sports">
+                <Link key="/branches/esports" href="/branches/e-sports" onClick={()=> setIsActive(!isActive)}>
                     E-Sports
                 </Link>
-                <Link href="/join">
+                <Link href="/join" onClick={()=> setIsActive(!isActive)}>
                     Beitritt
                 </Link>
-                <Link href="/login" css={tw`text-h-4`}>
+                <Link href="/login" css={tw`text-h-4`} onClick={() => setIsActive(!isActive)}>
                     <FontAwesomeIcon icon={faRightToBracket} />
                 </Link>
             </LinkWrapper>
