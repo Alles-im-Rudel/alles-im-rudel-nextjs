@@ -1,12 +1,12 @@
 import React from 'react';
 import iAirsoftTeam from "../../Interfaces/iAirsoftTeam";
 import tw from "twin.macro";
-import _image from "next/image";
 import Text from "../Layout/Text";
 import Badge from './Badge';
 import { TextLink } from '../Button';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faLink } from '@fortawesome/free-solid-svg-icons';
+import ImageWithLoader from "../Layout/Image";
 
 const Card = tw.div`
     relative
@@ -20,7 +20,7 @@ const ImageWrapper = tw.div`
    h-full
 `;
 
-const Image = tw(_image)`
+const Image = tw(ImageWithLoader)`
    object-cover
    h-full
    w-full
@@ -88,7 +88,7 @@ const Member = ({member}: iMember) => {
             </TopWrapper>
             <ImageWrapper>
                 <Image
-                    src={process.env.NEXT_PUBLIC_CONTENT_URL + member.image.data.attributes.url}
+                    src={member.image.data.attributes.url}
                     alt="test"
                     width={400}
                     height={400}

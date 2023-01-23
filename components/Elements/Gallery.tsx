@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import iGallery from "../../Interfaces/iGallery";
 import tw from "twin.macro";
-import _image from "next/image";
 import {TextButton} from '../Button';
 import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import styled from "@emotion/styled";
+import ImageWithLoader from "../Layout/Image";
 
 const Wrapper = tw.div`
     relative
@@ -14,7 +14,7 @@ const Wrapper = tw.div`
     overflow-hidden
 `;
 
-const BackgroundImage = tw(_image)`
+const BackgroundImage = tw(ImageWithLoader)`
    object-cover
    h-full
    w-full
@@ -42,7 +42,7 @@ const ImageWrapper = tw.div`
    h-[80%]
 `;
 
-const Image = tw(_image)`
+const Image = tw(ImageWithLoader)`
    object-cover
    w-full
    h-full
@@ -80,14 +80,14 @@ const Gallery = ({gallery, ...props}: iGalleryElement) => {
     const [currentItem, setCurrentItem] = useState(0)
     const BackgroundImages = gallery.map(item => <BackgroundImage
         key={item.id}
-        src={process.env.NEXT_PUBLIC_CONTENT_URL + item.attributes.url}
+        src={item.attributes.url}
         alt="test"
         width={1000}
         height={1000}
     />)
     const Images = gallery.map(item => <Image
         key={item.id}
-        src={process.env.NEXT_PUBLIC_CONTENT_URL + item.attributes.url}
+        src={item.attributes.url}
         alt="test"
         width={1000}
         height={1000}

@@ -11,6 +11,7 @@ import Gallery from "../../components/Elements/Gallery";
 import LeaderCard from "../../components/Elements/LeaderCard";
 import {Link} from "../../components/Button";
 import {apiFetch} from "../../lib/api";
+import ImageWithLoader from "../../components/Layout/Image";
 
 const Header = tw.div`
     relative
@@ -38,7 +39,7 @@ const Content = tw.div`
     lg:px-0
 `;
 
-const Image = tw(_image)`
+const Image = tw(ImageWithLoader)`
    object-cover
    h-full
    w-full
@@ -96,7 +97,7 @@ function Branch({branch}: BranchProps) {
             </Head>
             <Header>
                 <Image
-                    src={process.env.NEXT_PUBLIC_CONTENT_URL + branch.attributes.backgroundImage.data.attributes.url}
+                    src={branch.attributes.backgroundImage.data.attributes.url}
                     alt="Logo Alles im Rudel e.V."
                     width={1920}
                     height={1000}

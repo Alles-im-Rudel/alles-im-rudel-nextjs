@@ -1,8 +1,8 @@
 import React from 'react';
 import tw from "twin.macro";
-import _image from "next/image";
 import iPlayerBadges from "../../Interfaces/iPlayerBadges";
 import styled from "@emotion/styled";
+import ImageWithLoader from "../Layout/Image";
 
 const Container = styled.div`
   ${tw`
@@ -34,7 +34,7 @@ const Tooltip = tw.div`
     w-max
 `;
 
-const Image = tw(_image)`
+const Image = tw(ImageWithLoader)`
    object-cover
    h-full
    w-full
@@ -48,7 +48,7 @@ const Badge = ({badge}: iBadge) => {
     return (
         <Container>
             <Image
-                src={process.env.NEXT_PUBLIC_CONTENT_URL + badge.attributes.image.data.attributes.url}
+                src={badge.attributes.image.data.attributes.url}
                 alt="test"
                 width={20}
                 height={20}

@@ -1,8 +1,8 @@
 import React from 'react';
 import tw from "twin.macro";
 import iLeader from "../../Interfaces/iLeader";
-import _image from "next/image";
 import Text from "../Layout/Text"
+import ImageWithLoader from "../Layout/Image";
 
 const Card = tw.div`
     sticky
@@ -15,7 +15,7 @@ const Card = tw.div`
     shadow
 `;
 
-const Image = tw(_image)`
+const Image = tw(ImageWithLoader)`
    object-cover
    h-full
    w-full
@@ -37,7 +37,7 @@ const LeaderCard = ({leader}: iLeaderCard) => {
     return (
         <Card>
             <Image
-                src={process.env.NEXT_PUBLIC_CONTENT_URL + leader.image.data.attributes.url}
+                src={leader.image.data.attributes.url}
                 alt="Logo Alles im Rudel e.V."
                 width={270}
                 height={400}
