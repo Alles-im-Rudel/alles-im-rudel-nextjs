@@ -5,6 +5,7 @@ import iBoardOfDirecor from "../../../Interfaces/iBoardOfDirecor";
 import {TextLink} from "../../Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInstagram, faLinkedin, faSnapchat} from '@fortawesome/free-brands-svg-icons';
+import { age } from '../../../lib/dates';
 
 const Card = tw.div`
     flex
@@ -59,6 +60,7 @@ const BoardOfDirectorCard = ({boardOfDirector}: BoardOfDirectorCardProps) => {
             </ImageWrapper>
             <TextWrapper>
                 <Name>{boardOfDirector.attributes.name}</Name>
+                <Age>{age(boardOfDirector.attributes.birthday)} Jahre alt</Age>
                 <Age>{boardOfDirector.attributes.birthday}</Age>
                 <SocialWrapper>
                     <TextLink href={boardOfDirector.attributes.instagramLink}>

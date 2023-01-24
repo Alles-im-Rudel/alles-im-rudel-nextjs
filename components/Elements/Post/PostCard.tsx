@@ -5,6 +5,7 @@ import _image from 'next/image'
 import TagChip from '../Tag/TagChip';
 import {Link} from '../../Button';
 import UserChip from '../User/UserChip';
+import {dateTime} from "../../../lib/dates";
 
 const Card = tw.div`
     flex
@@ -12,11 +13,12 @@ const Card = tw.div`
     gap-2
     shadow-2xl   
     w-full
+    justify-between
 `;
 
 const ImageWrapper = tw.div`
    w-full
-   h-full
+   h-[60%]
    relative
    z-0
 `;
@@ -67,7 +69,7 @@ const PostCard = ({post}: PostCardProps) => {
                     {post.title}
                 </Title>
                 <Date>
-                    {post.createdAt}
+                    {dateTime(post.createdAt)}
                 </Date>
             </TextWrapper>
             <ActionWrapper>

@@ -7,7 +7,7 @@ import tw from "twin.macro";
 
 type iHeadlineItem = {
     headline: number;
-    children: unknown
+    children: unknown;
 }
 const Headline = ({
                           headline = 1,
