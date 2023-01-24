@@ -1,3 +1,4 @@
+const colors = require("tailwindcss/colors");
 module.exports = {
   darkMode: "media",
   theme: {
@@ -23,6 +24,7 @@ module.exports = {
       gaming: '#B8B8B5',
       default: '#FF5500',
       liked: '#0362fc',
+      ...colors
     },
     fontSize: {
       small: "0.8rem",

@@ -14,23 +14,34 @@ import BranchList from "../components/Elements/Branch/BranchList";
 import {apiFetch, Endpoint} from "../lib/api";
 
 const Container = tw.div`
-    h-full
-    w-full
-    bg-default
-`;
-
-const Image = tw(_image)`
-      w-[90vw]
-      h-auto
-      object-contain
-      lg:w-[50vw]
-      lg:my-10
+    
 `;
 
 const Header = tw.div`
+    relative
+    h-[50vh]
+    overflow-hidden
     flex
     justify-center
-    min-h-[35vh]
+    items-center
+`;
+
+const Image = tw(_image)`
+      absolute
+      z-1
+      mx-auto
+      w-auto
+      h-auto
+      max-w-[90%]
+      max-h-[90%]
+`;
+
+const BackgroundImage = tw(_image)`
+    absolute
+    w-full
+    h-full
+    z-0
+    object-cover
 `;
 
 const ContentWrapper = tw.div`
@@ -45,15 +56,17 @@ const Content = tw.div`
     flex
     flex-col
     gap-5
-    mb-10
+    min-h-[50vh]
     px-4
     lg:px-0
     lg:max-w-screen-lg
 `;
 
 const Headline = tw.p`
+    mt-5
     text-center
     text-h-3
+    lg:mt-10
     lg:text-headline-lg
 `;
 
@@ -76,6 +89,12 @@ function Index({posts, boardOfDirectors, partners, branches}: IndexProps) {
             </Head>
             <Container>
                 <Header>
+                    <BackgroundImage
+                        src="/backgrounds/default.jpg"
+                        alt="Hintergrund Alles im Rudel e.V."
+                        width={1920}
+                        height={1080}
+                    />
                     <Image
                         src="/logos/logo-grey-slim.png"
                         alt="Logo Alles im Rudel e.V."
