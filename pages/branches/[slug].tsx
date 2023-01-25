@@ -58,7 +58,7 @@ const LogoImage = tw(_image)`
     w-[150px]
 `;
 
-const Headline = tw.p`
+const Headline = tw.h1`
     text-center
     text-headline-lg
     text-white
@@ -94,9 +94,14 @@ function Branch({branch}: BranchProps) {
         <>
             <Head>
                 <title> {branch.attributes.displayName} | Alles im Rudel e.V.</title>
+                <meta
+                    name="description"
+                    content={branch.attributes.slug === "airsoft" ? "Wir sind eines der größten und am meisten organisierten Airsoft-Teams im Norden Deutschlands. Mit Mitgliedern aus dem Raum Schleswig-Holstein, Hamburg, Niedersachsen und Mecklenburg-Vorpommern. Mit breit aufgestellten, kompetenten, lokalen Ansprechpartnern." : "Wir sind ein E-Sports-Team, das sich an allen möglichen Spielen versucht und sind dabei stets auf der Suche nach weiteren Spielern, die sowohl freundlich als auch teamplayfähig sind. Zwar steht bei uns der Spaß im Vordergrund, aber je nach Spiel nehmen wir auch kompetitiv an kleineren oder auch mal größeren Turnieren teil. Aktuell spielt die Mehrheit von uns vor allem League of Legends, aber auch Spiele wie Minecraft oder Hearts of Iron sind bei uns vertreten."}
+                />
             </Head>
             <Header>
                 <Image
+                    priority
                     src={branch.attributes.backgroundImage.data.attributes.url}
                     alt="Logo Alles im Rudel e.V."
                     width={1920}

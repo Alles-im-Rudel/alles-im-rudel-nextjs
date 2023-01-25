@@ -57,10 +57,29 @@ type PostProps = {
     post: iPost
 }
 export default function Post({post}: PostProps) {
+
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": post.title,
+        "image": post.image.image,
+        "datePublished": post.createdAt,
+        "dateModified": post.updatedAt,
+        "author": [{
+            "@type": "Person",
+            "name": post.user.fullName,
+        }]
+    };
+
     return (
         <>
             <Head>
                 <title> {post.title} | Alles im Rudel e.V.</title>
+                <meta
+                    name="description"
+                    content={post.title}
+                />
+                <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}} />
             </Head>
             <ContentWrapper>
                 <Divider>

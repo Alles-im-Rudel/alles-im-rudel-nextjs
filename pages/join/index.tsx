@@ -14,6 +14,7 @@ import StepHowToPay from "../../components/Join/steps/StepHowToPay";
 import StepChoosePassword from "../../components/Join/steps/StepChoosePassword";
 import StepOverview from "../../components/Join/steps/StepOverview";
 import {apiFetch, Endpoint} from "../../lib/api";
+import Head from "next/head";
 
 const Container = tw.div`
     h-full
@@ -36,6 +37,7 @@ const Text = tw(_text)`
 interface iJoin {
     branches: iBackendBranche[]
 }
+
 const Join = ({branches}: iJoin) => {
 
     const [
@@ -80,24 +82,36 @@ const Join = ({branches}: iJoin) => {
     }
 
     return (
-        <Container>
-            <Divider>
-                Interesse?
-            </Divider>
-            <ContentContainer>
-                <Text>
-                    Wir konnten dein Interesse wecken und du möchtest dem Verein beitreten? Dann fülle einfach diesen
-                    Beitrittsantrag aus!
-                    Im nächsten Schritt prüfen wir deinen Beitrittswunsch und teilen dir im Anschluss mit, ob du dich in
-                    Zukunft als stolzer Teil des Rudels bezeichnen kannst.
-                </Text>
-                <Stepper
-                    steps={[
-                        StepOne, StepTwo, StepThree, StepFour, StepFive, StepSix
-                    ]}
+        <>
+            <Head>
+                <title>Beitritt | Alles im Rudel e.V.</title>
+                <meta
+                    name="description"
+                    content="Wir konnten dein Interesse wecken und du möchtest dem Verein beitreten? Dann fülle einfach diesen Beitrittsantrag aus!
+                        Im nächsten Schritt prüfen wir deinen Beitrittswunsch und teilen dir im Anschluss mit, ob du dich in Zukunft als stolzer Teil des Rudels bezeichnen kannst."
                 />
-            </ContentContainer>
-        </Container>
+            </Head>
+            <Container>
+                <Divider>
+                    Interesse?
+                </Divider>
+                <ContentContainer>
+                    <Text>
+                        Wir konnten dein Interesse wecken und du möchtest dem Verein beitreten? Dann fülle einfach
+                        diesen
+                        Beitrittsantrag aus!
+                        Im nächsten Schritt prüfen wir deinen Beitrittswunsch und teilen dir im Anschluss mit, ob du
+                        dich in
+                        Zukunft als stolzer Teil des Rudels bezeichnen kannst.
+                    </Text>
+                    <Stepper
+                        steps={[
+                            StepOne, StepTwo, StepThree, StepFour, StepFive, StepSix
+                        ]}
+                    />
+                </ContentContainer>
+            </Container>
+        </>
     );
 };
 

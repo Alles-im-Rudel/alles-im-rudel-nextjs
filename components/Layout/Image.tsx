@@ -15,6 +15,7 @@ interface iImageWithLoader {
     width: number;
     height: number;
     props?: unknown;
+    priority?: boolean;
 }
 
 const ImageWithLoader = ({src, alt, width, height, ...props}: iImageWithLoader) => {
