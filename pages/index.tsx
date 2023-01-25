@@ -125,13 +125,21 @@ function Index({posts, boardOfDirectors, partners, branches}: IndexProps) {
                             abzubilden.
                         </Text>
                     </Content>
-                    <Divider title="News" />
+                    <Divider>
+                        News
+                    </Divider>
                     <PostsPreviewList posts={posts} />
-                    <Divider title="Der Vorstand" />
+                    <Divider>
+                        Der Vorstand
+                    </Divider>
                     <BoardOfDirectorList boardOfDirectors={boardOfDirectors} />
-                    <Divider title="Unsere Partner" />
+                    <Divider>
+                        Unsere Partner
+                    </Divider>
                     <PartnerList partners={partners} />
-                    <Divider title="Unsere Sparten" />
+                    <Divider>
+                        Unsere Sparten
+                    </Divider>
                     <BranchList branches={branches} />
                 </ContentWrapper>
             </Container>

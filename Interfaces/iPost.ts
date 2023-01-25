@@ -3,9 +3,10 @@ import iThumbnail from "./iThumbnail";
 import iUser from "./iUser";
 
 export interface IPost {
+    image: any;
     id: number;
     title: string;
-    text: string;
+    text: unknown;
     userId: number;
     updatedAt: string;
     createdAt: string;

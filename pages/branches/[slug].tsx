@@ -131,11 +131,15 @@ function Branch({branch}: BranchProps) {
                 {branch.attributes.airsoftTeam.length > 0 &&
                   <MemberList headline="Unser Team" memberList={branch.attributes.airsoftTeam} />}
                 {branch?.attributes?.partners?.data && branch?.attributes?.partners?.data.length > 0 && <>
-                  <Divider title="Unsere Partner" />
+                  <Divider>
+                    Unsere Partner
+                  </Divider>
                   <PartnerList partners={branch.attributes.partners.data} />
                 </>}
                 {branch?.attributes?.gallery.data && branch?.attributes?.gallery.data.length > 0 && <>
-                  <Divider title="Galerie" />
+                  <Divider>
+                    Galerie
+                  </Divider>
                   <Gallery gallery={branch.attributes.gallery.data} />
                 </>}
             </ContentWrapper>

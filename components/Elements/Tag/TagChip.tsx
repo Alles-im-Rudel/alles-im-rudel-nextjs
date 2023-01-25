@@ -20,13 +20,14 @@ const Chip = styled.div<ChipProps>`
   `}
 `;
 
-type TagChipProps = {
-    children: string,
-    color: string
+interface TagChipProps {
+    children: string;
+    color: string;
+    css?: unknown;
 }
-const TagChip = ({color, children}: TagChipProps) => {
+const TagChip = ({color, children, ...props}: TagChipProps) => {
     return (
-        <Chip color={color}>
+        <Chip color={color} {...props}>
             {children}
         </Chip>
     );

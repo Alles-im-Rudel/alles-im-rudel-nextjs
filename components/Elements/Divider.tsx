@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import tw from "twin.macro";
 import Headline from '../Layout/Headline';
 
@@ -7,18 +7,20 @@ const Container = tw.div`
     bg-greyBlue
     text-white
     text-center
+    flex
+    justify-center
     p-8
 `;
 
 interface DividerProps {
-    title: string;
+    children: string | ReactElement;
 }
 
-const Divider = ({title, ...props}: DividerProps) => {
+const Divider = ({children, ...props}: DividerProps) => {
     return (
         <Container {...props}>
             <Headline headline={3}>
-                {title}
+                {children}
             </Headline>
         </Container>
     );

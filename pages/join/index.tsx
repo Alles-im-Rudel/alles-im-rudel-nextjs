@@ -81,7 +81,9 @@ const Join = ({branches}: iJoin) => {
 
     return (
         <Container>
-            <Divider title="Interesse?" />
+            <Divider>
+                Interesse?
+            </Divider>
             <ContentContainer>
                 <Text>
                     Wir konnten dein Interesse wecken und du möchtest dem Verein beitreten? Dann fülle einfach diesen

@@ -3,6 +3,16 @@ import tw from "twin.macro";
 import iPost from "../../Interfaces/iPost";
 import Head from "next/head";
 import {apiFetch, Endpoint} from "../../lib/api";
+import Divider from "../../components/Elements/Divider";
+import TagChip from "../../components/Elements/Tag/TagChip";
+import {TextLink} from "../../components/Button";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import UserChip from "../../components/Elements/User/UserChip";
+import Text from "../../components/Layout/Text";
+import {dateTime} from "../../lib/dates";
+import ImageWithLoader from "../../components/Layout/Image";
+import _image from "next/image";
 
 const ContentWrapper = tw.div`
     bg-white
@@ -13,10 +23,34 @@ const ContentWrapper = tw.div`
 `;
 
 const Content = tw.div`
+    py-5
     max-w-screen-lg
     flex
     flex-col
     gap-5
+`;
+
+const DividerWrapper = tw.div`
+    flex
+    flex-col
+    justify-center
+    items-center
+`;
+
+const ActionRow = tw.div`
+    flex
+    flex-col
+    md:flex-row
+    justify-between
+    items-center
+    px-4
+    lg:px-0
+`;
+
+const Image = tw(_image)`
+   object-cover
+   h-full
+   w-full
 `;
 
 type PostProps = {
@@ -29,8 +63,27 @@ export default function Post({post}: PostProps) {
                 <title> {post.title} | Alles im Rudel e.V.</title>
             </Head>
             <ContentWrapper>
+                <Divider>
+                    <DividerWrapper>
+                        {post.title}
+                        <TagChip color={post.tag.color} css={tw`max-w-fit`}>
+                            {post.tag.name}
+                        </TagChip>
+                    </DividerWrapper>
+                </Divider>
                 <Content>
-                    {post.title}
+                    <ActionRow>
+                        <TextLink href="/">
+                            {/*@ts-ignore*/}
+                            <FontAwesomeIcon icon={faArrowLeft} css={tw`mr-2`} />
+                            Zurück
+                        </TextLink>
+                        <UserChip user={post.user} />
+                        <Text>{dateTime(post.createdAt)}</Text>
+                    </ActionRow>
+                    <Image src={post.image.image} width={1000} height={1000} alt={post.title} />
+                    {/*@ts-ignore*/}
+                    <div dangerouslySetInnerHTML={{__html: post.text}} css={tw`text-text px-4 lg:px-0`} />
                 </Content>
             </ContentWrapper>
         </>
@@ -65,5 +118,5 @@ export async function getStaticProps({params}: PostParams) {
     const post = await res
 
     // Pass post data to the page via props
-    return {props: {post: post.data}}
+    return {props: {post: post.data}, revalidate: 30}
 }

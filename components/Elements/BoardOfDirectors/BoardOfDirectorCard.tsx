@@ -61,7 +61,6 @@ const BoardOfDirectorCard = ({boardOfDirector}: BoardOfDirectorCardProps) => {
             <TextWrapper>
                 <Name>{boardOfDirector.attributes.name}</Name>
                 <Age>{age(boardOfDirector.attributes.birthday)} Jahre alt</Age>
-                <Age>{boardOfDirector.attributes.birthday}</Age>
                 <SocialWrapper>
                     <TextLink href={boardOfDirector.attributes.instagramLink}>
                         <FontAwesomeIcon icon={faInstagram} />
