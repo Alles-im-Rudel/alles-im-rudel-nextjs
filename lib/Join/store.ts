@@ -1,4 +1,4 @@
-import create from "zustand";
+import {create} from "zustand";
 import {iWhoAreYouForm} from "../../components/Join/steps/StepWhoAreYou"
 import {iWhereAreYouForm} from "../../components/Join/steps/StepWhereAreYou";
 import {iBackendBranche} from "../../Interfaces/iBranche";

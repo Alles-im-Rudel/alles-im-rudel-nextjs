@@ -90,12 +90,15 @@ function Index({posts, boardOfDirectors, partners, branches}: IndexProps) {
             <Container>
                 <Header>
                     <BackgroundImage
+                        priority
                         src="/backgrounds/default.jpg"
                         alt="Hintergrund Alles im Rudel e.V."
-                        width={1920}
-                        height={1080}
+                        fill
+                        sizes="(max-width: 768px) 100vw,
+                                (max-width: 1536px) 100vw"
                     />
                     <Image
+                        priority
                         src="/logos/logo-grey-slim.png"
                         alt="Logo Alles im Rudel e.V."
                         width={1000}
