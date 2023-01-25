@@ -101,7 +101,7 @@ const Join = ({branches}: iJoin) => {
     );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const responseBranches = await apiFetch("/branches", Endpoint.backend);
     const branches = await responseBranches;
 

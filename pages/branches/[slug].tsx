@@ -175,6 +175,7 @@ export async function getStaticProps({params}: BranchParams) {
         props: {
             branch: branche.data[0],
         },
+        revalidate: 30
     };
 }
 
