@@ -21,7 +21,7 @@ interface iImageWithLoader {
 const ImageWithLoader = ({src, alt, width, height, ...props}: iImageWithLoader) => {
     // @ts-ignore
     const myLoader = ({src, width, quality}) => {
-        return `${process.env.NEXT_PUBLIC_CONTENT_URL}/${src}?w=${width}&q=${quality || 75}`
+        return `${process.env.NEXT_PUBLIC_CONTENT_URL}${src}?w=${width}&q=${quality || 75}`
     }
 
     return (

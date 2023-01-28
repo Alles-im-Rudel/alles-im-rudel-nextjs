@@ -156,7 +156,7 @@ function Index({posts, boardOfDirectors, partners, branches}: IndexProps) {
             },
         ]
     };
-
+    
     return (
         <>
             <Head>
@@ -171,7 +171,7 @@ function Index({posts, boardOfDirectors, partners, branches}: IndexProps) {
                 <Header>
                     <BackgroundImage
                         priority
-                        src="/backgrounds/default.jpg"
+                        src="/backgrounds/default.webp"
                         alt="Hintergrund Alles im Rudel e.V."
                         fill
                         sizes="(max-width: 768px) 100vw,

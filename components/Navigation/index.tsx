@@ -57,7 +57,7 @@ const Navigation = () => {
                         src="/logos/logo-white-slim.png"
                         alt="Logo Alles im Rudel e.V."
                         width={64}
-                        height={64}
+                        height={35}
                     />
                     Alles im Rudel e.V.
                 </StyledLink>
