@@ -12,6 +12,7 @@ import LeaderCard from "../../components/Elements/LeaderCard";
 import {Link} from "../../components/Button";
 import {apiFetch} from "../../lib/api";
 import ImageWithLoader from "../../components/Layout/Image";
+import LoLTeamList from "../../components/ESports/LoLTeamList";
 
 const Header = tw.div`
     relative
@@ -90,6 +91,7 @@ type BranchProps = {
 }
 
 function Branch({branch}: BranchProps) {
+    console.log(branch.attributes.lolTeams)
     return (
         <>
             <Head>
@@ -135,6 +137,8 @@ function Branch({branch}: BranchProps) {
                 </StickyWrapperRight>
                 {branch.attributes.airsoftTeam.length > 0 &&
                   <MemberList headline="Unser Team" memberList={branch.attributes.airsoftTeam} />}
+                {branch.attributes.lolTeams.length > 0 &&
+                  <LoLTeamList teams={branch.attributes.lolTeams} />}
                 {branch?.attributes?.partners?.data && branch?.attributes?.partners?.data.length > 0 && <>
                   <Divider>
                     Unsere Partner
@@ -173,7 +177,7 @@ type BranchParams = {
 }
 
 export async function getStaticProps({params}: BranchParams) {
-    const responseBranche = await apiFetch(`/branches?filters[slug][$eq]=${params.slug}&populate[0]=*&populate[1]=backgroundImage.*&populate[2]=airsoftTeam.image&populate[3]=gallery.*&populate[4]=partners.logo&populate[5]=leader.image&populate[6]=airsoftTeam.playerBadges.image`);
+    const responseBranche = await apiFetch(`/branches?filters[slug][$eq]=${params.slug}&populate[0]=*&populate[1]=backgroundImage.*&populate[2]=airsoftTeam.image&populate[3]=gallery.*&populate[4]=partners.logo&populate[5]=leader.image&populate[6]=airsoftTeam.playerBadges.image&populate[7]=lolTeams.*&populate[8]=lolTeams.teamMembers.lolLane&populate[9]=lolTeams.teamMembers.lolLane.image&populate[10]=lolTeams.teamMembers.image`);
     const branche = await responseBranche;
 
     return {

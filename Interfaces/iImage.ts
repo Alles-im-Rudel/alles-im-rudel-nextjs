@@ -5,7 +5,7 @@ import iUser from "./iUser";
 export interface iImage {
     data: {
         attributes: {
-            alternativeText: string | null
+            alternativeText: string
             url: string
         }
         id: number

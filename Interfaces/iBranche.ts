@@ -3,6 +3,7 @@ import iPartner from "./iPartner";
 import iLeader from "./iLeader";
 import iAirsoftTeam from "./iAirsoftTeam";
 import iGallery from "./iGallery";
+import iLolTeam from "./iLoLTeam";
 
 export interface iBranche {
     id: number;
@@ -21,6 +22,7 @@ export interface iBranche {
             data: iPartner[]
         };
         airsoftTeam: iAirsoftTeam[];
+        lolTeams: iLolTeam[];
     }
 }
 

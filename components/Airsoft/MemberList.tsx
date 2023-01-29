@@ -5,7 +5,7 @@ import iAirsoftTeam from "../../Interfaces/iAirsoftTeam";
 import Member from "./Member";
 import {TextButton} from '../Button';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faChevronDown, faLink} from "@fortawesome/free-solid-svg-icons";
+import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 import styled from '@emotion/styled';
 
 const Wrapper = tw.div`
