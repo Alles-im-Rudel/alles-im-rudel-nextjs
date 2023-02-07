@@ -4,9 +4,10 @@ import Head from "next/head";
 import {apiFetch} from "../lib/api";
 import Markdown from "../components/Layout/Markdown";
 import Divider from "../components/Elements/Divider";
+import HeadlineItem from "../components/Layout/Headline";
 
 const Container = tw.div`
-    
+    mb-20
 `;
 
 const ContentWrapper = tw.div`
@@ -19,6 +20,16 @@ const ContentWrapper = tw.div`
 
 const Content = tw.div`
     lg:max-w-screen-lg
+    text-base
+`;
+
+
+const HeadlineItemThree = tw(HeadlineItem)`
+    pt-12
+`;
+
+const HeadlineItemFour = tw(HeadlineItem)`
+    pt-12
 `;
 
 type privacyNoticeProps = {
@@ -41,7 +52,10 @@ function PrivacyNotice({privacyNotice}: privacyNoticeProps) {
                         Datenschutzerklärung
                     </Divider>
                     <Content>
-                        <Markdown>
+                        <Markdown components={{
+                            "h3": ({children}: any) => <HeadlineItemThree headline={3}>{children}</HeadlineItemThree>,
+                            "h4": ({children}: any) => <HeadlineItemFour headline={4}>{children}</HeadlineItemFour>
+                        }}>
                             {privacyNotice.attributes.text}
                         </Markdown>
                     </Content>
