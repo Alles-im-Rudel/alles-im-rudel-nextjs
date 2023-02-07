@@ -21,6 +21,17 @@ const Content = tw.div`
     lg:max-w-screen-lg
 `;
 
+const ImgWrapper = tw.div`
+   w-full
+   flex
+   justify-center
+`;
+
+const StyledImg = tw.img`
+    w-[30%]
+    h-auto  
+`;
+
 type ArticelsOfAssociationProps = {
     articelsOfAssociation: any;
 }
@@ -32,7 +43,7 @@ function ArticelsOfAssociation({articelsOfAssociation}: ArticelsOfAssociationPro
                 <title>Vereinssatzung | Alles im Rudel e.V.</title>
                 <meta
                     name="description"
-                    content="Das Impressum von Alles im Rudel e.V."
+                    content="Die Vereinssatzung von Alles im Rudel e.V."
                 />
             </Head>
             <Container>
@@ -41,7 +52,7 @@ function ArticelsOfAssociation({articelsOfAssociation}: ArticelsOfAssociationPro
                         Vereinssatzung
                     </Divider>
                     <Content>
-                        <Markdown>
+                        <Markdown components={{img: ({...props}) => <ImgWrapper><StyledImg {...props} /></ImgWrapper>}}>
                             {articelsOfAssociation.attributes.text}
                         </Markdown>
                     </Content>

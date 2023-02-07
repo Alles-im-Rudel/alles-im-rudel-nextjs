@@ -32,7 +32,7 @@ function PrivacyNotice({privacyNotice}: privacyNoticeProps) {
                 <title>Datenschutzerklärung | Alles im Rudel e.V.</title>
                 <meta
                     name="description"
-                    content="Das Impressum von Alles im Rudel e.V."
+                    content="Die Datenschutzerklärung von Alles im Rudel e.V."
                 />
             </Head>
             <Container>
