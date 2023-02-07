@@ -18,7 +18,7 @@ const Image = tw(ImageWithLoader)`
 `;
 
 const LaneImage = tw(ImageWithLoader)`
-   group-hover:-translate-y-[80px]
+   group-hover:-translate-y-[100px]
    transition-all
    object-cover
    w-[50px]
@@ -31,6 +31,16 @@ const Text = tw.p`
     bottom-0
     text-center
     w-full
+    group-hover:-translate-y-[20px]
+`;
+
+const Link = tw.a`
+    absolute
+    bottom-[-30px]
+    text-center
+    w-full
+    group-hover:-translate-y-[30px]
+    cursor-pointer
 `;
 
 interface iLolMember {
@@ -55,6 +65,9 @@ const LoLMember = ({member}: iLolMember) => {
             <Text>
                 {member.name}
             </Text>
+            <Link href={`https://www.op.gg/summoners/euw/${member.lolName}`} target="_blank">
+                {member.lolName}
+            </Link>
         </Card>
     );
 };

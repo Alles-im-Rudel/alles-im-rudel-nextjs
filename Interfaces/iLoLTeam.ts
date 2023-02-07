@@ -4,6 +4,7 @@ export interface iLolTeam {
     id: number;
     name: string;
     league: string;
+    description: string;
     teamMembers: iLoLTeamMember[];
 }
 

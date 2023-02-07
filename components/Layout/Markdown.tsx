@@ -3,7 +3,12 @@ import ReactMarkdown from "react-markdown";
 import HeadlineItem from "./Headline";
 import Text from "./Text";
 import Ul, {Li} from "./Ul";
-import Link from "next/link";
+import _link from "next/link";
+import tw from 'twin.macro';
+
+const Link = tw(_link)`
+    underline
+`;
 
 const h = (headline: number) => {
     const Headline = ({children}: { children: string }) => (
@@ -15,7 +20,7 @@ const h = (headline: number) => {
 
 const defaultComponents = {
     // @ts-ignore
-    a: ({href, ...props}) => <Link href={href} {...props} />,
+    a: ({href, ...props}) => <Link href={href} {...props} target="_blank"/>,
     h1: h(1),
     h2: h(2),
     h3: h(3),

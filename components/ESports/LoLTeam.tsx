@@ -3,14 +3,20 @@ import tw from 'twin.macro';
 import iLolTeam from "../../Interfaces/iLoLTeam";
 import Headline from '../Layout/Headline';
 import LoLMember from "./LoLMember";
+import Markdown from "../Layout/Markdown";
 
 const Container = tw.div`
-
 `;
 
 const ListWrapper = tw.div`
     flex
     gap-4
+    mb-4    
+`;
+
+const LeaugeHeadline = tw(Headline)`
+    -mt-2
+    mb-6
 `;
 
 interface iLolTeamComponent {
@@ -23,12 +29,15 @@ const LoLTeam = ({team}: iLolTeamComponent) => {
             <Headline headline={3}>
                 {team.name}
             </Headline>
-            <Headline headline={4}>
+            <LeaugeHeadline headline={4}>
                 {team.league}
-            </Headline>
+            </LeaugeHeadline>
             <ListWrapper>
                 {team.teamMembers.map(member => <LoLMember key={member.id} member={member} />)}
             </ListWrapper>
+            <Markdown>
+                {team.description}
+            </Markdown>
         </Container>
     );
 };
