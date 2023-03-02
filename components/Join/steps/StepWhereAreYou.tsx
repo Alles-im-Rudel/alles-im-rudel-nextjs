@@ -5,7 +5,8 @@ import useJoinStore from "../../../lib/Join/store";
 import {SubmitHandler, useForm} from "react-hook-form";
 import Button from "../../Button";
 import useStepperStore from "../../Elements/Stepper/store";
-import shallow from "zustand/shallow";
+import {shallow} from "zustand/shallow";
+import CountrySelect from "../../Form/CountrySelect";
 
 const InputWrapper = tw.form`
     flex
@@ -54,7 +55,7 @@ const StepWhereAreYou = ({}: iStepWhereAreYou) => {
             street: "",
             postcode: "",
             city: "",
-            country: "",
+            country: "Deutschland",
         },
         mode: "onSubmit",
     });
@@ -102,7 +103,7 @@ const StepWhereAreYou = ({}: iStepWhereAreYou) => {
                 />
             </Row>
             <Row>
-                <Input
+                <CountrySelect
                     fullWidth
                     placeholder="Land auswählen"
                     name="country"
@@ -114,7 +115,7 @@ const StepWhereAreYou = ({}: iStepWhereAreYou) => {
                 />
             </Row>
             <ActionRow>
-                <Button type="button" onClick={() => previousStep()}>Zurück</Button>
+                <Button secondary type="button" onClick={() => previousStep()}>Zurück</Button>
                 <Button type="submit">Weiter</Button>
             </ActionRow>
         </InputWrapper>

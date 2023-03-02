@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import tw from 'twin.macro';
 import Input from '../../Form/Input';
 import {SubmitHandler, useForm} from "react-hook-form";
 import useJoinStore from "../../../lib/Join/store";
 import useStepperStore from "../../Elements/Stepper/store";
 import Button from "../../Button";
-import shallow from "zustand/shallow";
+import {shallow} from "zustand/shallow";
 import EmailInput from "../../Form/EmailInput";
+import SaluationSelect from '../../Form/SalutationSelect';
 
 const InputWrapper = tw.form`
     flex
@@ -69,13 +70,11 @@ const StepWhoAreYou = ({}: iStepWhoAreYou) => {
     return (
         <InputWrapper onSubmit={handleSubmit(onSubmit)}>
             <Row>
-                <Input
-                    fullWidth
+                <SaluationSelect
                     placeholder="Anrede"
                     name="salutation"
                     rules={{
                         required: true,
-                        maxLength: 20,
                     }}
                     control={control}
                 />
@@ -119,6 +118,7 @@ const StepWhoAreYou = ({}: iStepWhoAreYou) => {
                         required: true,
                         maxLength: 20,
                     }}
+                    mask="99.99.9999"
                     control={control}
                 />
             </Row>

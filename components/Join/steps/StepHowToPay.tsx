@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Headline from '../../Layout/Headline';
 import Text from "../../Layout/Text"
 import Input from "../../Form/Input";
 import Button from "../../Button";
 import tw from "twin.macro";
 import useJoinStore from "../../../lib/Join/store";
-import shallow from "zustand/shallow";
+import {shallow} from "zustand/shallow";
 import useStepperStore from "../../Elements/Stepper/store";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {iWhoAreYouForm} from "./StepWhoAreYou";
+import CountrySelect from "../../Form/CountrySelect";
+import {date, today} from "../../../lib/dates";
+import FileInput from "../../Form/FileInput";
 
 const InputWrapper = tw.form`
     flex
@@ -37,31 +39,34 @@ export type iHowToPayForm = {
     iban: string;
     bic: string;
     location: string;
-    signature: string;
+    signature: any;
+    date: string;
 }
 
 const StepHowToPay = () => {
-
-    const {handleSubmit, control} = useForm<iHowToPayForm>({
+    const {handleSubmit, control, setValue} = useForm<iHowToPayForm>({
         defaultValues: {
             firstName: "",
             lastName: "",
             street: "",
             postcode: "",
             city: "",
-            country: "",
+            country: "Deutschland",
             iban: "",
             bic: "",
             location: "",
-            signature: "",
+            signature: "null",
+            date: date(today()),
         },
         mode: "onSubmit",
     });
 
     const [
         setForm,
+        mandateReference,
     ] = useJoinStore((state) => [
         state.setForm,
+        state.mandateReference,
     ], shallow);
 
     const [
@@ -87,7 +92,7 @@ const StepHowToPay = () => {
             <Text>Gläubiger-ID: DE20AIR00002493867</Text>
             <br />
             <br />
-            <Text>Mandatsreferenz: AIR 58</Text>
+            <Text>Mandatsreferenz: {mandateReference}</Text>
             <Headline headline={3}>SEPA-Lastschrift-Mandat</Headline>
             <Text>Ich ermächtige Alles im Rudel e.V., Zahlungen von meinem Konto mittels Lastschrift einzuziehen.
                 Zugleich weise ich mein Kreditinstitut an, die von Alles im Rudel e.V. auf mein Konto gezogenen
@@ -151,7 +156,7 @@ const StepHowToPay = () => {
                         }}
                         control={control}
                     />
-                    <Input
+                    <CountrySelect
                         fullWidth
                         placeholder="Land"
                         name="country"
@@ -167,9 +172,10 @@ const StepHowToPay = () => {
                         fullWidth
                         placeholder="IBAN"
                         name="iban"
+                        mask="aa99 9999 9999 9999 9999 99"
                         rules={{
                             required: true,
-                            maxLength: 20,
+                            maxLength: 27,
                         }}
                         control={control}
                     />
@@ -177,6 +183,7 @@ const StepHowToPay = () => {
                         fullWidth
                         placeholder="BIC"
                         name="bic"
+                        mask="99999999999"
                         rules={{
                             required: true,
                             maxLength: 20,
@@ -185,7 +192,17 @@ const StepHowToPay = () => {
                     />
                 </Row>
                 <Row>
-                    10.01.2023
+                    <Input
+                        isDisabled
+                        fullWidth
+                        placeholder="Datum"
+                        name="date"
+                        rules={{
+                            required: true,
+                            maxLength: 10,
+                        }}
+                        control={control}
+                    />
                     <Input
                         fullWidth
                         placeholder="Ort"
@@ -196,19 +213,16 @@ const StepHowToPay = () => {
                         }}
                         control={control}
                     />
-                    <Input
-                        fullWidth
-                        placeholder="Unterschrift"
+                    <FileInput
+                        placeholder="Unterschrift Hochladen"
                         name="signature"
-                        rules={{
-                            required: true,
-                            maxLength: 20,
+                        onChange={(event: any) => {
+                            setValue("signature", event.target.files[0] );
                         }}
-                        control={control}
                     />
                 </Row>
                 <ActionRow>
-                    <Button type="button" onClick={() => previousStep()}>Zurück</Button>
+                    <Button secondary type="button" onClick={() => previousStep()}>Zurück</Button>
                     <Button type="submit">Weiter</Button>
                 </ActionRow>
             </InputWrapper>

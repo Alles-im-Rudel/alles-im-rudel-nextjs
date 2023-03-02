@@ -9,8 +9,9 @@ import styled from "@emotion/styled";
 import FormError from "./FormError";
 import ErrorMessage from "./ErrorMessage";
 import tw from "twin.macro";
-import {faCheck, faRightToBracket, faSpinner, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faSpinner, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import InputMask from "react-input-mask";
 
 interface iWrapper {
     css?: unknown
@@ -49,7 +50,7 @@ const IconWrapper = styled.div<iIconWrapper>`
   top: 0;
 `;
 
-export const StyledInput = styled.input`
+export const StyledInput = styled(InputMask)`
   width: 100%;
   padding: 15px 0 0;
   outline: none;
@@ -101,6 +102,8 @@ interface iInput {
     control: any;
     isLoading?: boolean;
     isValid?: boolean | null;
+    mask?: string | (string | RegExp)[];
+    maskPlaceholder?: string | null;
 }
 
 const Input = ({
@@ -114,6 +117,7 @@ const Input = ({
                    resetField,
                    isLoading,
                    isValid = null,
+                   mask = "",
                    ...props
                }: iInput) => {
     const {field, fieldState} = useController(props);
@@ -145,6 +149,8 @@ const Input = ({
                             ? "off"
                             : "on"
                     }
+                    mask={mask}
+                    maskPlaceholder={props.maskPlaceholder}
                     disabled={isDisabled}
                     {...field}
                     {...{type, ...props}}

@@ -5,6 +5,7 @@ import {iBackendBranche} from "../../Interfaces/iBranche";
 import {iHowToPayForm} from "../../components/Join/steps/StepHowToPay";
 import {iChoosPasswordForm} from "../../components/Join/steps/StepChoosePassword";
 import {iOverviewForm} from "../../components/Join/steps/StepOverview";
+import {apiFetch, Endpoint} from "../api";
 
 export interface iForm {
     salutation: string;
@@ -27,9 +28,11 @@ export interface iForm {
 interface iJoinStore {
     form: iForm;
     branches: iBackendBranche[] | [];
+    mandateReference: string;
     setForm: (form: iWhoAreYouForm | iWhereAreYouForm | { branchIds: number[] } | { mandat: iHowToPayForm } | iChoosPasswordForm | iOverviewForm) => void;
     setBranches: (branches: iBackendBranche[]) => void;
     submit: () => void;
+    getMandateReference: () => void;
 }
 
 const useStore = create<iJoinStore>((set, get) => ({
@@ -56,12 +59,14 @@ const useStore = create<iJoinStore>((set, get) => ({
             bic: "",
             location: "",
             signature: "",
+            date: "",
         },
         hasAcceptedDataProtection: false,
         hasAcceptedMonthlyDebits: false,
         wantsEmailNotification: false,
     },
     branches: [],
+    mandateReference: "",
 
     setForm: (form) => {
         set({
@@ -77,7 +82,26 @@ const useStore = create<iJoinStore>((set, get) => ({
         })
     },
 
+    getMandateReference: () => {
+        apiFetch("/get-mandate-refernce-id", Endpoint.backend)
+            .then(({data}) => {
+                set({mandateReference: data})
+        }).catch(() => {
+            set({mandateReference: "error"})
+        })
+    },
+
     submit: () => {
+        console.log(get().form)
+        /*apiFetch("/member-ship-applications", Endpoint.backend, {
+            // @ts-ignore
+            method: "POST",
+            body: JSON.stringify(get().form)
+        }).then(() => {
+
+        }).catch(() => {
+
+        })*/
 
     },
 

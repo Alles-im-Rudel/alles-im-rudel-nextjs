@@ -3,7 +3,7 @@ import Input from "../../Form/Input";
 import Button from "../../Button";
 import tw from "twin.macro";
 import useJoinStore from "../../../lib/Join/store";
-import shallow from "zustand/shallow";
+import {shallow} from "zustand/shallow";
 import useStepperStore from "../../Elements/Stepper/store";
 import {SubmitHandler, useForm} from "react-hook-form";
 
@@ -65,6 +65,7 @@ const StepHowToPay = () => {
                         fullWidth
                         placeholder="Passwort"
                         name="password"
+                        type="password"
                         rules={{
                             required: true,
                             maxLength: 20,
@@ -75,6 +76,7 @@ const StepHowToPay = () => {
                         fullWidth
                         placeholder="Passwort wiederholen"
                         name="passwordRepeat"
+                        type="password"
                         rules={{
                             required: true,
                             maxLength: 20,
@@ -83,7 +85,7 @@ const StepHowToPay = () => {
                     />
                 </Row>
                 <ActionRow>
-                    <Button type="button" onClick={() => previousStep()}>Zurück</Button>
+                    <Button secondary type="button" onClick={() => previousStep()}>Zurück</Button>
                     <Button type="submit">Weiter</Button>
                 </ActionRow>
             </InputWrapper>

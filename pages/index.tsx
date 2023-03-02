@@ -1,5 +1,5 @@
 import tw from "twin.macro";
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import _image from "next/image";
 import Divider from "../components/Elements/Divider";
 import IPost from "../Interfaces/iPost";
@@ -27,20 +27,22 @@ const Header = tw.div`
 `;
 
 const Image = tw(_image)`
-      absolute
-      z-1
-      mx-auto
-      w-auto
-      h-auto
-      max-w-[90%]
-      max-h-[90%]
+    absolute
+    z-1
+    mx-auto
+    w-auto
+    h-auto
+    max-w-[90%]
+    max-h-[90%]
 `;
 
 const BackgroundImage = tw(_image)`
     absolute
     w-full
-    h-full
     z-0
+    lg:h-[unset]
+    lg:object-[unset]
+    h-screen
     object-cover
 `;
 
@@ -156,7 +158,29 @@ function Index({posts, boardOfDirectors, partners, branches}: IndexProps) {
             },
         ]
     };
-    
+
+    const headerRef = useRef();
+    const backgroundRef = useRef();
+
+    const onScroll = () => {
+        if (!headerRef.current) return;
+        if (!backgroundRef.current) return;
+        // @ts-ignore
+        const y = headerRef.current.getBoundingClientRect().y;
+        if (y >= (window.innerHeight * -1)) {
+            // @ts-ignore
+            backgroundRef.current.style.top = (headerRef.current.getBoundingClientRect().y * -0.3) - 100 + "px";
+        }
+    };
+
+    useEffect(() => {
+        onScroll();
+        window.addEventListener("scroll", onScroll, {passive: true});
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+        };
+    }, [headerRef]);
+
     return (
         <>
             <Head>
@@ -168,14 +192,15 @@ function Index({posts, boardOfDirectors, partners, branches}: IndexProps) {
                 <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}} />
             </Head>
             <Container>
-                <Header>
-                    <BackgroundImage
+                {/* @ts-ignore*/}
+                <Header ref={headerRef}>
+                    {/* @ts-ignore*/}
+                    <BackgroundImage ref={backgroundRef}
                         priority
-                        src="/backgrounds/default.webp"
+                        src="/backgrounds/default.jpg"
                         alt="Hintergrund Alles im Rudel e.V."
-                        fill
-                        sizes="(max-width: 768px) 100vw,
-                                (max-width: 1536px) 100vw"
+                        width={1920}
+                        height={1080}
                     />
                     <Image
                         priority

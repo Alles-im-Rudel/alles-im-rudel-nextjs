@@ -1,12 +1,11 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import Headline from "../../Layout/Headline";
-import Button from "../../Button";
 import tw from "twin.macro";
 import iStep from "./iStep";
 import styled from '@emotion/styled';
 import {css} from '@emotion/react';
 import useStepStore from "./store";
-import shallow from "zustand/shallow";
+import {shallow} from "zustand/shallow";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 

@@ -21,6 +21,7 @@ export const style = css`
 export const stylePrimary = css`
   ${tw`
     bg-primary
+    text-white
   `};
 `;
 interface iStyledButton {
@@ -40,6 +41,11 @@ const StyledLink = styled(_link)<iStyledLink>`
 const greyBlueBg = tw`
     text-white
     bg-greyBlue
+`;
+
+const secondaryBg = tw`
+    text-black
+    bg-secondary
 `;
 
 type StyledTextLink = {
@@ -74,12 +80,22 @@ const StyledTextButton = styled.button<StyledTextLink>`
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     greyBlue?: boolean;
+    secondary?: boolean;
     children: any;
 }
-const Button: React.FC<ButtonProps> = ({greyBlue, children, ...props}) => {
+const Button: React.FC<ButtonProps> = ({greyBlue, secondary, children, ...props}) => {
     if (greyBlue) {
         return (
             <StyledButton css={greyBlueBg} {...props}>
+                <HoverContainer>
+                    {children}
+                </HoverContainer>
+            </StyledButton>
+        );
+    }
+    if (secondary) {
+        return (
+            <StyledButton css={secondaryBg} {...props}>
                 <HoverContainer>
                     {children}
                 </HoverContainer>

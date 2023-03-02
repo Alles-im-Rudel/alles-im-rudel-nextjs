@@ -80,7 +80,7 @@ const Navigation = () => {
                         <FontAwesomeIcon icon={faAward} /> Beitritt
                     </Link>
                     <VerticalLine />
-                    <Link href="/login">
+                    <Link href={`${process.env.NEXT_PUBLIC_ADMIN_URL}/login`}>
                         <FontAwesomeIcon icon={faRightToBracket} />
                     </Link>
                 </LinkWrapper>

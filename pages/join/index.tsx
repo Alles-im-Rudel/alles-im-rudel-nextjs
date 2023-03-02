@@ -8,7 +8,7 @@ import Stepper from '../../components/Elements/Stepper';
 import iStep from "../../components/Elements/Stepper/iStep";
 import StepBranchSelect from "../../components/Join/steps/StepBranchSelect";
 import useJoinStore from "../../lib/Join/store";
-import shallow from "zustand/shallow";
+import {shallow} from "zustand/shallow";
 import {iBackendBranche} from "../../Interfaces/iBranche";
 import StepHowToPay from "../../components/Join/steps/StepHowToPay";
 import StepChoosePassword from "../../components/Join/steps/StepChoosePassword";
@@ -42,14 +42,20 @@ const Join = ({branches}: iJoin) => {
 
     const [
         setBranches,
+        getMandateReference,
     ] = useJoinStore((state) => [
         state.setBranches,
+        state.getMandateReference,
     ], shallow);
 
 
     useEffect(() => {
         setBranches(branches)
-    }, [branches, setBranches])
+    }, [branches, setBranches]);
+
+    useEffect(() => {
+        getMandateReference();
+    }, [getMandateReference]);
 
     const StepOne: iStep = {
         headline: "Wer bist du?",

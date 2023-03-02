@@ -4,7 +4,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import useJoinStore from "../../../../lib/Join/store";
 import useStepperStore from "../../../Elements/Stepper/store";
 import Button from "../../../Button";
-import shallow from "zustand/shallow";
+import {shallow} from "zustand/shallow";
 import BranchSelect from "./BranchSelect";
 
 const InputWrapper = tw.form`
@@ -60,7 +60,7 @@ const StepBranchSelect = ({}) => {
     });
 
     const onSubmit: SubmitHandler<iBranchSelectForm> = (data) => {
-        let ids :number[] = [];
+        let ids: number[] = [];
         // @ts-ignore
         branches.forEach(branch => data[branch.name] && ids.push(branch.id))
         setForm({branchIds: ids});
@@ -70,12 +70,10 @@ const StepBranchSelect = ({}) => {
     return (
         <InputWrapper onSubmit={handleSubmit(onSubmit)}>
             <Row>
-                {branches.map(branch => <BranchSelect key={branch.id} branch={branch} control={control}/>)
-
-                }
+                {branches.map(branch => <BranchSelect key={branch.id} branch={branch} control={control} />)}
             </Row>
             <ActionRow>
-                <Button type="button" onClick={() => previousStep()}>Zurück</Button>
+                <Button secondary type="button" onClick={() => previousStep()}>Zurück</Button>
                 <Button type="submit">Weiter</Button>
             </ActionRow>
         </InputWrapper>

@@ -3,7 +3,7 @@ import tw from 'twin.macro';
 import iStep from './iStep';
 import Step from './Step';
 import useStepStore from "./store";
-import shallow from "zustand/shallow";
+import {shallow} from "zustand/shallow";
 
 const Container = tw.div`
 `;

@@ -3,7 +3,7 @@ import tw from 'twin.macro';
 import Headline from '../../Layout/Headline';
 import Text from '../../Layout/Text';
 import useJoinStore from "../../../lib/Join/store";
-import shallow from "zustand/shallow";
+import {shallow} from "zustand/shallow";
 import Button from "../../Button";
 import useStepperStore from "../../Elements/Stepper/store";
 import {SubmitHandler, useForm} from "react-hook-form";
@@ -160,8 +160,8 @@ const StepOverview = () => {
                 </InputWrapper>
             </FormWrapper>
             <ActionRow>
-                <Button type="button" onClick={() => previousStep()}>Zurück</Button>
-                <Button type="submit">Weiter</Button>
+                <Button secondary type="button" onClick={() => previousStep()}>Zurück</Button>
+                <Button type="submit">Beitreten</Button>
             </ActionRow>
         </form>
     );
