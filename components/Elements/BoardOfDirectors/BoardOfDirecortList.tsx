@@ -4,14 +4,13 @@ import iBoardOfDirecor from "../../../Interfaces/iBoardOfDirecor";
 import BoardOfDirectorCard from "./BoardOfDirectorCard";
 
 const ListWrapper = tw.div`
+    max-w-screen-xl
     flex
-    gap-10
-    my-20
-    mx-1
-    flex-col
-    md:m-20
-    md:flex-row
-    lg:max-w-screen-lg
+    gap-small
+    my-base
+    mx-small
+    flex-wrap
+    justify-center
 `;
 
 type BoardOfDirectorsProps = {

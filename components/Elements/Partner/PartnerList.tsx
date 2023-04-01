@@ -4,22 +4,25 @@ import tw from "twin.macro";
 import ImageWithLoader from "../../Layout/Image"
 
 const ImageWrapper = tw.div`
+    max-w-screen-xl
     flex
     flex-col
-    my-10
+    my-base
+    px-small
     items-center
-    lg:gap-5
+    gap-base
 `;
 
 const Image = tw(ImageWithLoader)`
    object-contain
-   h-40
-   w-2/3
+   max-h-[16rem]
+   h-fit
+   w-full
 `;
 
 
 type PartnerListProps = {
-    partners: iPartner[]
+    partners: iPartner[];
 }
 const PartnerList = ({partners, ...props}: PartnerListProps) => {
     return (

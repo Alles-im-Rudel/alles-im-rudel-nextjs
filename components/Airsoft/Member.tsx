@@ -10,7 +10,7 @@ import ImageWithLoader from "../Layout/Image";
 
 const Card = tw.div`
     relative
-    h-[340px]
+    h-64
     w-fit
     overflow-hidden
 `;
@@ -42,8 +42,8 @@ const TopWrapper = tw.div`
 const BadgeWrapper = tw.div`
     relative
     flex
-    m-3
-    gap-2
+    m-smaller
+    gap-smaller
     w-full
     justify-center
 `;

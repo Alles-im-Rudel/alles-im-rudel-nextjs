@@ -23,28 +23,28 @@ const ContentWrapper = tw.div`
 `;
 
 const Content = tw.div`
-    py-5
-    max-w-screen-lg
+    px-small
+    py-small
+    max-w-screen-xl
     flex
     flex-col
-    gap-5
+    gap-small
 `;
 
 const DividerWrapper = tw.div`
     flex
     flex-col
+    gap-smaller
     justify-center
     items-center
 `;
 
 const ActionRow = tw.div`
     flex
-    flex-col
-    md:flex-row
+    flex-row
+    flex-wrap
     justify-between
     items-center
-    px-4
-    lg:px-0
 `;
 
 const Image = tw(_image)`
@@ -102,7 +102,7 @@ export default function Post({post}: PostProps) {
                     </ActionRow>
                     <Image src={post.image.image} width={1000} height={1000} alt={post.title} />
                     {/*@ts-ignore*/}
-                    <div dangerouslySetInnerHTML={{__html: post.text}} css={tw`text-text px-4 lg:px-0`} />
+                    <div dangerouslySetInnerHTML={{__html: post.text}} css={tw`text-text`} />
                 </Content>
             </ContentWrapper>
         </>

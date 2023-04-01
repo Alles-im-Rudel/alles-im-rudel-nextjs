@@ -5,7 +5,7 @@ import ImageWithLoader from "../Layout/Image";
 
 
 const Card = tw.div`
-  h-[340px]
+  h-64
   w-fit
   relative
   overflow-hidden
@@ -21,8 +21,8 @@ const LaneImage = tw(ImageWithLoader)`
    group-hover:-translate-y-[100px]
    transition-all
    object-cover
-   w-[50px]
-   h-[50px]
+   w-12
+   h-12
    mx-auto
 `;
 

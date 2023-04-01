@@ -11,15 +11,15 @@ const FooterWrapper = tw.div`
     w-full
     justify-center
     items-center
-    py-10
-    gap-4
+    py-base
+    gap-smaller
 `;
 
 const ActionWrapper = tw.div`
     flex
     flex-col
     items-center
-    gap-3
+    gap-smaller
     md:flex-row
 `;
 

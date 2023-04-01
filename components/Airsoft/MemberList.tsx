@@ -9,17 +9,15 @@ import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 import styled from '@emotion/styled';
 
 const Wrapper = tw.div`
-    max-w-screen-lg
+    max-w-screen-xl
     w-full
-    my-10
-    px-4
-    lg:px-0
+    my-base
+    px-small
 `;
 
 const ListHeadline = tw.div`
     border-b
-    px-5
-    mb-10
+    mb-small
     flex
     justify-between
     items-center
@@ -28,7 +26,7 @@ const ListHeadline = tw.div`
 
 const ListWrapper = tw.div`
     flex
-    gap-4
+    gap-smaller
     transition-all
     overflow-hidden
     max-h-0

@@ -4,14 +4,13 @@ import PostCard from "./PostCard";
 import tw from "twin.macro";
 
 const ListWrapper = tw.div`
+    max-w-screen-xl
     flex
-    gap-10
-    my-20
-    px-4
-    flex-col
-    lg:flex-row
-    lg:px-0
-    lg:max-w-screen-lg
+    gap-small
+    my-base
+    px-small
+    flex-wrap
+    justify-center
 `;
 
 interface PostsProps {

@@ -9,19 +9,18 @@ const Chip = tw.div`
     flex
     overflow-hidden
     w-fit
-    h-[32px]
     items-center
 `;
 
 const Image = tw(_image)`
    object-cover
    rounded-full
-   h-[32px]
-   w-[32px]
+   h-7
+   w-7
 `;
 
 const Title = tw.div`
-    px-3
+    px-smaller
     text-black
     text-small
 `;

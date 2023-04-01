@@ -5,16 +5,17 @@ import iBoardOfDirecor from "../../../Interfaces/iBoardOfDirecor";
 import {TextLink} from "../../Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInstagram, faLinkedin, faSnapchat} from '@fortawesome/free-brands-svg-icons';
-import { age } from '../../../lib/dates';
+import {age} from '../../../lib/dates';
 
 const Card = tw.div`
     flex
     flex-col
-    gap-3
+    shadow-xl
+    justify-between
 `;
 
 const ImageWrapper = tw.div`
-   h-[500px]
+   h-96
    w-fit
 `;
 
@@ -27,13 +28,14 @@ const Image = tw(ImageWithLoader)`
 const TextWrapper = tw.div`
     flex
     flex-col
-    gap-3
+    gap-smaller
     items-center
+    m-smaller
 `;
 
 const SocialWrapper = tw.div`
     flex
-    gap-2
+    gap-smaller
 `;
 
 const Name = tw.div`
@@ -59,8 +61,10 @@ const BoardOfDirectorCard = ({boardOfDirector}: BoardOfDirectorCardProps) => {
                 />
             </ImageWrapper>
             <TextWrapper>
-                <Name>{boardOfDirector.attributes.name}</Name>
-                <Age>{age(boardOfDirector.attributes.birthday)} Jahre alt</Age>
+                <Name>
+                    {boardOfDirector.attributes.name}
+                    <Age>{age(boardOfDirector.attributes.birthday)} Jahre alt</Age>
+                </Name>
                 <SocialWrapper>
                     <TextLink href={boardOfDirector.attributes.instagramLink}>
                         <FontAwesomeIcon icon={faInstagram} />

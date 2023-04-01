@@ -9,7 +9,7 @@ const Container = tw.div`
     text-center
     flex
     justify-center
-    p-8
+    p-small
 `;
 
 interface DividerProps {
@@ -19,7 +19,7 @@ interface DividerProps {
 const Divider = ({children, ...props}: DividerProps) => {
     return (
         <Container {...props}>
-            <Headline headline={3}>
+            <Headline headline={2}>
                 {children}
             </Headline>
         </Container>

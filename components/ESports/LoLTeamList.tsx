@@ -6,10 +6,11 @@ import LoLTeam from "./LoLTeam";
 const List = tw.div`
     flex
     flex-col
-    gap-32
-    max-w-screen-lg
+    gap-base
+    max-w-screen-xl
+    p-small
     w-full
-    my-20
+    my-base
 `;
 
 interface iLoLTeamList {

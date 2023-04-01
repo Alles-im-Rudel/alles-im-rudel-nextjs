@@ -27,11 +27,12 @@ const Container = tw.div`
 
 
 const ContentContainer = tw.div`
-    max-w-screen-lg
+    max-w-screen-xl
+    px-small
  `;
 
 const Text = tw(_text)`
-    my-10
+    my-base
 `;
 
 interface iJoin {

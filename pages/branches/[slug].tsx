@@ -28,16 +28,15 @@ const ContentWrapper = tw.div`
     flex-col
     justify-center
     items-center
-    mt-10
+    mt-base
 `;
 
 const Content = tw.div`
-    max-w-screen-lg
+    max-w-screen-xl
+    px-small
     flex
     flex-col
-    gap-5
-    px-4
-    lg:px-0
+    gap-small
 `;
 
 const Image = tw(ImageWithLoader)`
@@ -56,32 +55,32 @@ const HeadlineWrapper = tw.div`
 `;
 
 const LogoImage = tw(_image)`
-    w-[150px]
+    w-72
 `;
 
 const Headline = tw.h1`
     text-center
-    text-headline-lg
+    text-headline
     text-white
     uppercase
 `;
 
 const StickyWrapperRight = tw.div`
-    lg:absolute
-    top-32
-    right-32
+    xl:absolute
+    top-base
+    right-base
     z-20
     h-full
-    mt-10
-    lg:mt-0
+    mt-base
+    xl:mt-0
 `;
 
 const StickyWrapperLeft = tw.div`
     hidden
     lg:block
     absolute
-    top-32
-    left-32
+    top-base
+    left-base
     z-20
     h-full
 `;
@@ -123,7 +122,7 @@ function Branch({branch}: BranchProps) {
             </Header>
             <ContentWrapper>
                 <StickyWrapperLeft>
-                    <Link href="/join" css={tw`sticky top-32`}>
+                    <Link href="/join" css={tw`sticky top-base`}>
                         Join now
                     </Link>
                 </StickyWrapperLeft>

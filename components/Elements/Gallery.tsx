@@ -10,7 +10,7 @@ import ImageWithLoader from "../Layout/Image";
 const Wrapper = tw.div`
     relative
     w-full
-    h-[80vh]
+    h-[40vw]
     overflow-hidden
 `;
 
@@ -29,7 +29,7 @@ const AbsoluteWrapper = tw.div`
    flex
    justify-center
    items-center
-   gap-5
+   gap-small
    text-white
 `;
 
@@ -50,7 +50,7 @@ const Image = tw(ImageWithLoader)`
 
 const DotList = tw.div`
     absolute
-    bottom-4
+    bottom-smaller
     left-0
     w-full
     flex
@@ -66,8 +66,8 @@ const Dot = styled.div<iDot>`
   ${tw`
      cursor-pointer
      rounded-full
-     h-4
-     w-4
+     h-smaller
+     w-smaller
   `}
   ${({isActive}) => isActive ? tw`bg-white` : tw`bg-secondary`}
 `;

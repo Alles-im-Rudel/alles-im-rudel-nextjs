@@ -6,17 +6,16 @@ import LoLMember from "./LoLMember";
 import Markdown from "../Layout/Markdown";
 
 const Container = tw.div`
+    flex
+    flex-col
+    gap-smaller
 `;
 
 const ListWrapper = tw.div`
     flex
-    gap-4
-    mb-4    
-`;
-
-const LeaugeHeadline = tw(Headline)`
-    -mt-2
-    mb-6
+    gap-small
+    flex-wrap
+    justify-center
 `;
 
 interface iLolTeamComponent {
@@ -29,9 +28,9 @@ const LoLTeam = ({team}: iLolTeamComponent) => {
             <Headline headline={3}>
                 {team.name}
             </Headline>
-            <LeaugeHeadline headline={4}>
+            <Headline headline={4}>
                 {team.league}
-            </LeaugeHeadline>
+            </Headline>
             <ListWrapper>
                 {team.teamMembers.map(member => <LoLMember key={member.id} member={member} />)}
             </ListWrapper>

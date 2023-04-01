@@ -12,6 +12,8 @@ import PartnerList from "../components/Elements/Partner/PartnerList";
 import iBranche from "../Interfaces/iBranche";
 import BranchList from "../components/Elements/Branch/BranchList";
 import {apiFetch, Endpoint} from "../lib/api";
+import _headline from "../components/Layout/Headline";
+import _text from "../components/Layout/Text";
 
 const Container = tw.div`
     
@@ -26,14 +28,16 @@ const Header = tw.div`
     items-center
 `;
 
-const Image = tw(_image)`
-    absolute
+const ImageContainer = tw.div`
     z-1
-    mx-auto
-    w-auto
-    h-auto
-    max-w-[90%]
-    max-h-[90%]
+    h-full
+    py-small
+    px-small
+`;
+
+const Image = tw(_image)`
+    h-full
+    object-contain
 `;
 
 const BackgroundImage = tw(_image)`
@@ -57,22 +61,18 @@ const ContentWrapper = tw.div`
 const Content = tw.div`
     flex
     flex-col
-    gap-5
-    min-h-[50vh]
-    px-4
-    lg:px-0
-    lg:max-w-screen-lg
+    px-small
+    py-base
+    gap-smaller
+    max-w-screen-xl
+    break-words
 `;
 
-const Headline = tw.p`
-    mt-5
+const Headline = tw(_headline)`
     text-center
-    text-h-3
-    lg:mt-10
-    lg:text-headline-lg
 `;
 
-const Text = tw.p`
+const Text = tw(_text)`
     text-center
 `;
 
@@ -202,18 +202,19 @@ function Index({posts, boardOfDirectors, partners, branches}: IndexProps) {
                         width={1920}
                         height={1080}
                     />
-                    <Image
-                        priority
-                        src="/logos/logo-grey-slim.png"
-                        alt="Logo Alles im Rudel e.V."
-                        width={1000}
-                        height={550}
-                    />
+                    <ImageContainer>
+                        <Image
+                            priority
+                            src="/logos/logo-grey-slim.png"
+                            alt="Logo Alles im Rudel e.V."
+                            width={1000}
+                            height={550}
+                        />
+                    </ImageContainer>
                 </Header>
                 <ContentWrapper>
                     <Content>
-                        <Headline>Willkommen</Headline>
-                        <Text>bei Alles im Rudel e.V.</Text>
+                        <Headline headline={1}>Willkommen bei Alles im Rudel e.V.</Headline>
                         <Text>
                             Wir sind ein stetig wachsender Verein mit Sitz in Elmshorn, dessen Zweck es ist, sich für
                             den

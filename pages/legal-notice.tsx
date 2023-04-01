@@ -19,7 +19,7 @@ const ContentWrapper = tw.div`
 `;
 
 const Content = tw.div`
-    lg:max-w-screen-lg
+    lg:max-w-screen-xl
 `;
 
 const HeadlineItemThree = tw(HeadlineItem)`

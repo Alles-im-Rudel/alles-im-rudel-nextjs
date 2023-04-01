@@ -17,7 +17,7 @@ const InputWrapper = tw.form`
 
 const Row = tw.div`
     flex
-    gap-6
+    gap-smaller
 `;
 
 const ActionRow = tw.div`
@@ -126,7 +126,7 @@ const StepWhoAreYou = ({}: iStepWhoAreYou) => {
                 <EmailInput
                     rules={{
                         required: true,
-                        maxLength: 20,
+                        maxLength: 40,
                     }}
                     control={control}
                     watchEmail={watchEmail}

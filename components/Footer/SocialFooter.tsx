@@ -6,26 +6,28 @@ import {faDiscord, faFacebook, faInstagram, faTwitch, faYoutube} from '@fortawes
 
 const Container = tw.div`
     w-full
-    bg-greyBlue 
+    bg-greyBlue
 `;
 
 const Wrapper = tw.div`
-    max-w-screen-lg
+    max-w-screen-xl
     flex
     flex-col
+    md:flex-row
     text-text
     text-white
     text-center
-    p-3
+    px-small
+    py-smaller
     justify-between
     m-auto
     items-center
-    md:flex-row
-`
+    gap-smaller
+`;
 
 const ItemWrapper = tw.div`
     flex
-    gap-3
+    gap-smaller
 `;
 
 const SocialFooter = () => {

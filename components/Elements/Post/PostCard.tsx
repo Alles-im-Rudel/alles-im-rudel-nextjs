@@ -10,15 +10,15 @@ import {dateTime} from "../../../lib/dates";
 const Card = tw.div`
     flex
     flex-col
-    gap-2
-    shadow-2xl   
-    w-full
+    gap-smaller
+    shadow-xl
     justify-between
+    max-w-[19.5rem]
 `;
 
 const ImageWrapper = tw.div`
+   h-72
    w-full
-   h-[60%]
    relative
    z-0
 `;
@@ -38,14 +38,14 @@ const Date = tw.p`
 `;
 
 const TextWrapper = tw.div`
-    p-3
+    px-smaller
 `;
 
 const ActionWrapper = tw.div`
     flex
     justify-between
     items-center
-    p-3
+    p-smaller
     border-t
     border-t-secondary
 `;

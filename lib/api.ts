@@ -1,3 +1,5 @@
+import {storageLocal} from "./StorageHandler";
+
 export enum Endpoint {
     content,
     backend
@@ -26,6 +28,11 @@ export const apiFetch = async (
             ...headers,
             'Content-Type': 'application/json',
             Accept: "application/json",
+            Authorization: {
+                toString() {
+                    return `Bearer ${storageLocal.get("accessToken", "")}`;
+                }
+            }
         },
     };
     const response = await api(url, endpoint, options);

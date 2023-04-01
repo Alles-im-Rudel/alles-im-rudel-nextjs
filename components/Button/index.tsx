@@ -13,6 +13,7 @@ export const buttonStyle = tw`
 export const style = css`
   ${tw`
     uppercase
+    text-base
     py-1
     px-2
   `};
@@ -24,9 +25,11 @@ export const stylePrimary = css`
     text-white
   `};
 `;
+
 interface iStyledButton {
     css?: unknown
 }
+
 const StyledButton = styled.button<iStyledButton>`
   ${buttonStyle}
 `;
@@ -34,6 +37,7 @@ const StyledButton = styled.button<iStyledButton>`
 interface iStyledLink {
     css?: unknown
 }
+
 const StyledLink = styled(_link)<iStyledLink>`
   ${buttonStyle}
 `;
@@ -49,12 +53,14 @@ const secondaryBg = tw`
 `;
 
 type StyledTextLink = {
-    black: null | boolean
+    black?: boolean
+    disabled?: boolean
 }
 
 interface iHoverContainer {
     css?: unknown
 }
+
 export const HoverContainer = styled.div<iHoverContainer>`
   :hover {
     background-color: rgba(255, 255, 255, 0.1);
@@ -73,9 +79,12 @@ const StyledTextLink = styled(_link)<StyledTextLink>`
 `;
 
 const StyledTextButton = styled.button<StyledTextLink>`
+  ${buttonStyle}
+  ${tw`
+      h-fit
+      bg-inherit
+  `}
   ${({black}) => black && tw`text-black`};
-  ${buttonStyle} ${
-          tw`h-fit`}
 `;
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -83,6 +92,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     secondary?: boolean;
     children: any;
 }
+
 const Button: React.FC<ButtonProps> = ({greyBlue, secondary, children, ...props}) => {
     if (greyBlue) {
         return (
