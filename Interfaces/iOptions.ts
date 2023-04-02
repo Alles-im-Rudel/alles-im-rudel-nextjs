@@ -1,7 +1,8 @@
+import {PerPageEnum} from "../lib/Management/User/store";
+
 export interface iOptions {
-    perPage: number;
+    perPage: PerPageEnum;
     page: number;
-    withOnlyTrashed: boolean;
     sortBy: string;
     total: number;
 }

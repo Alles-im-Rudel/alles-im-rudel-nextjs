@@ -3,6 +3,11 @@ import tw from "twin.macro";
 import LoadingBar from '../LoadingBar';
 import TableFooter from './TableFooter';
 import iOptions from "../../../Interfaces/iOptions";
+import TableHeader from "./TableHeader";
+import Search from '../../Form/Search';
+import {iFilters, PerPageEnum} from "../../../lib/Management/User/store";
+import Button from '../../Button';
+import BranchSelect from '../../Elements/Branch/BranchSelect';
 
 const StyledTable = tw.table`
     w-full
@@ -47,11 +52,13 @@ interface iTable {
     data: any[];
     keyValue: string;
     loading: boolean;
-    options: iOptions
-    setOptions: (key: string, value: number | string | boolean) => void;
+    options: iOptions;
+    filters: iFilters;
+    setOptions: (key: string, value: number | string | boolean | PerPageEnum) => void;
+    setFilters: (key: string, value: number | string | boolean | null) => void;
 }
 
-const Table = ({headers, data, loading, keyValue, options, setOptions}: iTable) => {
+const Table = ({headers, data, loading, keyValue, options, filters, setOptions, setFilters}: iTable) => {
 
         const getColumnData = (item: any, index: number) => {
             const header = headers[index];
@@ -63,6 +70,12 @@ const Table = ({headers, data, loading, keyValue, options, setOptions}: iTable) 
 
         return (
             <>
+                <TableHeader>
+                    Benutzerverwaltung
+                    <Search submit={(data) => setFilters("search", data.search)}/>
+                    <BranchSelect selectedBranch={filters.branchId} setBranch={(branchId) => setFilters("branchId", branchId)}/>
+                    <Button onClick={() => console.log("Download")}>Excel Download</Button>
+                </TableHeader>
                 <StyledTable>
                     <thead>
                     <StyledTrHeading>

@@ -6,7 +6,7 @@ import Table from '../../components/Layout/Table/Table';
 import useUserStore from "../../lib/Management/User/store";
 import {shallow} from "zustand/shallow";
 import {dateTime} from "../../lib/dates";
-import {faCheck, faChevronRight, faMagnifyingGlass, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faMagnifyingGlass, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {TextButton} from "../../components/Button";
 
@@ -21,15 +21,19 @@ const Managment = () => {
     const [
         loading,
         options,
+        filters,
         users,
         getUsers,
         setOptions,
+        setFilters,
     ] = useUserStore((state) => [
         state.loading,
         state.options,
+        state.filters,
         state.users,
         state.getUsers,
-        state.setOptions
+        state.setOptions,
+        state.setFilters
     ], shallow);
 
     useEffect(() => {
@@ -40,7 +44,7 @@ const Managment = () => {
         if (!loading) {
             getUsers();
         }
-    }, [options.page, options.sortBy, options.withOnlyTrashed, options.perPage]);
+    }, [options.page, options.sortBy, options.perPage, filters.withOnlyTrashed, filters.search, filters.branchId]);
 
     const tableHeaders = [
         {
@@ -105,7 +109,9 @@ const Managment = () => {
                     keyValue="id"
                     loading={loading}
                     options={options}
+                    filters={filters}
                     setOptions={setOptions}
+                    setFilters={setFilters}
                 />
             </Container>
         </>

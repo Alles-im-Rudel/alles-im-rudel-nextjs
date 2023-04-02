@@ -3,23 +3,41 @@ import {apiFetch, Endpoint} from "../../api";
 import iOptions from "../../../Interfaces/iOptions";
 
 
+export enum PerPageEnum {
+    ten = 10,
+    thirty = 30,
+    fifty = 50,
+}
+
+export interface iFilters {
+    search: string,
+    branchId: null | number,
+    withOnlyTrashed: boolean,
+}
+
 interface iUserStore {
     loading: boolean;
     users: [];
     getUsers: () => void;
     options: iOptions;
-    setOptions: (key: string, value: number | string | boolean) => void;
+    filters: iFilters;
+    setOptions: (key: string, value: number | string | boolean | PerPageEnum) => void;
+    setFilters: (key: string, value: number | string | boolean | null) => void;
 }
 
 const useStore = create<iUserStore>((set, get) => ({
     loading: false,
     users: [],
     options: {
-        perPage: 10,
+        perPage: PerPageEnum.ten,
         page: 1,
-        withOnlyTrashed: false,
         sortBy: "firstName",
         total: 0,
+    },
+    filters: {
+        search: "",
+        branchId: null,
+        withOnlyTrashed: false,
     },
 
     getUsers: () => {
@@ -27,14 +45,15 @@ const useStore = create<iUserStore>((set, get) => ({
             loading: true,
         });
         const options = get().options;
+        const filters = get().filters;
 
-        apiFetch(`/users/?sortBy=${options.sortBy}&perPage=${options.perPage}&page=${options.page}&withOnlyTrashed=${options.withOnlyTrashed}`, Endpoint.backend)
+        apiFetch(`/users/?sortBy=${options.sortBy}&perPage=${options.perPage}&page=${options.page}&withOnlyTrashed=${filters.withOnlyTrashed}${filters.search ? `&search=${filters.search}` : ""}${filters.branchId ? `&branchId=${filters.branchId}`: ""}`, Endpoint.backend)
             .then((response) => {
                 set({
                     users: response.data,
                     options: {
                         ...options,
-                        perPage: response.meta.per_page,
+                        perPage: parseInt(response.meta.per_page),
                         total: response.meta.total,
                     },
                     loading: false,
@@ -50,19 +69,36 @@ const useStore = create<iUserStore>((set, get) => ({
 
     setOptions: (key, value) => {
         const options = get().options;
-        if(key === "perPage") {
+        if (key === "perPage") {
             set({
                 options: {
                     ...options,
-                    page: 1,
-                    perPage: parseInt(value)
+                    perPage: value,
+                    page: 1
+                }
+            })
+        } else {
+            set({
+                options: {
+                    ...options,
+                    [key]: value
                 }
             })
         }
+    },
+    setFilters: (key, value) => {
+        const options = get().options;
+        const filters = get().filters;
+        set({
+            filters: {
+                ...filters,
+                [key]: value,
+            }
+        })
         set({
             options: {
                 ...options,
-                [key]: value
+                page: 1,
             }
         })
     }

@@ -104,6 +104,7 @@ interface iInput {
     isValid?: boolean | null;
     mask?: string | (string | RegExp)[];
     maskPlaceholder?: string | null;
+    submit?: any;
 }
 
 const Input = ({
@@ -165,6 +166,7 @@ const Input = ({
                 {!isLoading && isValid === false && <IconWrapper css={css`${tw`text-error`}`}>
                   <FontAwesomeIcon icon={faXmark} />
                 </IconWrapper>}
+                {props.submit && <IconWrapper>{props.submit}</IconWrapper>}
             </Container>
             {fieldState.error && (
                 <ErrorMessage

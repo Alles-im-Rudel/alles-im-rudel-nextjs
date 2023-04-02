@@ -32,7 +32,6 @@ const useStore = create<iStepperStore>((set, get) => ({
     },
 
     previousStep: () => {
-        console.log(get().currentStep -1)
         set({currentStep: get().currentStep - 1});
     },
 }));
