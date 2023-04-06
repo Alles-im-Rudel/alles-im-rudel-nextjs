@@ -60,9 +60,18 @@ module.exports = {
             width: "100%",
           },
         },
+        "rotate": {
+          from: {
+            transform: "rotate(359deg)",
+          },
+          to: {
+            transform: "rotate(0deg)",
+          },
+        },
       },
       animation: {
         "loading": "animate-width 2s infinite linear",
+        "rotate": "rotate 2s infinite linear",
       },
     },
   },

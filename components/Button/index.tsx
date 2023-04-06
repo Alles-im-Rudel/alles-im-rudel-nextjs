@@ -1,8 +1,10 @@
 import {css} from '@emotion/react';
-import React from 'react';
+import React, {useState} from 'react';
 import tw from 'twin.macro';
 import styled from "@emotion/styled";
-import _link from "next/link";
+import _link, {LinkProps} from "next/link";
+import {faRightFromBracket, faSpinner} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export const buttonStyle = tw`
     rounded
@@ -52,10 +54,9 @@ const secondaryBg = tw`
     bg-secondary
 `;
 
-type StyledTextLink = {
-    black?: boolean
-    disabled?: boolean
-}
+const RotateFontAwesomeIcon = tw(FontAwesomeIcon)`
+    animate-rotate
+`;
 
 interface iHoverContainer {
     css?: unknown
@@ -73,6 +74,10 @@ export const HoverContainer = styled.div<iHoverContainer>`
   ${style}
 `;
 
+type StyledTextLink = {
+    black?: boolean
+    disabled?: boolean
+}
 const StyledTextLink = styled(_link)<StyledTextLink>`
   ${({black}) => black && tw`text-black`};
   ${buttonStyle}
@@ -90,32 +95,23 @@ const StyledTextButton = styled.button<StyledTextLink>`
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     greyBlue?: boolean;
     secondary?: boolean;
+    isLoading?: boolean;
     children: any;
 }
 
-const Button: React.FC<ButtonProps> = ({greyBlue, secondary, children, ...props}) => {
-    if (greyBlue) {
-        return (
-            <StyledButton css={greyBlueBg} {...props}>
-                <HoverContainer>
-                    {children}
-                </HoverContainer>
-            </StyledButton>
-        );
+const Button: React.FC<ButtonProps> = ({greyBlue, secondary,isLoading, children, ...props}) => {
+    const [colorCss, setColorCss] = useState<any>(stylePrimary);
+    if(greyBlue) {
+        setColorCss(greyBlueBg);
     }
-    if (secondary) {
-        return (
-            <StyledButton css={secondaryBg} {...props}>
-                <HoverContainer>
-                    {children}
-                </HoverContainer>
-            </StyledButton>
-        );
+    if(secondary) {
+        setColorCss(secondaryBg);
     }
+
     return (
-        <StyledButton css={stylePrimary} {...props}>
+        <StyledButton css={colorCss} {...props}>
             <HoverContainer>
-                {children}
+                {isLoading ? <RotateFontAwesomeIcon icon={faSpinner} /> : children}
             </HoverContainer>
         </StyledButton>
     );
@@ -123,7 +119,11 @@ const Button: React.FC<ButtonProps> = ({greyBlue, secondary, children, ...props}
 
 export default Button;
 
-export const TextButton = ({black, children, ...props}: any) => {
+interface TextButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    black?: boolean;
+    children: any;
+}
+export const TextButton = ({black, children, ...props}: TextButtonProps) => {
     return (
         <StyledTextButton black={black} {...props}>
             <HoverContainer>
@@ -133,7 +133,11 @@ export const TextButton = ({black, children, ...props}: any) => {
     );
 };
 
-export const Link = ({greyBlue, children, ...props}: any) => {
+interface iLinkProps extends LinkProps {
+    greyBlue?: boolean;
+    children: any;
+}
+export const Link = ({greyBlue, children, ...props}: iLinkProps) => {
     if (greyBlue) {
         return (
             <StyledLink
@@ -157,7 +161,11 @@ export const Link = ({greyBlue, children, ...props}: any) => {
     );
 };
 
-export const TextLink = ({black, children, ...props}: any) => {
+interface TextLinkProps extends LinkProps {
+    black?: boolean;
+    children: any;
+}
+export const TextLink = ({black = false, children, ...props}: TextLinkProps) => {
     return (
         <StyledTextLink black={black} {...props}>
             <HoverContainer>

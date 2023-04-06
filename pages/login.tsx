@@ -8,7 +8,7 @@ import _headline from '../components/Layout/Headline';
 import _button from "../components/Button";
 import useAuthStore from "../lib/Auth/store";
 import {shallow} from "zustand/shallow";
-import {useAuth} from "../hooks/useAuth";
+import {useRouter} from "next/router";
 
 const Container = tw.div`
     w-screen
@@ -79,7 +79,18 @@ export type iLoginForm = {
     password: string;
 }
 const Login = () => {
-    const {login} = useAuth();
+
+    const router = useRouter();
+
+    const [
+        login,
+        isAuth,
+        isLoading,
+    ] = useAuthStore((state) => [
+        state.login,
+        state.isAuth,
+        state.isLoading,
+    ], shallow);
 
     const {handleSubmit, control} = useForm<iLoginForm>({
         defaultValues: {
@@ -89,8 +100,9 @@ const Login = () => {
         mode: "onSubmit",
     });
 
-    const onSubmit: SubmitHandler<iLoginForm> = (data) => {
-      login(data);
+    const onSubmit: SubmitHandler<iLoginForm> = async (data) => {
+        const res = await login(data);
+        res && router.push('/');
     };
 
     return (
@@ -144,7 +156,7 @@ const Login = () => {
                                 }}
                                 control={control}
                             />
-                            <Button type="submit">Login</Button>
+                            <Button type="submit" isLoading={isLoading}>Login</Button>
                         </InputWrapper>
                     </Card>
                 </LoginContainer>

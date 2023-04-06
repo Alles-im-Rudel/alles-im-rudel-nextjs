@@ -90,7 +90,6 @@ type BranchProps = {
 }
 
 function Branch({branch}: BranchProps) {
-    console.log(branch.attributes.lolTeams)
     return (
         <>
             <Head>

@@ -13,7 +13,7 @@ interface iSaluationSelect {
     name: string;
     placeholder: string;
     rules: any;
-
+    fullWidth?: boolean;
 }
 
 const SaluationSelect = ({name, placeholder, ...props}: iSaluationSelect) => {

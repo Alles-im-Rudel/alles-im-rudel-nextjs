@@ -25,9 +25,11 @@ const ItemWrapper = styled.div<ItemWrapperProps>`
   display: ${({open}) => open ? "flex" : "none"};
   background-color: #f9f9f9;
   ${tw`
+    right-0
     flex-col
     rounded
     z-1
+    min-w-fit
     w-full
     absolute
     gap-1

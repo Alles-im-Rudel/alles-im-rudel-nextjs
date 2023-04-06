@@ -12,9 +12,11 @@ interface iAuthStore {
     tokenExpiresIn: string;
     isAuth: boolean;
     permissions: iPermission[];
+    isLoading: boolean;
     login: (form: iLoginForm) => Promise<boolean>;
-    getAuth: () => void;
-    logoutApi: () => void;
+    getAuth: () => boolean;
+    logout: () => void;
+    can: (permission: string) => boolean;
 }
 
 const useStore = create<iAuthStore>((set, get) => ({
@@ -24,8 +26,12 @@ const useStore = create<iAuthStore>((set, get) => ({
     tokenExpiresIn: storageLocal.get("tokenExpiresIn", ""),
     isAuth: storageLocal.getBoolean("isAuth"),
     permissions: storageLocal.getJson("permissions", []),
+    isLoading: false,
 
     login: async (form) => {
+        set({
+           isLoading: true
+        });
         return await apiFetch("/login", Endpoint.backend, {
             // @ts-ignore
             method: "POST",
@@ -45,6 +51,7 @@ const useStore = create<iAuthStore>((set, get) => ({
                     tokenExpiresIn: response.tokens.expires_in,
                     isAuth: true,
                     permissions: response.permissions,
+                    isLoading: false,
                 });
                 return true;
             })
@@ -60,6 +67,7 @@ const useStore = create<iAuthStore>((set, get) => ({
                     tokenExpiresIn: "",
                     isAuth: false,
                     permissions: [],
+                    isLoading: false,
                 })
                 return false;
             })
@@ -93,6 +101,8 @@ const useStore = create<iAuthStore>((set, get) => ({
             storageLocal.remove("refreshToken");
             storageLocal.remove("tokenExpiresIn");
             storageLocal.remove("isAuth");
+            storageLocal.remove("permissions")
+            storageLocal.remove("user")
             set({
                 user: {},
                 accessToken: "",
@@ -102,9 +112,10 @@ const useStore = create<iAuthStore>((set, get) => ({
                 permissions: [],
             })
         }
+        return get().isAuth
     },
 
-    logoutApi: () => {
+    logout: () => {
         storageLocal.remove("accessToken");
         storageLocal.remove("refreshToken");
         storageLocal.remove("tokenExpiresIn");
@@ -117,6 +128,10 @@ const useStore = create<iAuthStore>((set, get) => ({
             isAuth: false,
             permissions: [],
         })
+    },
+
+    can: (permission) => {
+        return get().permissions.some(p => p.name === permission);
     }
 }));
 

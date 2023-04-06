@@ -11,17 +11,8 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import CountrySelect from "../../Form/CountrySelect";
 import {date, today} from "../../../lib/dates";
 import FileInput from "../../Form/FileInput";
-
-const InputWrapper = tw.form`
-    flex
-    flex-col
-    gap-1
-`;
-
-const Row = tw.div`
-    flex
-    gap-6
-`;
+import FormRow from "../../Layout/FormRow";
+import Form from "../../Layout/Form";
 
 const ActionRow = tw.div`
     justify-between
@@ -102,8 +93,8 @@ const StepHowToPay = () => {
                 Bedingungen.
             </Text>
             <Text>Daten des Kontoinhabers</Text>
-            <InputWrapper onSubmit={handleSubmit(onSubmit)}>
-                <Row>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+                <FormRow>
                     <Input
                         fullWidth
                         placeholder="Vorname"
@@ -124,8 +115,8 @@ const StepHowToPay = () => {
                         }}
                         control={control}
                     />
-                </Row>
-                <Row>
+                </FormRow>
+                <FormRow>
                     <Input
                         fullWidth
                         placeholder="Straße & Hausnummer"
@@ -166,8 +157,8 @@ const StepHowToPay = () => {
                         }}
                         control={control}
                     />
-                </Row>
-                <Row>
+                </FormRow>
+                <FormRow>
                     <Input
                         fullWidth
                         placeholder="IBAN"
@@ -190,8 +181,8 @@ const StepHowToPay = () => {
                         }}
                         control={control}
                     />
-                </Row>
-                <Row>
+                </FormRow>
+                <FormRow>
                     <Input
                         isDisabled
                         fullWidth
@@ -220,12 +211,12 @@ const StepHowToPay = () => {
                             setValue("signature", event.target.files[0] );
                         }}
                     />
-                </Row>
+                </FormRow>
                 <ActionRow>
                     <Button secondary type="button" onClick={() => previousStep()}>Zurück</Button>
                     <Button type="submit">Weiter</Button>
                 </ActionRow>
-            </InputWrapper>
+            </Form>
         </div>
     );
 };

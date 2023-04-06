@@ -1,5 +1,5 @@
 import {create} from "zustand";
-import { apiFetch, Endpoint } from "../api";
+import {apiFetch, Endpoint} from "../api";
 import {iBackendBranche} from "../../Interfaces/iBranche";
 
 interface iUserStore {
@@ -13,25 +13,25 @@ const useStore = create<iUserStore>((set, get) => ({
     branches: [],
 
     getBranches: () => {
-        set({
-            loading: true,
-        });
-
-        apiFetch(`/branches`, Endpoint.backend)
-            .then((response) => {
-                set({
-                    branches: response.data,
-                    loading: false,
-                })
-            })
-            .catch(() => {
-                set({
-                    branches: [],
-                    loading: false,
-                })
+        if (get().branches.length <= 0) {
+            set({
+                loading: true,
             });
+            apiFetch(`/branches`, Endpoint.backend)
+                .then((response) => {
+                    set({
+                        branches: response.data,
+                        loading: false,
+                    })
+                })
+                .catch(() => {
+                    set({
+                        branches: [],
+                        loading: false,
+                    })
+                });
+        }
     },
-
 }));
 
 export default useStore;

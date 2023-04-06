@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import tw from "twin.macro";
 import LoadingBar from '../LoadingBar';
 import TableFooter from './TableFooter';
@@ -59,7 +59,6 @@ interface iTable {
 }
 
 const Table = ({headers, data, loading, keyValue, options, filters, setOptions, setFilters}: iTable) => {
-
         const getColumnData = (item: any, index: number) => {
             const header = headers[index];
             if (header?.transform) {
@@ -72,8 +71,9 @@ const Table = ({headers, data, loading, keyValue, options, filters, setOptions, 
             <>
                 <TableHeader>
                     Benutzerverwaltung
-                    <Search submit={(data) => setFilters("search", data.search)}/>
-                    <BranchSelect selectedBranch={filters.branchId} setBranch={(branchId) => setFilters("branchId", branchId)}/>
+                    <Search submit={(data) => setFilters("search", data.search)} />
+                    <BranchSelect selectedBranch={filters.branchId}
+                                  setBranch={(branchId) => setFilters("branchId", branchId)} />
                     <Button onClick={() => console.log("Download")}>Excel Download</Button>
                 </TableHeader>
                 <StyledTable>

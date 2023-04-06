@@ -1,6 +1,7 @@
 import {create} from "zustand";
 import {apiFetch, Endpoint} from "../../api";
 import iOptions from "../../../Interfaces/iOptions";
+import iUser from "../../../Interfaces/iUser";
 
 
 export enum PerPageEnum {
@@ -19,6 +20,7 @@ interface iUserStore {
     loading: boolean;
     users: [];
     getUsers: () => void;
+    getUser: (id: number) =>  Promise<iUser | null>;
     options: iOptions;
     filters: iFilters;
     setOptions: (key: string, value: number | string | boolean | PerPageEnum) => void;
@@ -47,7 +49,7 @@ const useStore = create<iUserStore>((set, get) => ({
         const options = get().options;
         const filters = get().filters;
 
-        apiFetch(`/users/?sortBy=${options.sortBy}&perPage=${options.perPage}&page=${options.page}&withOnlyTrashed=${filters.withOnlyTrashed}${filters.search ? `&search=${filters.search}` : ""}${filters.branchId ? `&branchId=${filters.branchId}`: ""}`, Endpoint.backend)
+        apiFetch(`/users/?sortBy=${options.sortBy}&perPage=${options.perPage}&page=${options.page}&withOnlyTrashed=${filters.withOnlyTrashed}${filters.search ? `&search=${filters.search}` : ""}${filters.branchId ? `&branchId=${filters.branchId}` : ""}`, Endpoint.backend)
             .then((response) => {
                 set({
                     users: response.data,
@@ -101,7 +103,26 @@ const useStore = create<iUserStore>((set, get) => ({
                 page: 1,
             }
         })
-    }
+    },
+
+    getUser: (id) => {
+        set({
+            loading: true,
+        });
+        return apiFetch(`/users/${id}`, Endpoint.backend)
+            .then((response) => {
+                set({
+                    loading: false,
+                })
+                return response.data
+            })
+            .catch(() => {
+                set({
+                    loading: false,
+                })
+                return null;
+            });
+    },
 }));
 
 export default useStore;
