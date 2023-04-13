@@ -3,18 +3,16 @@ import Head from "next/head";
 import tw from "twin.macro";
 import Table from "../../../components/Layout/Table/Table";
 import useUserStore from "../../../lib/Management/User/store";
-import useAuthStore from "../../../lib/Auth/store";
 import { shallow } from "zustand/shallow";
 import { dateTime } from "../../../lib/dates";
-import {
-  faCheck,
-  faMagnifyingGlass,
-  faUserPen,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faUserPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TextButton, TextLink } from "../../../components/Button";
+import Button, { TextLink } from "../../../components/Button";
 import ColumnRow from "../../../components/Layout/Table/ColumnRow";
+import Search from "../../../components/Form/Search";
+import BranchSelect from "../../../components/Elements/Branch/BranchSelect";
+import { Color } from "../../../components/Button/BackgroundColor";
+import ShowUserButton from "../../../components/Elements/User/ShowUserButton";
 
 const Container = tw.div`
     pt-small
@@ -23,8 +21,6 @@ const Container = tw.div`
 `;
 
 const Users = () => {
-  const [can] = useAuthStore((state) => [state.can], shallow);
-
   const [loading, options, filters, users, getUsers, setOptions, setFilters] =
     useUserStore(
       (state) => [
@@ -80,10 +76,10 @@ const Users = () => {
 
       transform: (item: any) =>
         item.activatedAt ? (
-          /* @ts-ignore*/
+          /* @ts-ignore */
           <FontAwesomeIcon css={tw`text-success`} icon={faCheck} />
         ) : (
-          /* @ts-ignore*/
+          /* @ts-ignore */
           <FontAwesomeIcon css={tw`text-error`} icon={faXmark} />
         ),
     },
@@ -103,11 +99,7 @@ const Users = () => {
       sortable: false,
       transform: (item: any) => (
         <ColumnRow>
-          {can("users.show") && (
-            <TextButton onClick={() => console.log("test")}>
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </TextButton>
-          )}
+          <ShowUserButton userId={item.id} />
           <TextLink href={"/management/users/edit/" + item.id}>
             <FontAwesomeIcon icon={faUserPen} />
           </TextLink>
@@ -127,13 +119,27 @@ const Users = () => {
       <Container>
         <Table
           headers={tableHeaders}
+          headline={
+            <>
+              Benutzerverwaltung
+              <Search submit={(data) => setFilters("search", data.search)} />
+              <BranchSelect
+                selectedBranch={filters.branchId}
+                setBranch={(branchId) => setFilters("branchId", branchId)}
+              />
+              <Button
+                color={Color.success}
+                onClick={() => console.log("Download")}
+              >
+                Excel Download
+              </Button>
+            </>
+          }
           data={users}
           keyValue="id"
           loading={loading}
           options={options}
-          filters={filters}
           setOptions={setOptions}
-          setFilters={setFilters}
         />
       </Container>
     </>

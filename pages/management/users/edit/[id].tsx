@@ -98,14 +98,29 @@ const Users = ({ id }: { id: number }) => {
       bankAccountStreet: user?.bankAccount.street,
       bankAccountPostcode: user?.bankAccount.postcode,
       bankAccountCity: user?.bankAccount.city,
-      bankAccountCountry: user?.bankAccount.country,
+      bankAccountCountry: user?.bankAccount.country.name,
     },
     mode: "onSubmit",
   });
   useEffect(() => {
     if (user) {
-      console.log(user?.bankAccount.bic);
       reset({
+        userId: user.id,
+        salutation: "",
+        firstName: user.firstName,
+        lastName: user.lastName,
+        street: user.street,
+        postcode: user.postcode,
+        city: user.city,
+        country: user.country.name,
+        birthday: user.birthday,
+        email: user.email,
+        phone: user.phone,
+        wantsEmailNotification: user.wantsEmailNotification,
+        isActive: user.isActive,
+        levelId: user.levelId,
+        password: "",
+        passwordRepeat: "",
         bankAccountBic: user.bankAccount.bic,
         bankAccountIban: user.bankAccount.iban,
         bankAccountFirstName: user.bankAccount.firstName,
@@ -113,8 +128,7 @@ const Users = ({ id }: { id: number }) => {
         bankAccountStreet: user.bankAccount.street,
         bankAccountPostcode: user.bankAccount.postcode,
         bankAccountCity: user.bankAccount.city,
-        bankAccountCountry: user.bankAccount.country,
-        ...user,
+        bankAccountCountry: user.bankAccount.country.name,
       });
     }
   }, [user]);

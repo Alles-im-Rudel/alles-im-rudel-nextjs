@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import tw from "twin.macro";
 import LoadingBar from "../LoadingBar";
 import TableFooter from "./TableFooter";
@@ -49,27 +49,24 @@ export type iHeader = {
 
 interface iTable {
   headers: iHeader[];
+  headline?: ReactElement;
   data: any[];
   keyValue: string;
   loading: boolean;
   options: iOptions;
-  filters: iFilters;
   setOptions: (
     key: string,
     value: number | string | boolean | PerPageEnum
   ) => void;
-  setFilters: (key: string, value: number | string | boolean | null) => void;
 }
-
 const Table = ({
   headers,
+  headline,
   data,
   loading,
   keyValue,
   options,
-  filters,
   setOptions,
-  setFilters,
 }: iTable) => {
   const getColumnData = (item: any, index: number) => {
     const header = headers[index];
@@ -81,17 +78,7 @@ const Table = ({
 
   return (
     <>
-      <TableHeader>
-        Benutzerverwaltung
-        <Search submit={(data) => setFilters("search", data.search)} />
-        <BranchSelect
-          selectedBranch={filters.branchId}
-          setBranch={(branchId) => setFilters("branchId", branchId)}
-        />
-        <Button color={Color.secondary} onClick={() => console.log("Download")}>
-          Excel Download
-        </Button>
-      </TableHeader>
+      {headline && <TableHeader>{headline}</TableHeader>}
       <StyledTable>
         <thead>
           <StyledTrHeading>
