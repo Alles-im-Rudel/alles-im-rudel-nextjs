@@ -1,24 +1,26 @@
-import React, {useEffect, useState} from 'react';
-import tw from 'twin.macro';
-import _image from 'next/image'
-import _link from 'next/link';
-import {TextButton, TextLink} from '../Button';
-import {Link} from '../Button';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React, { useEffect, useState } from "react";
+import tw from "twin.macro";
+import _image from "next/image";
+import _link from "next/link";
+import { TextButton, TextLink } from "../Button";
+import { Link } from "../Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faAward,
-    faCodeBranch,
-    faCartShopping,
-    faRightToBracket,
-    faGear,
-    faRightFromBracket,
-    faUsers, faGem, faUser
-} from '@fortawesome/free-solid-svg-icons';
+  faAward,
+  faCodeBranch,
+  faCartShopping,
+  faRightToBracket,
+  faGear,
+  faRightFromBracket,
+  faUsers,
+  faGem,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import DropdownButton from "../DropdownButton";
-import Mobile from './Mobile';
+import Mobile from "./Mobile";
 import AnimatedBurgerIcon from "../Layout/AnimatedBurgerIcon";
 import useAuthStore from "../../lib/Auth/store";
-import {shallow} from 'zustand/shallow'
+import { shallow } from "zustand/shallow";
 
 const NavigationContainer = tw.div`
     z-50
@@ -65,96 +67,105 @@ const VerticalLine = tw.div`
 `;
 
 const Navigation = () => {
-    const [isActive, setIsActive] = useState(false);
-    const [showAuth, setShowAuth] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
 
-    const [
-        can,
-        isAuth,
-        logout,
-    ] = useAuthStore((state) => [
-        state.can,
-        state.isAuth,
-        state.logout,
-    ], shallow);
+  const [can, isAuth, logout] = useAuthStore(
+    (state) => [state.can, state.isAuth, state.logout],
+    shallow
+  );
 
-    useEffect(() => {
-        setShowAuth(isAuth)
-    }, [isAuth]);
+  useEffect(() => {
+    setShowAuth(isAuth);
+  }, [isAuth]);
 
-    const authItems = [
-        <TextLink black href="/sponsoring" key="sponsoring">
-            <FontAwesomeIcon icon={faGem} /> Sponsoring
-        </TextLink>,
-        <TextButton black onClick={() => logout()} key="logut">
-            <FontAwesomeIcon icon={faRightFromBracket} /> Abmelden
-        </TextButton>
-    ]
+  const authItems = [
+    <TextLink black href="/sponsoring" key="sponsoring">
+      <FontAwesomeIcon icon={faGem} /> Sponsoring
+    </TextLink>,
+    <TextButton black onClick={() => logout()} key="logut">
+      <FontAwesomeIcon icon={faRightFromBracket} /> Abmelden
+    </TextButton>,
+  ];
 
-    const managementItems = []
-    if (can('users.index')) {
-        managementItems.unshift(<TextLink black key="/management/users" href="/management/users">
-            Benutzerverwaltung
-        </TextLink>)
-    }
-
-    const branchItems = [
-        <TextLink black key="/branches/airsoft" href="/branches/airsoft">
-            Airsoft
-        </TextLink>,
-        <TextLink black key="/branches/esports" href="/branches/e-sports">
-            E-Sports
-        </TextLink>
-    ]
-
-    return (
-        <>
-            <NavigationContainer>
-                <StyledLink href="/">
-                    <Image
-                        src="/logos/logo-white-slim.png"
-                        alt="Logo Alles im Rudel e.V."
-                        width={96}
-                        height={53}
-                    />
-                    Alles im Rudel e.V.
-                </StyledLink>
-                <LinkWrapper>
-                    <Link href="https://www.teamstolz.de/vereinsshop/alles-im-rudel/">
-                        <FontAwesomeIcon icon={faCartShopping} /> Shop
-                    </Link>
-                    <DropdownButton
-                        items={branchItems}
-                    >
-                        <><FontAwesomeIcon icon={faCodeBranch} /> Sparten</>
-                    </DropdownButton>
-                    <Link href="/join">
-                        <FontAwesomeIcon icon={faAward} /> Beitritt
-                    </Link>
-                    <VerticalLine />
-                    {!showAuth &&
-                      <Link href="/login">
-                        <FontAwesomeIcon icon={faRightToBracket} />
-                      </Link>
-                    }
-                    {showAuth &&
-                      <DropdownButton
-                        items={authItems}>
-                        <FontAwesomeIcon icon={faUser} />
-                      </DropdownButton>
-                    }
-                    {showAuth && can("headline.management") &&
-                      <DropdownButton
-                        items={managementItems}>
-                        <FontAwesomeIcon icon={faGear} />
-                      </DropdownButton>
-                    }
-                </LinkWrapper>
-                <AnimatedBurgerIcon handleClick={() => setIsActive(!isActive)} isActive={isActive} />
-            </NavigationContainer>
-            <Mobile isActive={isActive} setIsActive={setIsActive} />
-        </>
+  const managementItems = [];
+  if (can("permissions.index")) {
+    managementItems.unshift(
+      <TextLink
+        black
+        key="/management/permissions"
+        href="/management/permissions"
+      >
+        Berechtigungen
+      </TextLink>
     );
+  }
+  if (can("users.index")) {
+    managementItems.unshift(
+      <TextLink black key="/management/users" href="/management/users">
+        Benutzerverwaltung
+      </TextLink>
+    );
+  }
+
+  const branchItems = [
+    <TextLink black key="/branches/airsoft" href="/branches/airsoft">
+      Airsoft
+    </TextLink>,
+    <TextLink black key="/branches/esports" href="/branches/e-sports">
+      E-Sports
+    </TextLink>,
+  ];
+
+  return (
+    <>
+      <NavigationContainer>
+        <StyledLink href="/">
+          <Image
+            src="/logos/logo-white-slim.png"
+            alt="Logo Alles im Rudel e.V."
+            width={96}
+            height={53}
+          />
+          Alles im Rudel e.V.
+        </StyledLink>
+        <LinkWrapper>
+          <Link href="https://www.teamstolz.de/vereinsshop/alles-im-rudel/">
+            <FontAwesomeIcon icon={faCartShopping} /> Shop
+          </Link>
+          <DropdownButton items={branchItems}>
+            <>
+              <FontAwesomeIcon icon={faCodeBranch} /> Sparten
+            </>
+          </DropdownButton>
+          <Link href="/join">
+            <FontAwesomeIcon icon={faAward} /> Beitritt
+          </Link>
+          <VerticalLine />
+          {!showAuth && (
+            <Link href="/login">
+              <FontAwesomeIcon icon={faRightToBracket} />
+            </Link>
+          )}
+          {showAuth && (
+            <DropdownButton items={authItems}>
+              <FontAwesomeIcon icon={faUser} />
+            </DropdownButton>
+          )}
+          {showAuth && can("headline.management") && (
+            <DropdownButton items={managementItems}>
+              <FontAwesomeIcon icon={faGear} />
+            </DropdownButton>
+          )}
+        </LinkWrapper>
+        <AnimatedBurgerIcon
+          handleClick={() => setIsActive(!isActive)}
+          isActive={isActive}
+        />
+      </NavigationContainer>
+      <Mobile isActive={isActive} setIsActive={setIsActive} />
+    </>
+  );
 };
 
 export default Navigation;

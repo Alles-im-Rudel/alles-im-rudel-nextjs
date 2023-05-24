@@ -46,7 +46,7 @@ export type iHeader = {
 
 interface iTable {
   headers: iHeader[];
-  headline?: ReactElement;
+  headline?: ReactElement | string;
   data: any[];
   keyValue: string;
   loading?: boolean;

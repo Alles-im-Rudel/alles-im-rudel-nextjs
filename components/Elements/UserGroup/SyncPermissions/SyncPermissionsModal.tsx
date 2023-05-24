@@ -1,75 +1,70 @@
 import React, { useEffect, useMemo, useState } from "react";
 import useAuthStore from "../../../../lib/Auth/store";
-import useUserStore from "../../../../lib/Management/User/store";
+import usePermissionStore from "../../../../lib/Management/Permission/store";
 import { shallow } from "zustand/shallow";
 import Portal from "../../../Layout/Portal";
-import iUser from "../../../../Interfaces/iUser";
 import Layout, { ActionRow, Col } from "../../../Layout/Layout";
-import { api } from "../../../../lib/axios";
 import iPermission from "../../../../Interfaces/iPermission";
-import Table, { iHeader } from "../../../Layout/Table/Table";
+import { iHeader } from "../../../Layout/Table/Table";
 import ColumnRow from "../../../Layout/Table/ColumnRow";
 import Button, { TextButton } from "../../../Button";
 import { Color } from "../../../Button/BackgroundColor";
 import { checkArrays } from "../../../../lib/checkArrayDifferenz";
 import PermissionTable from "../../Permission/PermissionTable";
+import iUserGroup from "../../../../Interfaces/iUserGroup";
 
 interface iSyncPermissionsModal {
   isActive: boolean;
-  userId: number;
+  userGroupId: number;
   onClose: () => void;
 }
 
 const SyncPermissionsModal = ({
   isActive,
   onClose,
-  userId,
+  userGroupId,
 }: iSyncPermissionsModal) => {
   const [can] = useAuthStore((state) => [state.can], shallow);
-  const [loading, getUser] = useUserStore(
-    (state) => [state.loading, state.getUser],
+  const [loading, getUserGroup, getPermissions] = usePermissionStore(
+    (state) => [state.loading, state.getUserGroup, state.getPermissions],
     shallow
   );
-  const [user, setUser] = useState<iUser | null>(null);
-  const [userPermissions, setUserPermissions] = useState<iPermission[] | []>(
-    []
-  );
+  const [userGroup, setUserGroup] = useState<iUserGroup | null>(null);
+  const [userGroupPermissions, setUserGroupPermissions] = useState<
+    iPermission[] | []
+  >([]);
   const [basePermissions, setBasePermissions] = useState<iPermission[] | []>(
     []
   );
   const [permissions, setPermissions] = useState<iPermission[] | []>([]);
 
-  const loadUser = async () => {
-    const userResponse = await getUser(userId);
-    setUser(userResponse);
-    setUserPermissions(userResponse.permissions);
+  const loadUserGroup = async () => {
+    const userGroupResponse = await getUserGroup(userGroupId);
+    setUserGroup(userGroupResponse);
+    setUserGroupPermissions(userGroupResponse.permissions);
   };
 
   useEffect(() => {
     if (!loading) {
-      loadUser();
+      loadUserGroup();
     }
   }, []);
 
-  const loadPermissions = () => {
-    const params = {
-      withOutPermissionIds: user?.permissions.map(
-        (permissions) => permissions.id
-      ),
-    };
-
-    api(`/api/permissions`, { params: params }).then((response) => {
-      setBasePermissions(response.data.data);
-      setPermissions(response.data.data);
-    });
+  const loadPermissions = async () => {
+    const permissionIds = userGroup?.permissions.map(
+      (permission) => permission.id
+    );
+    const permissionsResponse = await getPermissions(permissionIds);
+    setBasePermissions(permissionsResponse);
+    setPermissions(permissionsResponse);
   };
 
   useEffect(() => {
     loadPermissions();
-  }, [user]);
+  }, [userGroup]);
 
   const remove = (toRemovePermission: iPermission) => {
-    setUserPermissions((currentPermission) => {
+    setUserGroupPermissions((currentPermission) => {
       return (currentPermission = currentPermission.filter(
         (permission) => permission.id !== toRemovePermission.id
       ));
@@ -82,29 +77,29 @@ const SyncPermissionsModal = ({
   const add = (toAddPermission: iPermission) => {
     setPermissions((currentPermission) => {
       return (currentPermission = currentPermission.filter(
-        (userGroup) => userGroup.id !== toAddPermission.id
+        (permission) => permission.id !== toAddPermission.id
       ));
     });
-    setUserPermissions((currentPermission) => {
+    setUserGroupPermissions((currentPermission) => {
       return [...currentPermission, toAddPermission];
     });
   };
 
   const reset = () => {
-    if (user) {
-      setUserPermissions(user.permissions);
+    if (userGroup) {
+      setUserGroupPermissions(userGroup.permissions);
     }
     setPermissions(basePermissions);
   };
 
   const submit = () => {
-    console.log(userPermissions);
+    console.log(userGroupPermissions);
   };
 
   const hasChanges = useMemo(() => {
-    if (!user) return false;
-    return checkArrays(user.permissions, userPermissions);
-  }, [userPermissions, user]);
+    if (!userGroup) return false;
+    return checkArrays(userGroup.permissions, userGroupPermissions);
+  }, [userGroupPermissions, userGroup]);
 
   const selectedTableHeaders: iHeader[] = [
     {
@@ -147,16 +142,16 @@ const SyncPermissionsModal = ({
           isActive={isActive}
           onClose={onClose}
           headline={`Berechtigungen dem Benutzer: ${
-            user?.fullName ?? "Loading..."
+            userGroup?.displayName ?? "Loading..."
           } hinzufügen`}
         >
-          {user ? (
+          {userGroup ? (
             <>
               <Layout>
                 <Col>
                   <PermissionTable
                     headers={selectedTableHeaders}
-                    data={userPermissions}
+                    data={userGroupPermissions}
                   />
                 </Col>
                 <Col>

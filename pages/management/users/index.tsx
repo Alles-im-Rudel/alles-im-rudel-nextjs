@@ -123,7 +123,6 @@ const Users = () => {
       <Container>
         <Table
           headers={tableHeaders}
-          isServerSide={true}
           headline={
             <>
               Benutzerverwaltung
