@@ -12,7 +12,9 @@ import ColumnRow from "../../../components/Layout/Table/ColumnRow";
 import Search from "../../../components/Form/Search";
 import BranchSelect from "../../../components/Elements/Branch/BranchSelect";
 import { Color } from "../../../components/Button/BackgroundColor";
-import ShowUserButton from "../../../components/Elements/User/ShowUserButton";
+import ShowUserButton from "../../../components/Elements/User/ShowUser/ShowUserButton";
+import SyncUserGroupsButton from "../../../components/Elements/User/SyncUserGroups/SyncUserGroupsButton";
+import SyncPermissionsButton from "../../../components/Elements/User/SyncPermissions/SyncPermissionsButton";
 
 const Container = tw.div`
     pt-small
@@ -103,6 +105,8 @@ const Users = () => {
           <TextLink href={"/management/users/edit/" + item.id}>
             <FontAwesomeIcon icon={faUserPen} />
           </TextLink>
+          <SyncUserGroupsButton userId={item.id} />
+          <SyncPermissionsButton userId={item.id} />
         </ColumnRow>
       ),
     },
@@ -119,6 +123,7 @@ const Users = () => {
       <Container>
         <Table
           headers={tableHeaders}
+          isServerSide={true}
           headline={
             <>
               Benutzerverwaltung

@@ -3,6 +3,7 @@ import iPermission from "./iPermission";
 import iBankAccount from "./iBankAccount";
 import iBranchUserMemberShip from "./iBranchUserMemberShip";
 import iCountry from "./iCountry";
+import iUserGroup from "./iUserGroup";
 
 export interface iUser {
   id: number;
@@ -31,7 +32,7 @@ export interface iUser {
   rolesCount: number;
   userGroupsCount: number;
   branchUserMemberShipsCount: number;
-  userGroups: string;
+  userGroups: iUserGroup[] | [];
   mainSummoner: string;
   image: string;
   postsCount: string;

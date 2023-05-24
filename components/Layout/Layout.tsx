@@ -18,3 +18,8 @@ interface iColumn {
 export const Col = ({ children }: iColumn) => {
   return <StyledColumn>{children}</StyledColumn>;
 };
+
+export const ActionRow = tw.div`
+  flex
+  justify-between
+`;

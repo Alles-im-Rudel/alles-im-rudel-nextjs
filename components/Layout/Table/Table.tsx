@@ -4,11 +4,8 @@ import LoadingBar from "../LoadingBar";
 import TableFooter from "./TableFooter";
 import iOptions from "../../../Interfaces/iOptions";
 import TableHeader from "./TableHeader";
-import Search from "../../Form/Search";
-import { iFilters, PerPageEnum } from "../../../lib/Management/User/store";
-import Button from "../../Button";
-import BranchSelect from "../../Elements/Branch/BranchSelect";
-import { Color } from "../../Button/BackgroundColor";
+import { PerPageEnum } from "../../../lib/Management/User/store";
+import TableNoData from "./TableNoData";
 
 const StyledTable = tw.table`
     w-full
@@ -21,7 +18,7 @@ const StyledTrHeading = tw.tr`
     bg-white
 `;
 
-const StyledTr = tw.tr`
+export const StyledTr = tw.tr`
     border-b
     border-secondary
     bg-white
@@ -52,7 +49,7 @@ interface iTable {
   headline?: ReactElement;
   data: any[];
   keyValue: string;
-  loading: boolean;
+  loading?: boolean;
   options: iOptions;
   setOptions: (
     key: string,
@@ -63,9 +60,14 @@ const Table = ({
   headers,
   headline,
   data,
-  loading,
+  loading = false,
   keyValue,
-  options,
+  options = {
+    perPage: PerPageEnum.ten,
+    page: 1,
+    sortBy: "",
+    total: 0,
+  },
   setOptions,
 }: iTable) => {
   const getColumnData = (item: any, index: number) => {
@@ -93,19 +95,23 @@ const Table = ({
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => {
-            return (
-              <StyledTr key={item[keyValue]}>
-                {headers.map((header, index) => {
-                  return (
-                    <StyledTd key={header.value}>
-                      {getColumnData(item, index)}
-                    </StyledTd>
-                  );
-                })}
-              </StyledTr>
-            );
-          })}
+          {data.length === 0 ? (
+            <TableNoData headersLength={headers.length} />
+          ) : (
+            data.map((item) => {
+              return (
+                <StyledTr key={item[keyValue]}>
+                  {headers.map((header, index) => {
+                    return (
+                      <StyledTd key={header.value}>
+                        {getColumnData(item, index)}
+                      </StyledTd>
+                    );
+                  })}
+                </StyledTr>
+              );
+            })
+          )}
         </tbody>
       </StyledTable>
       <TableFooter options={options} setOptions={setOptions} />

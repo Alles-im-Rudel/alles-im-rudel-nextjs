@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import useAuthStore from "../../../lib/Auth/store";
-import useUserStore from "../../../lib/Management/User/store";
+import useAuthStore from "../../../../lib/Auth/store";
+import useUserStore from "../../../../lib/Management/User/store";
 import { shallow } from "zustand/shallow";
-import Portal from "../../Layout/Portal";
-import iUser from "../../../Interfaces/iUser";
-import Card, { CardHeadline, CardText } from "../../Layout/Card";
-import { Li, List } from "../../Layout/Ul";
-import Layout, { Col } from "../../Layout/Layout";
-import { date, dateTimeSek } from "../../../lib/dates";
-import { showBoolean } from "../../../lib/boolean";
-import BranchCard from "../Branch/BranchCard";
-import { Link } from "../../Button";
+import Portal from "../../../Layout/Portal";
+import iUser from "../../../../Interfaces/iUser";
+import Card, { CardHeadline, CardText } from "../../../Layout/Card";
+import { Li, List } from "../../../Layout/Ul";
+import Layout, { Col } from "../../../Layout/Layout";
+import { date, dateTimeSek } from "../../../../lib/dates";
+import { showBoolean } from "../../../../lib/boolean";
+import BranchCard from "../../Branch/BranchCard";
+import { Link } from "../../../Button";
 
 interface iShowUserModal {
   isActive: boolean;
