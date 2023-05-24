@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { shallow } from "zustand/shallow";
 import useBranchStore from "../../../lib/Branch/store";
+import { Container, Placeholder, StyledSelect } from "../../Form/Select";
 
 interface iBranchSelect {
   selectedBranch: number | null;
@@ -17,8 +18,9 @@ const BranchSelect = ({ selectedBranch, setBranch }: iBranchSelect) => {
   }, []);
 
   return (
-    <div>
-      <select
+    <Container>
+      <StyledSelect
+        id="branchSelect"
         value={selectedBranch ?? "0"}
         onChange={(event) =>
           setBranch(event.target.value === "0" ? null : event.target.value)
@@ -30,8 +32,9 @@ const BranchSelect = ({ selectedBranch, setBranch }: iBranchSelect) => {
             {branch.name}
           </option>
         ))}
-      </select>
-    </div>
+      </StyledSelect>
+      <Placeholder htmlFor="branchSelect">Sparte auswählen</Placeholder>
+    </Container>
   );
 };
 
