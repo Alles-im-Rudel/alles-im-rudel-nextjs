@@ -7,6 +7,7 @@ import { shallow } from "zustand/shallow";
 import { dateTime } from "../../../lib/dates";
 import SyncPermissionsButton from "../../../components/Elements/UserGroup/SyncPermissions/SyncPermissionsButton";
 import ColumnRow from "../../../components/Layout/Table/ColumnRow";
+import EditUserGroupButton from "../../../components/Elements/UserGroup/EditUserGroup/EditUserGroupButton";
 
 const Container = tw.div`
     pt-small
@@ -62,6 +63,7 @@ const Permissions = () => {
       sortable: false,
       transform: (item: any) => (
         <ColumnRow>
+          <EditUserGroupButton userGroup={item} />
           <SyncPermissionsButton userGroupId={item.id} />
         </ColumnRow>
       ),

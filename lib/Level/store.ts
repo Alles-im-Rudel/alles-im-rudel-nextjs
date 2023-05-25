@@ -1,32 +1,32 @@
 import { create } from "zustand";
 import { apiFetch, Endpoint } from "../api";
-import { iBackendBranche } from "../../Interfaces/iBranche";
+import iLevel from "../../Interfaces/iLevel";
 
-interface iBranchStore {
+interface iLevelStore {
   loading: boolean;
-  branches: iBackendBranche[];
-  getBranches: () => void;
+  levels: iLevel[];
+  getLevels: () => void;
 }
 
-const useStore = create<iBranchStore>((set, get) => ({
+const useStore = create<iLevelStore>((set, get) => ({
   loading: false,
-  branches: [],
+  levels: [],
 
-  getBranches: () => {
-    if (get().branches.length <= 0) {
+  getLevels: () => {
+    if (get().levels.length <= 0) {
       set({
         loading: true,
       });
-      apiFetch(`/branches`, Endpoint.backend)
+      apiFetch(`/levels`, Endpoint.backend)
         .then((response) => {
           set({
-            branches: response.data,
+            levels: response.data,
             loading: false,
           });
         })
         .catch(() => {
           set({
-            branches: [],
+            levels: [],
             loading: false,
           });
         });

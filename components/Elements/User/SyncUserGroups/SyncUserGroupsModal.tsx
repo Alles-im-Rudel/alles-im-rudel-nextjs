@@ -7,7 +7,6 @@ import iUser from "../../../../Interfaces/iUser";
 import Layout, { ActionRow, Col } from "../../../Layout/Layout";
 import { api } from "../../../../lib/axios";
 import iUserGroup from "../../../../Interfaces/iUserGroup";
-import Table from "../../../Layout/Table/Table";
 import ColumnRow from "../../../Layout/Table/ColumnRow";
 import Button, { TextButton } from "../../../Button";
 import { Color } from "../../../Button/BackgroundColor";
