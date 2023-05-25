@@ -11,6 +11,7 @@ import LevelSelect from "../../../Form/LevelSelect";
 import Button from "../../../Button";
 import { Color } from "../../../Button/BackgroundColor";
 import { ActionRow } from "../../../Layout/Layout";
+import TextArea from "../../../Form/TextArea";
 
 interface iEditUserGroupModal {
   isActive: boolean;
@@ -86,7 +87,7 @@ const EditUserGroupModal = ({
                 name="color"
                 rules={{
                   required: true,
-                  maxLength: 5,
+                  maxLength: 20,
                 }}
                 control={control}
               />
@@ -103,7 +104,7 @@ const EditUserGroupModal = ({
               />
             </FormRow>
             <FormRow>
-              <Input
+              <TextArea
                 fullWidth
                 placeholder="Beschreibung"
                 name="description"
@@ -115,7 +116,7 @@ const EditUserGroupModal = ({
               />
             </FormRow>
             <ActionRow>
-              <Button color={Color.secondary} onClick={onReset}>
+              <Button type="button" color={Color.secondary} onClick={onReset}>
                 Zurücksetzen
               </Button>
               <Button color={Color.success}>Speichern</Button>

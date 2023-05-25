@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { apiFetch, Endpoint } from "../../api";
 import iOptions from "../../../Interfaces/iOptions";
 import iUser from "../../../Interfaces/iUser";
+import iPermission from "../../../Interfaces/iPermission";
+import { api } from "../../axios";
 
 export enum PerPageEnum {
   ten = 10,
@@ -20,6 +22,7 @@ interface iUserStore {
   users: [];
   getUsers: () => void;
   getUser: (id: number) => Promise<iUser>;
+  getAllUsers: (withOutUserIds?: number[]) => Promise<iPermission[]>;
   options: iOptions;
   filters: iFilters;
   setOptions: (
@@ -124,6 +127,25 @@ const useStore = create<iUserStore>((set, get) => ({
           loading: false,
         });
         return response.data;
+      })
+      .catch(() => {
+        set({
+          loading: false,
+        });
+        return null;
+      });
+  },
+
+  getAllUsers: (withOutUserIds) => {
+    set({
+      loading: true,
+    });
+    return api(`/api/users/all`, { params: { withOutUserIds } })
+      .then((response) => {
+        set({
+          loading: false,
+        });
+        return response.data.data;
       })
       .catch(() => {
         set({

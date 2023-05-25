@@ -8,6 +8,7 @@ import { dateTime } from "../../../lib/dates";
 import SyncPermissionsButton from "../../../components/Elements/UserGroup/SyncPermissions/SyncPermissionsButton";
 import ColumnRow from "../../../components/Layout/Table/ColumnRow";
 import EditUserGroupButton from "../../../components/Elements/UserGroup/EditUserGroup/EditUserGroupButton";
+import SyncUsersButton from "../../../components/Elements/UserGroup/SyncUsers/SyncUsersButton";
 
 const Container = tw.div`
     pt-small
@@ -64,6 +65,7 @@ const Permissions = () => {
       transform: (item: any) => (
         <ColumnRow>
           <EditUserGroupButton userGroup={item} />
+          <SyncUsersButton userGroupId={item.id} />
           <SyncPermissionsButton userGroupId={item.id} />
         </ColumnRow>
       ),
