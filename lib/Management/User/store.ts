@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { apiFetch, Endpoint } from "../../api";
 import iOptions from "../../../Interfaces/iOptions";
 import iUser from "../../../Interfaces/iUser";
-import iPermission from "../../../Interfaces/iPermission";
 import { api } from "../../axios";
 
 export enum PerPageEnum {
@@ -22,7 +21,7 @@ interface iUserStore {
   users: [];
   getUsers: () => void;
   getUser: (id: number) => Promise<iUser>;
-  getAllUsers: (withOutUserIds?: number[]) => Promise<iPermission[]>;
+  getAllUsers: (withOutUserIds?: number[]) => Promise<iUser[]>;
   options: iOptions;
   filters: iFilters;
   setOptions: (

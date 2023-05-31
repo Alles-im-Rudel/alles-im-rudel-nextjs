@@ -27,12 +27,12 @@ const ActionRow = tw.div`
 `;
 
 type iBranchSelectForm = {
-  "Alles im Rudel e.V.": boolean;
+  "Alles im Rudel": boolean;
   Airsoft: boolean;
   "E-Sports": boolean;
 };
 
-const StepBranchSelect = ({}) => {
+const StepBranchSelect = () => {
   const [branches, setForm] = useJoinStore(
     (state) => [state.branches, state.setForm],
     shallow
@@ -45,7 +45,7 @@ const StepBranchSelect = ({}) => {
 
   const { handleSubmit, control } = useForm<iBranchSelectForm>({
     defaultValues: {
-      "Alles im Rudel e.V.": true,
+      "Alles im Rudel": true,
       Airsoft: false,
       "E-Sports": false,
     },

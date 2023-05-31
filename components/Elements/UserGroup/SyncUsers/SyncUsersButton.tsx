@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextButton } from "../../../Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import useAuthStore from "../../../../lib/Auth/store";
 import { shallow } from "zustand/shallow";
 import SyncUsersModal from "./SyncUsersModal";

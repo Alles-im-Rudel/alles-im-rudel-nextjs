@@ -96,8 +96,8 @@ const StepOverview = () => {
         </div>
         <div>
           <Headline headline={4}>Bankdaten</Headline>
-          <Text>{form.mandat.iban}</Text>
-          <Text>{form.mandat.bic}</Text>
+          <Text>{form.iban}</Text>
+          <Text>{form.bic}</Text>
           <Text>Gesamtbeitrag: {totalAmount()}€</Text>
         </div>
       </Grid>

@@ -89,6 +89,13 @@ const Navigation = () => {
   ];
 
   const managementItems = [];
+  if (can("members.manage")) {
+    managementItems.unshift(
+      <TextLink black key="/management/members" href="/management/members">
+        Neue Mitglieder
+      </TextLink>
+    );
+  }
   if (can("permissions.index")) {
     managementItems.unshift(
       <TextLink

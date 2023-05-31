@@ -25,13 +25,13 @@ const ActionRow = tw.div`
     mt-4
 `;
 
-export type iChoosPasswordForm = {
+export type iChoosePasswordForm = {
   password: string;
   passwordRepeat: string;
 };
 
 const StepHowToPay = () => {
-  const { handleSubmit, control } = useForm<iChoosPasswordForm>({
+  const { handleSubmit, control } = useForm<iChoosePasswordForm>({
     defaultValues: {
       password: "",
       passwordRepeat: "",
@@ -46,7 +46,7 @@ const StepHowToPay = () => {
     shallow
   );
 
-  const onSubmit: SubmitHandler<iChoosPasswordForm> = (data) => {
+  const onSubmit: SubmitHandler<iChoosePasswordForm> = (data) => {
     setForm(data);
     nextStep();
   };

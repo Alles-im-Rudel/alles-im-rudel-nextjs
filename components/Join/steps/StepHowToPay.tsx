@@ -14,6 +14,7 @@ import FileInput from "../../Form/FileInput";
 import FormRow from "../../Layout/FormRow";
 import Form from "../../Layout/Form";
 import { Color } from "../../Button/BackgroundColor";
+import fileInput from "../../Form/FileInput";
 
 const ActionRow = tw.div`
     justify-between
@@ -22,32 +23,32 @@ const ActionRow = tw.div`
 `;
 
 export type iHowToPayForm = {
-  firstName: string;
-  lastName: string;
-  street: string;
-  postcode: string;
-  city: string;
-  country: string;
+  accountFirstName: string;
+  accountLastName: string;
+  accountStreet: string;
+  accountPostcode: string;
+  accountCity: string;
+  accountCountry: string;
   iban: string;
   bic: string;
-  location: string;
-  signature: any;
+  accountSignatureCity: string;
+  signature: typeof fileInput | null;
   date: string;
 };
 
 const StepHowToPay = () => {
   const { handleSubmit, control, setValue } = useForm<iHowToPayForm>({
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      street: "",
-      postcode: "",
-      city: "",
-      country: "Deutschland",
+      accountFirstName: "",
+      accountLastName: "",
+      accountStreet: "",
+      accountPostcode: "",
+      accountCity: "",
+      accountCountry: "Deutschland",
       iban: "",
       bic: "",
-      location: "",
-      signature: "null",
+      accountSignatureCity: "",
+      signature: null,
       date: date(today()),
     },
     mode: "onSubmit",
@@ -64,7 +65,7 @@ const StepHowToPay = () => {
   );
 
   const onSubmit: SubmitHandler<iHowToPayForm> = (data) => {
-    setForm({ mandat: data });
+    setForm(data);
     nextStep();
   };
 
@@ -94,7 +95,7 @@ const StepHowToPay = () => {
           <Input
             fullWidth
             placeholder="Vorname"
-            name="firstName"
+            name="accountFirstName"
             rules={{
               required: true,
               maxLength: 20,
@@ -104,7 +105,7 @@ const StepHowToPay = () => {
           <Input
             fullWidth
             placeholder="Nachname"
-            name="lastName"
+            name="accountLastName"
             rules={{
               required: true,
               maxLength: 20,
@@ -116,7 +117,7 @@ const StepHowToPay = () => {
           <Input
             fullWidth
             placeholder="Straße & Hausnummer"
-            name="street"
+            name="accountStreet"
             rules={{
               required: true,
               maxLength: 20,
@@ -126,7 +127,7 @@ const StepHowToPay = () => {
           <Input
             fullWidth
             placeholder="Postleitzahl"
-            name="postcode"
+            name="accountPostcode"
             rules={{
               required: true,
               maxLength: 5,
@@ -136,7 +137,7 @@ const StepHowToPay = () => {
           <Input
             fullWidth
             placeholder="Stadt"
-            name="city"
+            name="accountCity"
             rules={{
               required: true,
               maxLength: 30,
@@ -146,7 +147,7 @@ const StepHowToPay = () => {
           <CountrySelect
             fullWidth
             placeholder="Land"
-            name="country"
+            name="accountCountry"
             rules={{
               required: true,
               maxLength: 30,
@@ -193,7 +194,7 @@ const StepHowToPay = () => {
           <Input
             fullWidth
             placeholder="Ort"
-            name="location"
+            name="accountSignatureCity"
             rules={{
               required: true,
               maxLength: 20,
