@@ -3,6 +3,10 @@ import { apiFetch, Endpoint } from "../../api";
 import iOptions from "../../../Interfaces/iOptions";
 import iUser from "../../../Interfaces/iUser";
 import { api } from "../../axios";
+import { iUserEditForm } from "../../../pages/management/users/edit/[id]";
+import toast from "react-hot-toast";
+import { UseFormSetError } from "react-hook-form";
+import { handleBackendError } from "../../errorHelper";
 
 export enum PerPageEnum {
   ten = 10,
@@ -21,6 +25,10 @@ interface iUserStore {
   users: [];
   getUsers: () => void;
   getUser: (id: number) => Promise<iUser>;
+  updateUser: (
+    data: iUserEditForm,
+    setError: UseFormSetError<iUserEditForm>
+  ) => Promise<{ user: iUser; message: string }>;
   getAllUsers: (withOutUserIds?: number[]) => Promise<iUser[]>;
   options: iOptions;
   filters: iFilters;
@@ -150,6 +158,29 @@ const useStore = create<iUserStore>((set, get) => ({
         set({
           loading: false,
         });
+        return null;
+      });
+  },
+
+  updateUser: (data, setError) => {
+    set({
+      loading: true,
+    });
+    return api
+      .put(`/api/users/${data.userId}`, data)
+      .then((response) => {
+        set({
+          loading: false,
+        });
+        toast.success(response.data?.message, { position: "bottom-right" });
+        return response.data;
+      })
+      .catch((error) => {
+        set({
+          loading: false,
+        });
+        handleBackendError(error, setError);
+        toast.error(error.response.data.message, { position: "bottom-right" });
         return null;
       });
   },

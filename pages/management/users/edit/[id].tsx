@@ -4,7 +4,7 @@ import tw from "twin.macro";
 import useUserStore from "../../../../lib/Management/User/store";
 import { shallow } from "zustand/shallow";
 import iUser from "../../../../Interfaces/iUser";
-import { Link } from "../../../../components/Button";
+import Button, { Link } from "../../../../components/Button";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -14,6 +14,7 @@ import SalutationSelect from "../../../../components/Form/SalutationSelect";
 import FormRow from "../../../../components/Layout/FormRow";
 import Form from "../../../../components/Layout/Form";
 import { Color } from "../../../../components/Button/BackgroundColor";
+import { ActionRow } from "../../../../components/Layout/Layout";
 
 const Container = tw.div`
     pt-small
@@ -57,8 +58,8 @@ export type iUserEditForm = {
 const Users = ({ id }: { id: number }) => {
   const [user, setUser] = useState<iUser | null>(null);
 
-  const [loading, getUser] = useUserStore(
-    (state) => [state.loading, state.getUser],
+  const [loading, getUser, updateUser] = useUserStore(
+    (state) => [state.loading, state.getUser, state.updateUser],
     shallow
   );
 
@@ -73,10 +74,10 @@ const Users = ({ id }: { id: number }) => {
     }
   }, []);
 
-  const { handleSubmit, control, reset } = useForm<iUserEditForm>({
+  const { handleSubmit, control, reset, setError } = useForm<iUserEditForm>({
     defaultValues: {
       userId: user?.id,
-      salutation: "",
+      salutation: user?.salutation,
       firstName: user?.firstName,
       lastName: user?.lastName,
       street: user?.street,
@@ -106,7 +107,7 @@ const Users = ({ id }: { id: number }) => {
     if (user) {
       reset({
         userId: user.id,
-        salutation: "",
+        salutation: user?.salutation,
         firstName: user.firstName,
         lastName: user.lastName,
         street: user.street,
@@ -133,8 +134,13 @@ const Users = ({ id }: { id: number }) => {
     }
   }, [user]);
 
-  const onSubmit: SubmitHandler<iUserEditForm> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<iUserEditForm> = async (data) => {
+    const userResponse = user && (await updateUser(data, setError));
+    userResponse?.user && setUser(userResponse.user);
+  };
+
+  const handleReset = () => {
+    reset();
   };
 
   return (
@@ -164,7 +170,7 @@ const Users = ({ id }: { id: number }) => {
               <FormRow>
                 <SalutationSelect
                   fullWidth
-                  name="saluation"
+                  name="salutation"
                   placeholder="Anrede"
                   rules={{
                     required: true,
@@ -267,7 +273,7 @@ const Users = ({ id }: { id: number }) => {
                   name="password"
                   type="password"
                   rules={{
-                    required: true,
+                    required: false,
                     maxLength: 20,
                   }}
                   control={control}
@@ -278,7 +284,7 @@ const Users = ({ id }: { id: number }) => {
                   name="passwordRepeat"
                   type="password"
                   rules={{
-                    required: true,
+                    required: false,
                     maxLength: 20,
                   }}
                   control={control}
@@ -371,6 +377,19 @@ const Users = ({ id }: { id: number }) => {
                   control={control}
                 />
               </FormRow>
+              <ActionRow>
+                <Button
+                  type="button"
+                  isLoading={loading}
+                  color={Color.secondary}
+                  onClick={handleReset}
+                >
+                  Zurücksetzen
+                </Button>
+                <Button type="submit" isLoading={loading} color={Color.success}>
+                  Speichern
+                </Button>
+              </ActionRow>
             </Form>
           </>
         ) : (

@@ -11,6 +11,7 @@ import useAuthStore from "../lib/Auth/store";
 import { shallow } from "zustand/shallow";
 import { useRouter } from "next/router";
 import { ModalPortalAnchor } from "../components/Layout/Portal";
+import { Toaster } from "react-hot-toast";
 
 config.autoAddCss = false;
 
@@ -25,6 +26,7 @@ const RootLayout = ({ children }: any) => {
       <GlobalStyles />
       <ModalPortalAnchor />
       <Navigation />
+      <Toaster />
       <Container>{children}</Container>
       <SocialFooter />
       <Footer />
