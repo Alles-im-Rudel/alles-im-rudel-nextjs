@@ -5,6 +5,11 @@ import { PerPageEnum } from "../User/store";
 import iPermission from "../../../Interfaces/iPermission";
 import { api } from "../../axios";
 import iUserGroup from "../../../Interfaces/iUserGroup";
+import toast from "react-hot-toast";
+import { handleBackendError } from "../../errorHelper";
+import { iUserEditForm } from "../../../pages/management/users/edit/[id]";
+import { UseFormSetError } from "react-hook-form";
+import { iUserGroupForm } from "../../../components/Elements/UserGroup/EditUserGroup/EditUserGroupModal";
 
 interface iPermissionStore {
   loading: boolean;
@@ -12,6 +17,10 @@ interface iPermissionStore {
   getUserGroups: () => void;
   getPermissions: (withOutPermissionIds?: number[]) => Promise<iPermission[]>;
   getUserGroup: (userGroupId: number) => Promise<iUserGroup>;
+  updateUserGroup: (
+    data: iUserGroupForm,
+    setError: UseFormSetError<iUserGroupForm>
+  ) => Promise<iUserGroup>;
   options: iOptions;
   setOptions: (
     key: string,
@@ -116,6 +125,28 @@ const useStore = create<iPermissionStore>((set, get) => ({
         set({
           loading: false,
         });
+        return null;
+      });
+  },
+  updateUserGroup: (data, setError) => {
+    set({
+      loading: true,
+    });
+    return api
+      .put(`/api/user-groups/${data.userGroupId}`, data)
+      .then((response) => {
+        set({
+          loading: false,
+        });
+        toast.success(response.data?.message, { position: "bottom-right" });
+        return response.data;
+      })
+      .catch((error) => {
+        set({
+          loading: false,
+        });
+        handleBackendError(error, setError);
+        toast.error(error.response.data.message, { position: "bottom-right" });
         return null;
       });
   },

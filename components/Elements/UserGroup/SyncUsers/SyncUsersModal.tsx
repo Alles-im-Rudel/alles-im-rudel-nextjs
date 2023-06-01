@@ -13,6 +13,8 @@ import { checkArrays } from "../../../../lib/checkArrayDifferenz";
 import PermissionTable from "../../Permission/PermissionTable";
 import iUserGroup from "../../../../Interfaces/iUserGroup";
 import iUser from "../../../../Interfaces/iUser";
+import { api } from "../../../../lib/axios";
+import toast from "react-hot-toast";
 
 interface iSyncUsersModal {
   isActive: boolean;
@@ -35,6 +37,7 @@ const SyncUsersModal = ({
   const [userGroupUsers, setUserGroupUsers] = useState<iUser[] | []>([]);
   const [baseUsers, setBaseUsers] = useState<iUser[] | []>([]);
   const [users, setUsers] = useState<iUser[] | []>([]);
+  const [saving, setSaving] = useState<boolean>(false);
 
   const loadUserGroup = async () => {
     const userGroupResponse = await getUserGroup(userGroupId);
@@ -89,7 +92,21 @@ const SyncUsersModal = ({
   };
 
   const submit = () => {
-    console.log(userGroupUsers);
+    setSaving(true);
+    api
+      .put(`/api/user-groups/sync-users/${userGroup?.id}`, {
+        userGroupId: userGroup?.id,
+        userIds: userGroupUsers.map((users) => users.id),
+      })
+      .then((response) => {
+        toast.success(response.data?.message, { position: "bottom-right" });
+        loadUserGroup();
+        setSaving(false);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message, { position: "bottom-right" });
+        setSaving(false);
+      });
   };
 
   const hasChanges = useMemo(() => {
@@ -159,6 +176,7 @@ const SyncUsersModal = ({
               </Layout>
               <ActionRow>
                 <Button
+                  isLoading={saving}
                   disabled={!hasChanges}
                   color={Color.secondary}
                   onClick={reset}
@@ -166,6 +184,7 @@ const SyncUsersModal = ({
                   Zurücksetzen
                 </Button>
                 <Button
+                  isLoading={saving}
                   disabled={!hasChanges}
                   color={Color.success}
                   onClick={submit}

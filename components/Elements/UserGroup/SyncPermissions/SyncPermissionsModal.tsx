@@ -12,6 +12,8 @@ import { Color } from "../../../Button/BackgroundColor";
 import { checkArrays } from "../../../../lib/checkArrayDifferenz";
 import PermissionTable from "../../Permission/PermissionTable";
 import iUserGroup from "../../../../Interfaces/iUserGroup";
+import { api } from "../../../../lib/axios";
+import toast from "react-hot-toast";
 
 interface iSyncPermissionsModal {
   isActive: boolean;
@@ -37,6 +39,7 @@ const SyncPermissionsModal = ({
     []
   );
   const [permissions, setPermissions] = useState<iPermission[] | []>([]);
+  const [saving, setSaving] = useState<boolean>(false);
 
   const loadUserGroup = async () => {
     const userGroupResponse = await getUserGroup(userGroupId);
@@ -93,7 +96,23 @@ const SyncPermissionsModal = ({
   };
 
   const submit = () => {
-    console.log(userGroupPermissions);
+    setSaving(true);
+    api
+      .put(`/api/user-groups/sync-permissions/${userGroup?.id}`, {
+        userGroupId: userGroup?.id,
+        permissionIds: userGroupPermissions.map(
+          (permissions) => permissions.id
+        ),
+      })
+      .then((response) => {
+        toast.success(response.data?.message, { position: "bottom-right" });
+        loadUserGroup();
+        setSaving(false);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message, { position: "bottom-right" });
+        setSaving(false);
+      });
   };
 
   const hasChanges = useMemo(() => {
@@ -163,6 +182,7 @@ const SyncPermissionsModal = ({
               </Layout>
               <ActionRow>
                 <Button
+                  isLoading={saving}
                   disabled={!hasChanges}
                   color={Color.secondary}
                   onClick={reset}
@@ -170,6 +190,7 @@ const SyncPermissionsModal = ({
                   Zurücksetzen
                 </Button>
                 <Button
+                  isLoading={saving}
                   disabled={!hasChanges}
                   color={Color.success}
                   onClick={submit}

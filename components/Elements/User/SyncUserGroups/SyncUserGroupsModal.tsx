@@ -12,6 +12,8 @@ import Button, { TextButton } from "../../../Button";
 import { Color } from "../../../Button/BackgroundColor";
 import { checkArrays } from "../../../../lib/checkArrayDifferenz";
 import UserGroupTable from "../../UserGroup/UserGroupTable";
+import toast from "react-hot-toast";
+import { handleBackendError } from "../../../../lib/errorHelper";
 
 interface iSyncUserGroupsModal {
   isActive: boolean;
@@ -33,6 +35,7 @@ const SyncUserGroupsModal = ({
   const [userUserGroups, setUserUserGroups] = useState<iUserGroup[] | []>([]);
   const [baseUserGroups, setBaseUserGroups] = useState<iUserGroup[] | []>([]);
   const [userGroups, setUserGroups] = useState<iUserGroup[] | []>([]);
+  const [saving, setSaving] = useState<boolean>(false);
 
   const loadUser = async () => {
     const userResponse = await getUser(userId);
@@ -91,7 +94,21 @@ const SyncUserGroupsModal = ({
   };
 
   const submit = () => {
-    console.log(userUserGroups);
+    setSaving(true);
+    api
+      .put(`/api/users/sync-user-groups/${userId}`, {
+        userId: userId,
+        userGroupIds: userUserGroups.map((userGroup) => userGroup.id),
+      })
+      .then((response) => {
+        toast.success(response.data?.message, { position: "bottom-right" });
+        loadUser();
+        setSaving(false);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message, { position: "bottom-right" });
+        setSaving(false);
+      });
   };
 
   const hasChanges = useMemo(() => {
@@ -163,6 +180,7 @@ const SyncUserGroupsModal = ({
                 <Button
                   disabled={!hasChanges}
                   color={Color.secondary}
+                  isLoading={saving}
                   onClick={reset}
                 >
                   Zurücksetzen
@@ -170,6 +188,7 @@ const SyncUserGroupsModal = ({
                 <Button
                   disabled={!hasChanges}
                   color={Color.success}
+                  isLoading={saving}
                   onClick={submit}
                 >
                   Speichern

@@ -1,5 +1,6 @@
 import React from "react";
 import useAuthStore from "../../../../lib/Auth/store";
+import useUserGroupStore from "../../../../lib/Management/Permission/store";
 import { shallow } from "zustand/shallow";
 import Portal from "../../../Layout/Portal";
 import iUserGroup from "../../../../Interfaces/iUserGroup";
@@ -21,6 +22,7 @@ interface iEditUserGroupModal {
 
 export type iUserGroupForm = {
   displayName: string;
+  userGroupId: number;
   color: string;
   levelId: number;
   description: string;
@@ -32,9 +34,14 @@ const EditUserGroupModal = ({
   userGroup,
 }: iEditUserGroupModal) => {
   const [can] = useAuthStore((state) => [state.can], shallow);
+  const [updateUserGroup, loading] = useUserGroupStore(
+    (state) => [state.updateUserGroup, state.loading],
+    shallow
+  );
 
-  const { handleSubmit, control, reset } = useForm<iUserGroupForm>({
+  const { handleSubmit, control, reset, setError } = useForm<iUserGroupForm>({
     defaultValues: {
+      userGroupId: userGroup.id,
       displayName: userGroup.displayName,
       color: userGroup.color,
       levelId: userGroup.levelId,
@@ -44,12 +51,13 @@ const EditUserGroupModal = ({
   });
 
   const onSubmit: SubmitHandler<iUserGroupForm> = (data) => {
-    console.log(data);
+    updateUserGroup(data, setError);
   };
 
   const onReset = () => {
     reset({
       displayName: userGroup.displayName,
+      userGroupId: userGroup.id,
       color: userGroup.color,
       levelId: userGroup.levelId,
       description: userGroup.description,
@@ -116,10 +124,17 @@ const EditUserGroupModal = ({
               />
             </FormRow>
             <ActionRow>
-              <Button type="button" color={Color.secondary} onClick={onReset}>
+              <Button
+                isLoading={loading}
+                type="button"
+                color={Color.secondary}
+                onClick={onReset}
+              >
                 Zurücksetzen
               </Button>
-              <Button color={Color.success}>Speichern</Button>
+              <Button isLoading={loading} color={Color.success}>
+                Speichern
+              </Button>
             </ActionRow>
           </Form>
         </Portal>

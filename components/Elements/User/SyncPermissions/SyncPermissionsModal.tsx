@@ -7,12 +7,13 @@ import iUser from "../../../../Interfaces/iUser";
 import Layout, { ActionRow, Col } from "../../../Layout/Layout";
 import { api } from "../../../../lib/axios";
 import iPermission from "../../../../Interfaces/iPermission";
-import Table, { iHeader } from "../../../Layout/Table/Table";
+import { iHeader } from "../../../Layout/Table/Table";
 import ColumnRow from "../../../Layout/Table/ColumnRow";
 import Button, { TextButton } from "../../../Button";
 import { Color } from "../../../Button/BackgroundColor";
 import { checkArrays } from "../../../../lib/checkArrayDifferenz";
 import PermissionTable from "../../Permission/PermissionTable";
+import toast from "react-hot-toast";
 
 interface iSyncPermissionsModal {
   isActive: boolean;
@@ -38,7 +39,7 @@ const SyncPermissionsModal = ({
     []
   );
   const [permissions, setPermissions] = useState<iPermission[] | []>([]);
-
+  const [saving, setSaving] = useState<boolean>(false);
   const loadUser = async () => {
     const userResponse = await getUser(userId);
     setUser(userResponse);
@@ -98,7 +99,21 @@ const SyncPermissionsModal = ({
   };
 
   const submit = () => {
-    console.log(userPermissions);
+    setSaving(true);
+    api
+      .put(`/api/users/sync-permissions/${userId}`, {
+        userId: userId,
+        permissionIds: userPermissions.map((permissions) => permissions.id),
+      })
+      .then((response) => {
+        toast.success(response.data?.message, { position: "bottom-right" });
+        loadUser();
+        setSaving(false);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message, { position: "bottom-right" });
+        setSaving(false);
+      });
   };
 
   const hasChanges = useMemo(() => {
@@ -169,6 +184,7 @@ const SyncPermissionsModal = ({
               <ActionRow>
                 <Button
                   disabled={!hasChanges}
+                  isLoading={saving}
                   color={Color.secondary}
                   onClick={reset}
                 >
@@ -176,6 +192,7 @@ const SyncPermissionsModal = ({
                 </Button>
                 <Button
                   disabled={!hasChanges}
+                  isLoading={saving}
                   color={Color.success}
                   onClick={submit}
                 >
