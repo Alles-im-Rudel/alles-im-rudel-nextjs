@@ -4,6 +4,7 @@ export enum Color {
   greyBlue = "greyBlue",
   secondary = "secondary",
   success = "success",
+  error = "error",
 }
 export const stylePrimary = tw`
     bg-primary
@@ -24,6 +25,11 @@ export const successBg = tw`
     bg-success
 `;
 
+export const errorBg = tw`
+    text-white
+    bg-error
+`;
+
 const getBackgroundColor = (color: Color) => {
   if (color === Color.primary) {
     return stylePrimary;
@@ -36,6 +42,9 @@ const getBackgroundColor = (color: Color) => {
   }
   if (color === Color.success) {
     return successBg;
+  }
+  if (color === Color.error) {
+    return errorBg;
   }
 };
 

@@ -6,6 +6,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import getBackgroundColor, { Color } from "./BackgroundColor";
 import HoverContainer from "./HoverContainer";
+import getColor from "./Color";
 
 export const buttonStyle = tw`
     rounded
@@ -20,6 +21,7 @@ const RotateFontAwesomeIcon = tw(FontAwesomeIcon)`
 type iStyledTextLink = {
   black?: boolean;
   disabled?: boolean;
+  color: Color;
 };
 const StyledTextLink = styled(_link)<iStyledTextLink>`
   ${({ black }) => black && tw`text-black`};
@@ -28,6 +30,7 @@ const StyledTextLink = styled(_link)<iStyledTextLink>`
 
 const StyledTextButton = styled.button<iStyledTextLink>`
   ${buttonStyle}
+  ${({ color }) => getColor(color)}
   ${tw`
       h-fit
       bg-inherit
@@ -68,10 +71,16 @@ interface TextButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   black?: boolean;
   children: any;
+  color?: Color;
 }
-export const TextButton = ({ black, children, ...props }: TextButtonProps) => {
+export const TextButton = ({
+  color = Color.primary,
+  black,
+  children,
+  ...props
+}: TextButtonProps) => {
   return (
-    <StyledTextButton black={black} {...props}>
+    <StyledTextButton color={color} black={black} {...props}>
       <HoverContainer>{children}</HoverContainer>
     </StyledTextButton>
   );
@@ -103,16 +112,18 @@ export const Link = ({
 
 interface TextLinkProps extends LinkProps {
   black?: boolean;
+  color?: Color;
   children: any;
 }
 
 export const TextLink = ({
   black = false,
   children,
+  color = Color.primary,
   ...props
 }: TextLinkProps) => {
   return (
-    <StyledTextLink black={black} {...props}>
+    <StyledTextLink color={color} black={black} {...props}>
       <HoverContainer>{children}</HoverContainer>
     </StyledTextLink>
   );

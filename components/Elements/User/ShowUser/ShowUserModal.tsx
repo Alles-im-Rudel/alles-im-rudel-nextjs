@@ -11,14 +11,22 @@ import { date, dateTimeSek } from "../../../../lib/dates";
 import { showBoolean } from "../../../../lib/boolean";
 import BranchCard from "../../Branch/BranchCard";
 import { Link } from "../../../Button";
+import MemberRejectButton from "../../../Members/NewMembers/MemberAccept/MemberRejectButton";
+import MemberAcceptButton from "../../../Members/NewMembers/MemberAccept/MemberAcceptButton";
 
 interface iShowUserModal {
   isActive: boolean;
   userId: number;
   onClose: () => void;
+  isNewUser?: boolean;
 }
 
-const ShowUserModal = ({ isActive, onClose, userId }: iShowUserModal) => {
+const ShowUserModal = ({
+  isActive,
+  onClose,
+  userId,
+  isNewUser,
+}: iShowUserModal) => {
   const [can] = useAuthStore((state) => [state.can], shallow);
   const [loading, getUser] = useUserStore(
     (state) => [state.loading, state.getUser],
@@ -45,9 +53,15 @@ const ShowUserModal = ({ isActive, onClose, userId }: iShowUserModal) => {
           onClose={onClose}
           headline={`Benutzer: ${user?.fullName ?? "Loading..."}`}
           actionRow={
-            <Link href={"/management/users/edit/" + userId}>
-              Benutzer bearbeiten
-            </Link>
+            <>
+              {isNewUser && <MemberRejectButton user={user} />}
+              <Link href={"/management/users/edit/" + userId}>
+                Benutzer bearbeiten
+              </Link>
+              {isNewUser && user?.emailVerifiedAt && (
+                <MemberAcceptButton user={user} />
+              )}
+            </>
           }
         >
           {user ? (

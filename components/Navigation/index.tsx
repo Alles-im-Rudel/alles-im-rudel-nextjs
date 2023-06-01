@@ -91,7 +91,11 @@ const Navigation = () => {
   const managementItems = [];
   if (can("members.manage")) {
     managementItems.unshift(
-      <TextLink black key="/management/members" href="/management/members">
+      <TextLink
+        black
+        key="/management/members"
+        href="/management/members?tab=new-members"
+      >
         Neue Mitglieder
       </TextLink>
     );
