@@ -34,7 +34,7 @@ export interface iUser {
   branchUserMemberShipsCount: number;
   userGroups: iUserGroup[] | [];
   mainSummoner: string;
-  image: string;
+  image: any;
   postsCount: string;
   commentsCount: string;
   likedCount: string;

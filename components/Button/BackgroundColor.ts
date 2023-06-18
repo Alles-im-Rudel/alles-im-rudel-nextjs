@@ -5,6 +5,7 @@ export enum Color {
   secondary = "secondary",
   success = "success",
   error = "error",
+  warning = "warning",
 }
 export const stylePrimary = tw`
     bg-primary

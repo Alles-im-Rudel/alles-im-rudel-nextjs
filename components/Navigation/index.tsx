@@ -15,6 +15,7 @@ import {
   faUsers,
   faGem,
   faUser,
+  faUserGear,
 } from "@fortawesome/free-solid-svg-icons";
 import DropdownButton from "../DropdownButton";
 import Mobile from "./Mobile";
@@ -80,6 +81,9 @@ const Navigation = () => {
   }, [isAuth]);
 
   const authItems = [
+    <TextLink black href="/profile" key="profile">
+      <FontAwesomeIcon icon={faUserGear} /> Profil
+    </TextLink>,
     <TextLink black href="/sponsoring" key="sponsoring">
       <FontAwesomeIcon icon={faGem} /> Sponsoring
     </TextLink>,

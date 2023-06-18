@@ -1,41 +1,17 @@
-import React, {useEffect, useMemo} from 'react';
-import Head from "next/head";
-import tw from "twin.macro";
-import Table from '../../components/Layout/Table/Table';
-import useUserStore from "../../lib/Management/User/store";
+import React from "react";
 import useAuthStore from "../../lib/Auth/store";
-import {shallow} from "zustand/shallow";
-import {dateTime} from "../../lib/dates";
-import {faCheck, faMagnifyingGlass, faXmark} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {TextButton} from "../../components/Button";
-import {useRouter} from "next/router";
+import { shallow } from "zustand/shallow";
+import { useRouter } from "next/router";
 
-const Container = tw.div`
-    pt-small
-    mb-base
-    mx-small
-`;
-
-const Management = () => {
-    const router = useRouter();
-
-    const [
-        can,
-    ] = useAuthStore((state) => [
-        state.can,
-    ], shallow);
-
-
-};
+const Management = () => {};
 
 export async function getStaticProps() {
-    return {
-        props: {
-            protected: true,
-            permission: "headline.management",
-        },
-    }
+  return {
+    props: {
+      protected: true,
+      permission: "headline.management",
+    },
+  };
 }
 
 export default Management;

@@ -3,9 +3,10 @@ import { apiFetch, Endpoint } from "../api";
 import { iLoginForm } from "../../pages/login";
 import { storageLocal } from "../StorageHandler";
 import iPermission from "../../Interfaces/iPermission";
+import iUser from "../../Interfaces/iUser";
 
 interface iAuthStore {
-  user: {};
+  user: {} | iUser;
   accessToken: string;
   refreshToken: string;
   tokenExpiresIn: string;

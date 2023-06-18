@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { JSXElementConstructor, ReactElement } from "react";
 import tw from "twin.macro";
 import LoadingBar from "../LoadingBar";
 import TableFooter from "./TableFooter";
@@ -6,6 +6,8 @@ import iOptions from "../../../Interfaces/iOptions";
 import TableHeader from "./TableHeader";
 import { PerPageEnum } from "../../../lib/Management/User/store";
 import TableNoData from "./TableNoData";
+import { css } from "@emotion/react";
+import Row from "./Row";
 
 const StyledTable = tw.table`
     w-full
@@ -32,7 +34,7 @@ const StyledTh = tw.th`
     p-1
 `;
 
-const StyledTd = tw.td`
+export const StyledTd = tw.td`
     text-small 
     p-1
 `;
@@ -41,7 +43,8 @@ export type iHeader = {
   text: string;
   value: string;
   sortable?: boolean;
-  transform?: (item: any) => any;
+  expandable?: boolean;
+  transform?: (item: any, isExpanded?: boolean, setIsExpanded?: any) => any;
 };
 
 interface iTable {
@@ -56,6 +59,7 @@ interface iTable {
     value: number | string | boolean | PerPageEnum
   ) => void;
 }
+
 const Table = ({
   headers,
   headline,
@@ -70,10 +74,15 @@ const Table = ({
   },
   setOptions,
 }: iTable) => {
-  const getColumnData = (item: any, index: number) => {
+  const getColumnData = (
+    item: any,
+    index: number,
+    isExpanded?: boolean,
+    setIsExpanded?: any
+  ) => {
     const header = headers[index];
     if (header?.transform) {
-      return header.transform(item);
+      return header.transform(item, isExpanded, setIsExpanded);
     }
     return item[header?.value];
   };
@@ -100,15 +109,12 @@ const Table = ({
           ) : (
             data.map((item) => {
               return (
-                <StyledTr key={item[keyValue]}>
-                  {headers.map((header, index) => {
-                    return (
-                      <StyledTd key={header.value}>
-                        {getColumnData(item, index)}
-                      </StyledTd>
-                    );
-                  })}
-                </StyledTr>
+                <Row
+                  key={item[keyValue]}
+                  item={item}
+                  headers={headers}
+                  getColumnData={getColumnData}
+                />
               );
             })
           )}

@@ -3,6 +3,8 @@ import Head from "next/head";
 import tw from "twin.macro";
 import Tabs from "../../../components/Elements/Tabs";
 import NewMembers from "../../../components/Members/NewMembers/NewMembers";
+import NewBranchMembers from "../../../components/Members/NewBranchMembers/NewBranchMembers";
+import SepaData from "../../../components/Members/SepaData/SepaData";
 
 const Container = tw.div`
     pt-small
@@ -31,12 +33,12 @@ const Members = () => {
             {
               value: "new-branch-members",
               title: "Neue Spartenanträge",
-              content: <div>Neue Spartenanträge test</div>,
+              content: <NewBranchMembers />,
             },
             {
               value: "sepa-members",
               title: "SEPA-Daten",
-              content: <div>SEPA-Daten test</div>,
+              content: <SepaData />,
             },
           ]}
         />

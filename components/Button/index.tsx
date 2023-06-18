@@ -14,7 +14,7 @@ export const buttonStyle = tw`
     overflow-hidden
 `;
 
-const RotateFontAwesomeIcon = tw(FontAwesomeIcon)`
+export const RotateFontAwesomeIcon = tw(FontAwesomeIcon)`
     animate-rotate
 `;
 
@@ -43,23 +43,25 @@ interface iStyledButton {
   color: Color;
 }
 const StyledButton = styled.button<iStyledButton>`
-  ${buttonStyle}
-  ${({ color }) => getBackgroundColor(color)}
+  ${buttonStyle};
+  ${({ color }) => getBackgroundColor(color)};
 `;
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
+  disabled?: boolean;
   color?: Color;
   children: any;
 }
 const Button: React.FC<ButtonProps> = ({
   color = Color.primary,
   isLoading,
+  disabled,
   children,
   ...props
 }) => {
   return (
-    <StyledButton color={color} {...props}>
-      <HoverContainer>
+    <StyledButton color={color} disabled={disabled} {...props}>
+      <HoverContainer disabled={disabled}>
         {isLoading ? <RotateFontAwesomeIcon icon={faSpinner} /> : children}
       </HoverContainer>
     </StyledButton>
