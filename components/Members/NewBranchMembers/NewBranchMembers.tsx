@@ -5,6 +5,7 @@ import { shallow } from "zustand/shallow";
 import ColumnRow from "../../../components/Layout/Table/ColumnRow";
 import iBranchUserMemberShip from "../../../Interfaces/iBranchUserMemberShip";
 import { date } from "../../../lib/dates";
+import AcceptNewBranchMembersButton from "./AcceptNewBranchMembersButton";
 
 const NewBranchMembers = () => {
   const [loading, options, filters, members, getMembers, setOptions] =
@@ -68,7 +69,19 @@ const NewBranchMembers = () => {
       text: "Aktionen",
       value: "actions",
       sortable: false,
-      transform: (item: any) => <ColumnRow>test</ColumnRow>,
+      transform: (item: any) => (
+        <ColumnRow>
+          {item.branchUserMemberShips.map(
+            (branchUserMemberShip: iBranchUserMemberShip) => (
+              <AcceptNewBranchMembersButton
+                key={item.id}
+                user={item}
+                branchUserMemberShip={branchUserMemberShip}
+              />
+            )
+          )}
+        </ColumnRow>
+      ),
     },
   ];
   return (

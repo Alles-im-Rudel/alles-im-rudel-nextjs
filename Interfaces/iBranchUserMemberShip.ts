@@ -1,4 +1,5 @@
 import { iBackendBranche } from "./iBranche";
+import iUser from "./iUser";
 
 export interface iBranchUserMemberShip {
   id: number;

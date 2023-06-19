@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import iOptions from "../../../Interfaces/iOptions";
 import { api } from "../../axios";
+import toast from "react-hot-toast";
 
 export enum PerPageEnum {
   ten = 10,
@@ -80,9 +81,10 @@ const useStore = create<iBranchMembersStore>((set, get) => ({
       loading: true,
     });
     api
-      .put(`/api/manage-member-ship-applications/reject/${id}`)
+      .put(`/api/manage-branch-applications/reject/${id}`)
       .then((response) => {
-        get().getMembers();
+        toast.success(response.data?.message, { position: "bottom-right" });
+        get().getBranchMembers();
       })
       .finally(() => set({ loading: false }));
   },
@@ -92,9 +94,10 @@ const useStore = create<iBranchMembersStore>((set, get) => ({
       loading: true,
     });
     api
-      .put(`/api/manage-member-ship-applications/accept/${id}`)
+      .put(`/api/manage-branch-applications/accept/${id}`)
       .then((response) => {
-        get().getMembers();
+        toast.success(response.data?.message, { position: "bottom-right" });
+        get().getBranchMembers();
       })
       .finally(() => set({ loading: false }));
   },
