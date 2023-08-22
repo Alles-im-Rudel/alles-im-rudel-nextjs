@@ -1,18 +1,17 @@
 import iTag from "./iTag";
-import iThumbnail from "./iThumbnail";
-import iUser from "./iUser";
+import iImage from "./iImage";
+import iBoardOfDirector from "./iBoardOfDirecor";
 
 export interface IPost {
-    image: any;
-    id: number;
+  id: number;
+  attributes: {
     title: string;
-    text: unknown;
-    userId: number;
+    text: string;
     updatedAt: string;
     createdAt: string;
-    likes: number;
-    thumbnail: iThumbnail;
-    user: iUser;
     tag: iTag;
+    board_of_director: iBoardOfDirector;
+    images: iImage[];
+  };
 }
 export default IPost;

@@ -1,12 +1,13 @@
-import styled from '@emotion/styled';
-import React from 'react';
+import styled from "@emotion/styled";
+import React from "react";
 import tw from "twin.macro";
+import getBackgroundColor from "../../Button/BackgroundColor";
 
 type ChipProps = {
-    color: string
-}
+  color: string;
+};
 const Chip = styled.div<ChipProps>`
-  background-color: ${({color}) => color};
+  ${({ color }) => getBackgroundColor(color)};
   ${tw`
      flex
      justify-center
@@ -21,16 +22,16 @@ const Chip = styled.div<ChipProps>`
 `;
 
 interface TagChipProps {
-    children: string;
-    color: string;
-    css?: unknown;
+  children: string;
+  color: string;
+  css?: unknown;
 }
-const TagChip = ({color, children, ...props}: TagChipProps) => {
-    return (
-        <Chip color={color} {...props}>
-            {children}
-        </Chip>
-    );
+const TagChip = ({ color, children, ...props }: TagChipProps) => {
+  return (
+    <Chip color={color} {...props}>
+      {children}
+    </Chip>
+  );
 };
 
 export default TagChip;

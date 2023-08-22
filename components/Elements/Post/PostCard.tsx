@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
 import IPost from "../../../Interfaces/iPost";
 import tw from "twin.macro";
-import _image from 'next/image'
-import TagChip from '../Tag/TagChip';
-import {Link} from '../../Button';
-import UserChip from '../User/UserChip';
-import {dateTime} from "../../../lib/dates";
+import _image from "next/image";
+import { Link } from "../../Button";
+import { dateTime } from "../../../lib/dates";
+import { Color } from "../../Button/BackgroundColor";
+import ImageWithLoader from "../../Layout/Image";
+import TagChip from "../Tag/TagChip";
 
 const Card = tw.div`
     flex
@@ -23,7 +24,7 @@ const ImageWrapper = tw.div`
    z-0
 `;
 
-const Image = tw(_image)`
+const Image = tw(ImageWithLoader)`
    object-cover
    h-full
    w-full
@@ -51,40 +52,36 @@ const ActionWrapper = tw.div`
 `;
 
 type PostCardProps = {
-    post: IPost
+  post: IPost;
 };
 
-const PostCard = ({post}: PostCardProps) => {
-
-    return (
-        <Card>
-            <ImageWrapper>
-                <Image src={post.thumbnail.thumbnail} alt="test" width={400}
-                       height={400}
-                />
-                <UserChip user={post.user} css={tw`absolute bottom-0 right-0 m-3`} />
-            </ImageWrapper>
-            <TextWrapper>
-                <Title>
-                    {post.title}
-                </Title>
-                <Date>
-                    {dateTime(post.createdAt)}
-                </Date>
-            </TextWrapper>
-            <ActionWrapper>
-                <TagChip color={post.tag.color}>
-                    {post.tag.name}
-                </TagChip>
-                <Link
-                    greyBlue
-                    href={`/posts/${post.id}`}
-                >
-                    Ansehen
-                </Link>
-            </ActionWrapper>
-        </Card>
-    );
+const PostCard = ({ post }: PostCardProps) => {
+  console.log(post.images);
+  return (
+    <Card>
+      <ImageWrapper>
+        <Image
+          src={post.attributes.images?.data[0].attributes.url}
+          alt="test"
+          width={400}
+          height={400}
+        />
+        {/*<UserChip user={post.user} css={tw`absolute bottom-0 right-0 m-3`} />*/}
+      </ImageWrapper>
+      <TextWrapper>
+        <Title>{post.attributes.title}</Title>
+        <Date>{dateTime(post.attributes.createdAt)}</Date>
+      </TextWrapper>
+      <ActionWrapper>
+        <TagChip color={post.attributes.tag.color}>
+          {post.attributes.tag.tag}
+        </TagChip>
+        <Link color={Color.greyBlue} href={`/posts/${post.id}`}>
+          Ansehen
+        </Link>
+      </ActionWrapper>
+    </Card>
+  );
 };
 
 export default PostCard;

@@ -25,6 +25,7 @@ module.exports = {
       default: "#FF5500",
       liked: "#0362fc",
       likedInfo: "#428bff",
+      textWhite: "#dadada",
       ...colors,
     },
     fontSize: {
@@ -32,6 +33,7 @@ module.exports = {
       base: "1rem",
       text: "1.3333333333rem",
       headline: "5rem",
+      large: "7rem",
       "h-2": "4rem",
       "h-3": "3rem",
       "h-4": "2rem",
@@ -48,6 +50,11 @@ module.exports = {
         small: "2rem",
         base: "4rem",
         large: "8rem",
+      },
+      borderRadius: {
+        base: "4rem",
+        large: "8rem",
+        larger: "10rem",
       },
       brightness: {
         hover: "0.9",
@@ -74,10 +81,23 @@ module.exports = {
         loading: "animate-width 2s infinite linear",
         rotate: "rotate 2s infinite linear",
       },
+      containers: {
+        xs: "20rem" /* 320px */,
+        sm: "24rem" /* 384px */,
+        md: "28rem" /* 448px */,
+        lg: "32rem" /* 512px */,
+        xl: "36rem" /* 576px */,
+        "2xl": "42rem" /* 672px */,
+        "3xl": "48rem" /* 768px */,
+        "4xl": "56rem" /* 896px */,
+        "5xl": "64rem" /* 1024px */,
+        "6xl": "72rem" /* 1152px */,
+        "7xl": "80rem" /* 1280px */,
+      },
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/container-queries")],
 };
