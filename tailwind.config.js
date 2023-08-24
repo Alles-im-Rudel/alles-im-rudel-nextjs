@@ -38,7 +38,7 @@ module.exports = {
       "h-3": "3rem",
       "h-4": "2rem",
       "h-5": "1.5rem",
-      "h-6": "1.5rem",
+      "h-6": "1.3rem",
     },
     extend: {
       backgroundImage: {

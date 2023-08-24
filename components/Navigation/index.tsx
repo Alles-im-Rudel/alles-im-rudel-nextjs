@@ -84,7 +84,7 @@ const Navigation = () => {
     <TextLink black href="/profile" key="profile">
       <FontAwesomeIcon icon={faUserGear} /> Profil
     </TextLink>,
-    <TextLink black href="/sponsoring" key="sponsoring">
+    <TextLink black href="/partners" key="partners">
       <FontAwesomeIcon icon={faGem} /> Sponsoring
     </TextLink>,
     <TextButton black onClick={() => logout()} key="logut">

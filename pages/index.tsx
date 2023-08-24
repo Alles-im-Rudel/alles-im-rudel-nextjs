@@ -30,24 +30,6 @@ const ContentWrapper = tw.div`
     items-center
 `;
 
-const Content = tw.div`
-    flex
-    flex-col
-    px-small
-    py-base
-    gap-smaller
-    max-w-screen-xl
-    break-words
-`;
-
-const Headline = tw(_headline)`
-    text-center
-`;
-
-const Text = tw(_text)`
-    text-center
-`;
-
 type IndexProps = {
   posts: IPost[];
   boardOfDirectors: iBoardOfDirecor[];

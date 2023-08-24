@@ -18,7 +18,7 @@ const Wrapper = tw.div`
 `;
 
 const Headline = tw.h1`
-  text-primary
+  text-black
   text-h-4
   w-full
   py-small
