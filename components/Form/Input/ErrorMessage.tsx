@@ -26,7 +26,6 @@ const ErrorMessage = ({ error, name, rules }: iErrorMessage) => {
     }
     return "Fehler";
   };
-  console.log(error, name, rules);
   return (
     <ErrorWrapper>{error && <p>{getMessage(error.type)}</p>}</ErrorWrapper>
   );

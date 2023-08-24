@@ -81,7 +81,6 @@ const useStore = create<iAuthStore>((set, get) => ({
             user: response.user,
             permissions: response.permissions,
           });
-          console.log(response.permissions);
         })
         .catch(() => {
           storageLocal.remove("accessToken");

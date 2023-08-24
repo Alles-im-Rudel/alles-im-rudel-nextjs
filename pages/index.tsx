@@ -11,8 +11,6 @@ import PartnerList from "../components/Elements/Partner/PartnerList";
 import iBranche from "../Interfaces/iBranche";
 import BranchList from "../components/Elements/Branch/BranchList";
 import { apiFetch } from "../lib/api";
-import _headline from "../components/Layout/Headline";
-import _text from "../components/Layout/Text";
 import Header from "../components/Index/Header";
 import TextGrid from "../components/Index/TextGrid";
 
@@ -38,7 +36,6 @@ type IndexProps = {
 };
 
 function Index({ posts, boardOfDirectors, partners, branches }: IndexProps) {
-  console.log(posts);
   const structuredData = {
     "@context": "http://schema.org/",
     "@type": "Organization",

@@ -41,7 +41,6 @@ interface iPartnerCardProps {
   user: iUser;
 }
 const PartnerCard = ({ partner, user }: iPartnerCardProps) => {
-  console.log(partner);
   return (
     <Card>
       <Expandable>

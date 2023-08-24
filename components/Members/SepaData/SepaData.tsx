@@ -23,7 +23,6 @@ const SepaData = () => {
 
   useEffect(() => {
     setData(sepaData);
-    console.log(sepaData);
   }, [sepaData]);
 
   // @ts-ignore

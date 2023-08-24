@@ -56,7 +56,6 @@ type PostCardProps = {
 };
 
 const PostCard = ({ post }: PostCardProps) => {
-  console.log(post.images);
   return (
     <Card>
       <ImageWrapper>

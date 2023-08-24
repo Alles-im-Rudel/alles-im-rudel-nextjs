@@ -58,7 +58,6 @@ type PostProps = {
   post: iPost;
 };
 export default function Post({ post }: PostProps) {
-  console.log(post);
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
