@@ -12,7 +12,8 @@ import { Color } from "../../Button/BackgroundColor";
 
 const Grid = tw.div`
     grid
-    grid-cols-2
+    grid-cols-1
+    md:grid-cols-2
 `;
 
 const ActionRow = tw.div`

@@ -7,7 +7,7 @@ import useStepperStore from "../../Elements/Stepper/store";
 import Button from "../../Button";
 import { shallow } from "zustand/shallow";
 import EmailInput from "../../Form/EmailInput";
-import SaluationSelect from "../../Form/SalutationSelect";
+import SalutationSelect from "../../Form/SalutationSelect";
 
 const InputWrapper = tw.form`
     flex
@@ -17,6 +17,8 @@ const InputWrapper = tw.form`
 
 const Row = tw.div`
     flex
+    flex-col
+    md:flex-row
     gap-smaller
 `;
 
@@ -61,7 +63,7 @@ const StepWhoAreYou = ({}: iStepWhoAreYou) => {
   return (
     <InputWrapper onSubmit={handleSubmit(onSubmit)}>
       <Row>
-        <SaluationSelect
+        <SalutationSelect
           placeholder="Anrede"
           name="salutation"
           rules={{
