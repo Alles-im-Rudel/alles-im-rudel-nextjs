@@ -21,7 +21,7 @@ module.exports = {
       eSports: "#0362fc",
       airsoft: "#00a125",
       prospect: "#05ff3f",
-      gaming: "#B8B8B5",
+      gaming: "#0362fc",
       default: "#FF5500",
       liked: "#0362fc",
       likedInfo: "#428bff",

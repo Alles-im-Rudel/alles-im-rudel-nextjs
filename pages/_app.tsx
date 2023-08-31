@@ -44,7 +44,7 @@ export default function App({ Component, pageProps }: AppProps) {
   );
 
   useEffect(() => {
-    if (!getAuth()) {
+    if (pageProps.protected && !getAuth()) {
       router.push("/");
     }
   }, []);

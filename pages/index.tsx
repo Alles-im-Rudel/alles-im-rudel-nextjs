@@ -5,12 +5,12 @@ import IPost from "../Interfaces/iPost";
 import PostsPreviewList from "../components/Elements/Post/PostsPreviewList";
 import Head from "next/head";
 import BoardOfDirectorList from "../components/Elements/BoardOfDirectors/BoardOfDirecortList";
-import iBoardOfDirecor from "../Interfaces/iBoardOfDirecor";
+import iBoardMember from "../Interfaces/iBoardMember";
 import iPartner from "../Interfaces/iPartner";
 import PartnerList from "../components/Elements/Partner/PartnerList";
 import iBranche from "../Interfaces/iBranche";
 import BranchList from "../components/Elements/Branch/BranchList";
-import { apiFetch } from "../lib/api";
+import { apiFetch, Endpoint } from "../lib/api";
 import Header from "../components/Index/Header";
 import TextGrid from "../components/Index/TextGrid";
 
@@ -30,12 +30,21 @@ const ContentWrapper = tw.div`
 
 type IndexProps = {
   posts: IPost[];
-  boardOfDirectors: iBoardOfDirecor[];
+  boardMembers: iBoardMember[];
   partners: iPartner[];
   branches: iBranche[];
+  hero: any;
+  grid: any;
 };
 
-function Index({ posts, boardOfDirectors, partners, branches }: IndexProps) {
+function Index({
+  posts,
+  boardMembers,
+  partners,
+  branches,
+  grid,
+  hero,
+}: IndexProps) {
   const structuredData = {
     "@context": "http://schema.org/",
     "@type": "Organization",
@@ -130,13 +139,13 @@ function Index({ posts, boardOfDirectors, partners, branches }: IndexProps) {
         />
       </Head>
       <Container>
-        <Header />
-        <TextGrid />
+        <Header data={hero} />
+        <TextGrid data={grid} />
         <ContentWrapper>
           <Divider>News</Divider>
           <PostsPreviewList posts={posts} />
           <Divider>Der Vorstand</Divider>
-          <BoardOfDirectorList boardOfDirectors={boardOfDirectors} />
+          <BoardOfDirectorList boardOfDirectors={boardMembers} />
           <Divider>Unsere Partner</Divider>
           <PartnerList partners={partners} />
           <Divider>Unsere Sparten</Divider>
@@ -148,28 +157,30 @@ function Index({ posts, boardOfDirectors, partners, branches }: IndexProps) {
 }
 
 export async function getStaticProps() {
-  const response = await apiFetch(
-    "/posts?populate=images,board_of_director,tag&_limit=3&_sort=createdAt:desc"
+  const page = await apiFetch(
+    "/globals/index-page?locale=en",
+    Endpoint.payloadCms
   );
-  const posts = await response;
 
-  const responseBoardOfDirectors = await apiFetch(
-    "/board-of-directors?populate=image"
+  const posts = await apiFetch("/posts/?locale=en", Endpoint.payloadCms);
+
+  const boardMembers = await apiFetch(
+    "/board-members/?locale=en",
+    Endpoint.payloadCms
   );
-  const boardOfDirectors = await responseBoardOfDirectors;
 
-  const responseParners = await apiFetch("/partners?populate=logo");
-  const partners = await responseParners;
+  const partners = await apiFetch("/partners/?locale=en", Endpoint.payloadCms);
 
-  const responseBranches = await apiFetch("/branches?populate=image");
-  const branches = await responseBranches;
+  const branches = await apiFetch("/branches/?locale=en", Endpoint.payloadCms);
 
   return {
     props: {
-      posts: posts.data,
-      boardOfDirectors: boardOfDirectors.data,
-      partners: partners.data,
-      branches: branches.data,
+      posts: posts.docs,
+      boardMembers: boardMembers.docs,
+      partners: partners.docs,
+      branches: branches.docs,
+      hero: page.hero,
+      grid: page.grid,
     },
     revalidate: 30,
   };

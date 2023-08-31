@@ -127,8 +127,8 @@ const Navigation = () => {
     <TextLink black key="/branches/airsoft" href="/branches/airsoft">
       Airsoft
     </TextLink>,
-    <TextLink black key="/branches/esports" href="/branches/e-sports">
-      E-Sports
+    <TextLink black key="/branches/esports" href="/branches/gaming">
+      Gaming
     </TextLink>,
   ];
 

@@ -1,12 +1,13 @@
 import React from "react";
-import IPost from "../../../Interfaces/iPost";
+import IPost, { iPost } from "../../../Interfaces/iPost";
 import tw from "twin.macro";
-import _image from "next/image";
 import { Link } from "../../Button";
 import { dateTime } from "../../../lib/dates";
 import { Color } from "../../Button/BackgroundColor";
 import ImageWithLoader from "../../Layout/Image";
 import TagChip from "../Tag/TagChip";
+import UserChip from "../User/UserChip";
+import { css } from "@emotion/react";
 
 const Card = tw.div`
     flex
@@ -52,29 +53,33 @@ const ActionWrapper = tw.div`
 `;
 
 type PostCardProps = {
-  post: IPost;
+  post: iPost;
 };
 
 const PostCard = ({ post }: PostCardProps) => {
   return (
     <Card>
       <ImageWrapper>
-        <Image
-          src={post.attributes.images?.data[0].attributes.url}
-          alt="test"
-          width={400}
-          height={400}
-        />
-        {/*<UserChip user={post.user} css={tw`absolute bottom-0 right-0 m-3`} />*/}
+        {typeof post.image !== "string" && post.image.url && (
+          <Image src={post.image.url} alt="test" width={400} height={400} />
+        )}
+        {typeof post.author !== "string" && (
+          <UserChip
+            user={post.author}
+            css={css`
+              ${tw`absolute bottom-0 right-0 m-3`}
+            `}
+          />
+        )}
       </ImageWrapper>
       <TextWrapper>
-        <Title>{post.attributes.title}</Title>
-        <Date>{dateTime(post.attributes.createdAt)}</Date>
+        <Title>{post.title}</Title>
+        <Date>{dateTime(post.createdAt)}</Date>
       </TextWrapper>
       <ActionWrapper>
-        <TagChip color={post.attributes.tag.color}>
-          {post.attributes.tag.tag}
-        </TagChip>
+        {typeof post.tag !== "string" && (
+          <TagChip color={Color.primary}>{post.tag.name}</TagChip>
+        )}
         <Link color={Color.greyBlue} href={`/posts/${post.id}`}>
           Ansehen
         </Link>

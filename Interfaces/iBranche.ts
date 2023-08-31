@@ -1,39 +1,35 @@
-import iImage from "./iImage";
 import iPartner from "./iPartner";
-import iLeader from "./iLeader";
-import iAirsoftTeam from "./iAirsoftTeam";
-import iGallery from "./iGallery";
-import iLolTeam from "./iLoLTeam";
+import iMedia from "./iMedia";
 
 export interface iBranche {
-    id: number;
-    attributes: {
-        slug: string;
-        displayName: string;
-        description: string;
-        shortDescription: string;
-        leader: iLeader;
-        image: iImage;
-        backgroundImage: iImage;
-        gallery: {
-            data: iGallery[]
-        };
-        partners: {
-            data: iPartner[]
-        };
-        airsoftTeam: iAirsoftTeam[];
-        lolTeams: iLolTeam[];
-    }
+  id: string;
+  displayName: string;
+  shortDescription: string;
+  image: iMedia;
+  description: {
+    [k: string]: unknown;
+  }[];
+  leader: {
+    name: string;
+    description: string;
+    image: iMedia;
+    birthday: string;
+  };
+  partners?: string[] | iPartner[];
+  layout: any;
+  slug?: string;
+  updatedAt: string;
+  createdAt: string;
 }
 
 export interface iBackendBranche {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    activatedAt: string;
-    isActive: boolean;
-    isSelectable: boolean;
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  activatedAt: string;
+  isActive: boolean;
+  isSelectable: boolean;
 }
 
 export default iBranche;

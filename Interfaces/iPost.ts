@@ -1,17 +1,20 @@
+import iBoardMember from "./iBoardMember";
 import iTag from "./iTag";
-import iImage from "./iImage";
-import iBoardOfDirector from "./iBoardOfDirecor";
+import iMedia from "./iMedia";
 
-export interface IPost {
-  id: number;
-  attributes: {
-    title: string;
-    text: string;
-    updatedAt: string;
-    createdAt: string;
-    tag: iTag;
-    board_of_director: iBoardOfDirector;
-    images: iImage[];
-  };
+export interface iPost {
+  id: string;
+  title: string;
+  text: {
+    [k: string]: unknown;
+  }[];
+  publishedDate: string;
+  startAt: string;
+  endAt: string;
+  image: iMedia;
+  author: iBoardMember;
+  tag: iTag;
+  updatedAt: string;
+  createdAt: string;
 }
-export default IPost;
+export default iPost;

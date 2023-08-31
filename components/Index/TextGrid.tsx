@@ -66,54 +66,33 @@ const GridElement = ({ col = 1, row = 1, children }: iGridElement) => {
   );
 };
 
-const TextGrid = () => {
+const TextGrid = ({ data }: any) => {
   return (
     <Container>
       <Grid>
         <GridElement col={5}>
-          <Item>Alles im Rudel e.V. Gemeinsam für die soziale Einheit!</Item>
+          <Item>{data[0].text}</Item>
         </GridElement>
         <GridElement col={4}>
-          <Item>
-            Unser Ziel ist es, den Erhalt und die Förderung der sozialen Einheit
-            &quot;Alles im Rudel&quot;.
-          </Item>
+          <Item>{data[1].text}</Item>
         </GridElement>
         <GridElement col={3} row={2}>
-          <Item>
-            Der regelmäßige soziale Austausch unserer Mitglieder steht im
-            Mittelpunkt unserer Aktivitäten.
-          </Item>
+          <Item>{data[2].text}</Item>
         </GridElement>
         <GridElement col={3}>
-          <Item>
-            Unsere Vereinssparten werden von den Mitgliedern je nach Bedarf ins
-            Leben gerufen.
-          </Item>
+          <Item>{data[3].text}</Item>
         </GridElement>
         <GridElement col={3}>
-          <Item>
-            Wir bieten vielfältige Möglichkeiten für den Austausch, angepasst an
-            die Bedürfnisse unserer Mitglieder.
-          </Item>
+          <Item>{data[4].text}</Item>
         </GridElement>
         <GridElement col={3}>
-          <Item>
-            Entdecke unsere Vereinssparten und finde Gleichgesinnte, um
-            spezifische Interessen zu teilen.
-          </Item>
+          <Item>{data[5].text}</Item>
         </GridElement>
         <GridElement col={6}>
-          <Item>
-            Wir legen Wert darauf, spezifische Interessen unserer Mitglieder
-            gezielt abzudecken.
-          </Item>
+          <Item>{data[6].text}</Item>
         </GridElement>
         <GridElement col={6}>
-          <Item>
-            Werden du auch Teil unserer Gemeinschaft und gestalten deine
-            Vereinserfahrung nach deinen Bedürfnissen.
-          </Item>
+          <Item>{data[7].text}</Item>
         </GridElement>
       </Grid>
     </Container>

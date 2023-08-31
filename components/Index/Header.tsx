@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 import _image from "next/image";
+import ImageWithLoader from "../Layout/Image";
 
 const Container = styled.div`
   position: relative;
@@ -55,7 +56,7 @@ const Line = tw.div`
   mb-smaller
 `;
 
-const ImageAirsoft = tw(_image)`
+const ImageAirsoft = tw(ImageWithLoader)`
     md:col-span-5
     h-full
     object-cover
@@ -67,7 +68,7 @@ const ImageAirsoft = tw(_image)`
     cursor-pointer
 `;
 
-const ImageESports = tw(_image)`
+const ImageESports = tw(ImageWithLoader)`
     md:col-span-6
     h-full
     max-h-[16rem]
@@ -90,7 +91,7 @@ const ImageWrapper = tw.div`
     p-smallest
 `;
 
-const ImageLogo = tw(_image)`
+const ImageLogo = tw(ImageWithLoader)`
     h-full
     object-contain
 `;
@@ -99,43 +100,38 @@ const Subline = tw.b`
   ml-small
 `;
 
-const Header = ({}) => {
+const Header = ({ data }: any) => {
   return (
     <Container>
       <Wrapper>
         <Headline>
-          Tauche ein in die fesselnde Welt von Alles im Rudel e.V.
-          <br /> <Subline>Airsoft und E-Sports in Perfektion!</Subline>
+          {data.headline}
+          <br /> <Subline>{data.subline}</Subline>
         </Headline>
         <Grid>
           <Welcome>
             <Line />
-            Willkommen bei Alles im Rudel, deinem ultimativen Airsoft- und
-            E-Sports-Verein, der dich begeistern wird! Unsere dynamischen
-            Veranstaltungen, erfahrenen Teamleiter und großartigen Sponsoren
-            ermöglichen es dir, in die fesselnde Welt des Airsoft einzutauchen
-            und spannende Missionen zu erleben, die deine Adrenalinspiegel in
-            die Höhe treiben.
+            {data.text}
           </Welcome>
           <ImageAirsoft
             priority
-            src="/header/airsoft.jpg"
-            alt="Airsoft Player"
+            src={data.imageRight.url}
+            alt={data.imageRight.alt}
             width={500}
             height={500}
           />
           <ImageESports
             priority
-            src="/header/esports.jpg"
-            alt="Airsoft Player"
+            src={data.imageLeft.url}
+            alt={data.imageRight.alt}
             width={600}
             height={300}
           />
           <ImageWrapper>
             <ImageLogo
               priority
-              src="/logos/logo-white-slim.png"
-              alt="Airsoft Player"
+              src={data.imageLogo.url}
+              alt={data.imageRight.alt}
               width={500}
               height={300}
             />

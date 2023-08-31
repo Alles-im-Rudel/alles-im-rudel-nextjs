@@ -3,6 +3,7 @@ import { storageLocal } from "./StorageHandler";
 export enum Endpoint {
   content,
   backend,
+  payloadCms,
 }
 
 export const apiResolve = (path: string, endpoint: Endpoint) => {
@@ -11,6 +12,8 @@ export const apiResolve = (path: string, endpoint: Endpoint) => {
       "/api" + path,
       endpoint === Endpoint.content
         ? process.env.NEXT_PUBLIC_CONTENT_URL
+        : endpoint === Endpoint.payloadCms
+        ? process.env.NEXT_PUBLIC_PAYLOAD_CMS_URL
         : process.env.NEXT_PUBLIC_BACKEND_URL
     );
   }

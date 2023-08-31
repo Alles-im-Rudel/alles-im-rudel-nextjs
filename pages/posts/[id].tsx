@@ -8,12 +8,13 @@ import TagChip from "../../components/Elements/Tag/TagChip";
 import { TextLink } from "../../components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import UserChip from "../../components/Elements/User/UserChip";
 import Text from "../../components/Layout/Text";
 import { dateTime } from "../../lib/dates";
 import ImageWithLoader from "../../components/Layout/Image";
-import _image from "next/image";
-import ReactMarkdown from "react-markdown";
+import { css } from "@emotion/react";
+import UserChip from "../../components/Elements/User/UserChip";
+import RichTextElement from "../../components/Layout/RichTextElement";
+import iTag from "../../Interfaces/iTag";
 
 const ContentWrapper = tw.div`
     bg-white
@@ -54,21 +55,21 @@ const Image = tw(ImageWithLoader)`
    w-full
 `;
 
-type PostProps = {
+interface PostProps {
   post: iPost;
-};
+}
 export default function Post({ post }: PostProps) {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    headline: post.attributes.title,
-    image: post.attributes.images.data[0].image,
-    datePublished: post.attributes.createdAt,
-    dateModified: post.attributes.updatedAt,
+    headline: post.title,
+    image: post.image.url,
+    datePublished: post.createdAt,
+    dateModified: post.updatedAt,
     author: [
       {
         "@type": "Person",
-        name: post.attributes.board_of_director.data.attributes.name,
+        name: post.author.name,
       },
     ],
   };
@@ -76,8 +77,8 @@ export default function Post({ post }: PostProps) {
   return (
     <>
       <Head>
-        <title> {post.attributes.title} | Alles im Rudel e.V.</title>
-        <meta name="description" content={post.attributes.title} />
+        <title> {post.title} | Alles im Rudel e.V.</title>
+        <meta name="description" content={post.title} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -86,29 +87,41 @@ export default function Post({ post }: PostProps) {
       <ContentWrapper>
         <Divider>
           <DividerWrapper>
-            {post.attributes.title}
-            <TagChip color={post.attributes.tag.color} css={tw`max-w-fit`}>
-              {post.attributes.tag.tag}
+            {post.title}
+            <TagChip
+              color={post.tag.color}
+              css={css`
+                ${tw`max-w-fit`}
+              `}
+            >
+              {post.tag.name}
             </TagChip>
           </DividerWrapper>
         </Divider>
         <Content>
           <ActionRow>
             <TextLink href="/">
-              {/*@ts-ignore*/}
-              <FontAwesomeIcon icon={faArrowLeft} css={tw`mr-2`} />
+              <FontAwesomeIcon
+                icon={faArrowLeft}
+                // @ts-ignore
+                css={css`
+                  ${tw`mr-2`}
+                `}
+              />
               Zurück
             </TextLink>
-            {/*<UserChip user={post.attributes.board_of_director} />*/}
-            <Text>{dateTime(post.attributes.createdAt)}</Text>
+            <UserChip user={post.author} />
+            <Text>{dateTime(post.createdAt)}</Text>
           </ActionRow>
-          <Image
-            src={post.attributes.images.data[0].attributes.url}
-            width={1000}
-            height={1000}
-            alt={post.attributes.title}
-          />
-          <ReactMarkdown>{post.attributes.text}</ReactMarkdown>
+          {post.image.url && (
+            <Image
+              src={post.image.url}
+              width={1000}
+              height={1000}
+              alt={post.title}
+            />
+          )}
+          <RichTextElement>{post.text}</RichTextElement>
         </Content>
       </ContentWrapper>
     </>
@@ -116,10 +129,11 @@ export default function Post({ post }: PostProps) {
 }
 
 export async function getStaticPaths() {
-  const res = await apiFetch("/posts");
-  const { data } = await res;
-  const paths = data.map((post: iPost) => ({
-    params: { id: post.id.toString() },
+  const res = await apiFetch("/posts?locale=en", Endpoint.payloadCms);
+  const { docs } = await res;
+
+  const paths = docs.map((post: iPost) => ({
+    params: { id: post.id },
   }));
 
   return { paths, fallback: false };
@@ -132,9 +146,10 @@ type PostParams = {
 };
 
 export async function getStaticProps({ params }: PostParams) {
-  const res = await apiFetch(
-    `/posts/${params.id}?populate=images,board_of_director,tag`
+  const response = await apiFetch(
+    `/posts/?where[id][equals]=${params.id}`,
+    Endpoint.payloadCms
   );
-  const post = await res;
-  return { props: { post: post.data }, revalidate: 30 };
+
+  return { props: { post: response.docs[0] }, revalidate: 30 };
 }

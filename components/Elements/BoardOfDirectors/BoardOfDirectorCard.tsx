@@ -1,11 +1,15 @@
-import React from 'react';
+import React from "react";
 import tw from "twin.macro";
 import ImageWithLoader from "../../Layout/Image";
-import iBoardOfDirecor from "../../../Interfaces/iBoardOfDirecor";
-import {TextLink} from "../../Button";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faInstagram, faLinkedin, faSnapchat} from '@fortawesome/free-brands-svg-icons';
-import {age} from '../../../lib/dates';
+import IBoardMember from "../../../Interfaces/iBoardMember";
+import { TextLink } from "../../Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInstagram,
+  faLinkedin,
+  faSnapchat,
+} from "@fortawesome/free-brands-svg-icons";
+import { age } from "../../../lib/dates";
 
 const Card = tw.div`
     flex
@@ -47,38 +51,43 @@ const Age = tw.div`
 `;
 
 type BoardOfDirectorCardProps = {
-    boardOfDirector: iBoardOfDirecor
-}
-const BoardOfDirectorCard = ({boardOfDirector}: BoardOfDirectorCardProps) => {
-    return (
-        <Card>
-            <ImageWrapper>
-                <Image
-                    src={boardOfDirector.attributes.image.data.attributes.url}
-                    alt="test"
-                    width={360}
-                    height={500}
-                />
-            </ImageWrapper>
-            <TextWrapper>
-                <Name>
-                    {boardOfDirector.attributes.name}
-                    <Age>{age(boardOfDirector.attributes.birthday)} Jahre alt</Age>
-                </Name>
-                <SocialWrapper>
-                    <TextLink href={boardOfDirector.attributes.instagramLink}>
-                        <FontAwesomeIcon icon={faInstagram} />
-                    </TextLink>
-                    <TextLink href={boardOfDirector.attributes.snapchatLink}>
-                        <FontAwesomeIcon icon={faSnapchat} />
-                    </TextLink>
-                    <TextLink href={boardOfDirector.attributes.linkedinLink}>
-                        <FontAwesomeIcon icon={faLinkedin} />
-                    </TextLink>
-                </SocialWrapper>
-            </TextWrapper>
-        </Card>
-    );
+  boardOfDirector: IBoardMember;
+};
+const BoardOfDirectorCard = ({ boardOfDirector }: BoardOfDirectorCardProps) => {
+  return (
+    <Card>
+      <ImageWrapper>
+        {typeof boardOfDirector.image !== "string" &&
+          boardOfDirector.image.url && (
+            <Image
+              src={boardOfDirector.image.url}
+              alt="test"
+              width={360}
+              height={500}
+            />
+          )}
+      </ImageWrapper>
+      <TextWrapper>
+        <Name>
+          {boardOfDirector.name}
+          {boardOfDirector.birthday && (
+            <Age>{age(boardOfDirector.birthday)} Jahre alt</Age>
+          )}
+        </Name>
+        <SocialWrapper>
+          <TextLink href={boardOfDirector.instagramLink}>
+            <FontAwesomeIcon icon={faInstagram} />
+          </TextLink>
+          <TextLink href={boardOfDirector.snapchatLink}>
+            <FontAwesomeIcon icon={faSnapchat} />
+          </TextLink>
+          <TextLink href={boardOfDirector.linkedinLink}>
+            <FontAwesomeIcon icon={faLinkedin} />
+          </TextLink>
+        </SocialWrapper>
+      </TextWrapper>
+    </Card>
+  );
 };
 
 export default BoardOfDirectorCard;

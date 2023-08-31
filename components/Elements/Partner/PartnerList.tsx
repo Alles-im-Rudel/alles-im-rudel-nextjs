@@ -1,7 +1,7 @@
-import React from 'react';
-import iPartner from '../../../Interfaces/iPartner';
+import React from "react";
+import iPartner from "../../../Interfaces/iPartner";
 import tw from "twin.macro";
-import ImageWithLoader from "../../Layout/Image"
+import ImageWithLoader from "../../Layout/Image";
 
 const ImageWrapper = tw.div`
     max-w-screen-xl
@@ -20,23 +20,23 @@ const Image = tw(ImageWithLoader)`
    w-full
 `;
 
-
 type PartnerListProps = {
-    partners: iPartner[];
-}
-const PartnerList = ({partners, ...props}: PartnerListProps) => {
-    return (
-        <ImageWrapper {...props}>
-            {partners.map((item) => <Image
-                key={item.id}
-                src={item.attributes.logo.data.attributes.url}
-                alt="test"
-                width={400}
-                height={250}
-            />)}
-        </ImageWrapper>
-
-    );
+  partners: iPartner[];
+};
+const PartnerList = ({ partners, ...props }: PartnerListProps) => {
+  return (
+    <ImageWrapper {...props}>
+      {partners.map((item) => (
+        <Image
+          key={item.id}
+          src={item.logo.url}
+          alt="test"
+          width={400}
+          height={250}
+        />
+      ))}
+    </ImageWrapper>
+  );
 };
 
 export default PartnerList;

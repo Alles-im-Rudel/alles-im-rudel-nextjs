@@ -1,9 +1,9 @@
-import { Color } from "../components/Button/BackgroundColor";
-
 export interface iTag {
-  id: number;
+  id: string;
   name: string;
-  color: Color;
+  color: "secondary" | "gaming" | "eSports" | "airsoft";
+  updatedAt: string;
+  createdAt: string;
 }
 
 export default iTag;

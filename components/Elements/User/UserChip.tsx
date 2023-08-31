@@ -1,7 +1,7 @@
-import React from 'react';
-import iUser from "../../../Interfaces/iUser";
+import React from "react";
 import tw from "twin.macro";
-import _image from "next/image";
+import iBoardMember from "../../../Interfaces/iBoardMember";
+import ImageWithLoader from "../../Layout/Image";
 
 const Chip = tw.div`
     rounded-full
@@ -12,7 +12,7 @@ const Chip = tw.div`
     items-center
 `;
 
-const Image = tw(_image)`
+const Image = tw(ImageWithLoader)`
    object-cover
    rounded-full
    h-7
@@ -26,18 +26,18 @@ const Title = tw.div`
 `;
 
 interface iUserChip {
-    user: iUser
-    css?: unknown
+  user: iBoardMember;
+  css?: unknown;
 }
-const UserChip = ({user, ...props}: iUserChip) => {
-    return (
-        <Chip {...props}>
-            {user?.thumbnail?.thumbnail && <Image src={user.thumbnail.thumbnail} alt="test" width={50}
-                    height={50}
-            />}
-            <Title>{user.fullName}</Title>
-        </Chip>
-    );
+const UserChip = ({ user, ...props }: iUserChip) => {
+  return (
+    <Chip {...props}>
+      {typeof user.image !== "string" && user.image.url && (
+        <Image src={user.image.url} alt="test" width={50} height={50} />
+      )}
+      <Title>{user.name}</Title>
+    </Chip>
+  );
 };
 
 export default UserChip;

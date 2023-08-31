@@ -1,33 +1,21 @@
+import iMedia from "./iMedia";
 import iBranche from "./iBranche";
 
 export interface iPartner {
-  id: number;
-  attributes: {
-    name: string;
-    benefits: string;
-    howToGet: string;
-    logo: {
-      data: {
-        attributes: {
-          alternativeText: string | null;
-          url: string;
-        };
-        id: number;
-      };
-    };
-    smallLogo: {
-      data: {
-        attributes: {
-          alternativeText: string | null;
-          url: string;
-        };
-        id: number;
-      };
-    };
-    branches: {
-      data: iBranche[];
-    };
-  };
+  id: string;
+  name: string;
+  logo: iMedia;
+  smallLogo?: string | iMedia;
+  benefits: {
+    [k: string]: unknown;
+  }[];
+  howToGet: {
+    [k: string]: unknown;
+  }[];
+  branches?: string[] | iBranche[];
+  slug?: string;
+  updatedAt: string;
+  createdAt: string;
 }
 
 export default iPartner;
